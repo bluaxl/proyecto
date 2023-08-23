@@ -41,9 +41,9 @@ function RegisterForm() {
                         </div>
                         <div>
                             <select name="tidentificacion" id="tipoiden">
-                                <option value="javascript">Cédula de ciudadanía</option>
-                                <option value="php">Pasaporte</option>
-                                <option value="java">Cédula de extranjería</option>
+                                <option value="cedula-ciudadania">Cédula de ciudadanía</option>
+                                <option value="pasaporte">Pasaporte</option>
+                                <option value="cedula-extrangeria">Cédula de extranjería</option>
                             </select>
                         </div>
 

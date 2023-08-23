@@ -16,26 +16,25 @@
     width: 200px;
 }
 
-.principal-nav-option, .principal-nav-option2{
+.principal-nav-option2{
     width: 70%;
 }
 
-.principal-nav-option, .principal-nav-option2 > ul{
+.principal-nav-option2> ul{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.principal-nav-option, .principal-nav-option2 > ul > li{
+.principal-nav-option2> ul > li{
     padding:0 20px;
     list-style: none;
     font-family: 'Quicksand', sans-serif;
     font-size: 16px;
 }
-.principal-nav-option, .principal-nav-option2 > ul > li > .nav-text{
+.principal-nav-option2> ul > li > .nav-text{
     text-decoration: none;
 }
 .principal-nav-option2> ul > li > .nav-text{
     color: white;
 }
-
