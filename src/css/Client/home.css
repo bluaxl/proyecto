@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+
+.container-index{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.title-box{
+    height: 20%;
+    width: 100% ;
+}
+.main-title-box{
+    height: 20%;
+    width: 50% ;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 44px;
+    color: white;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.filter-box{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 20%;
+}
+
+.filter-index{
+    height: 20%;
+    width: 60% ;
+    background-color: rgba(228, 228, 228);
+    display: flex;
+    border-radius: 5px;
+}
+
+.filter-index > select{
+    width: 18%;
+    margin: 1%;
+    background-color: rgba(228, 228, 228);
+}
+.search{
+    width: 18%;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+
+}
+
+.search-btn{
+    background-color: #3D4A5A;
+    padding: 5%;
+    text-align: center;
+    border-radius: 5px;
+    width: 90%;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+}
+
+.arrow-box{
+    color: white;
+    padding-top: 5%;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 48
+  }
+
+/* Espacio para los inmuebles */
+.container-estates{
+    background-color: white;
+    height: 832px;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.title-estate >p{
+    font-size:40px;
+    font-weight: lighter;
+    padding-top: 5%;
+}
+
+.info-estate{
+    width: 100%;
+    text-align: center;
+    padding-top: 2%;
+}
+
+/* About cajas */
+.about {
+    background-color: rgb(216, 227, 226);
+    padding:0 0 60px 0;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.about-content {
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+
+/* Estilos para las cajas de información */
+.info-boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 40px;
+    width: 100%;
+    height: auto;
+    flex-flow: wrap;
+}
+
+.info-box {
+    background-color: #fff;
+    padding: 20px;
+    border: none;
+    width: 40%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    display: flex;
+}
+
+.info-box h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 16px;
+    color: #666;
+}
+
+.line-info-box{
+    border-right: 2px solid rgb(189, 189, 189);
+    margin: 1% 5%;
+}
+
+.icon-box{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-right: 2%;
+}
+
+.icon-box > img{
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .info-box{
+        width: 90%;
+    }
+    
+}

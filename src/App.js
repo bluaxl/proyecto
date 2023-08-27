@@ -1,15 +1,17 @@
 import './App.css';
-import {Nav} from './components/nav/Nav';
-import {Nav2} from './components/nav/Nav2';
-import {Login, Register} from './components/login-form/PageLR';
-import { Booking } from './components/reservation/Booking';
+import {Nav} from './components/client/nav/Nav';
+import {Nav2} from './components/client/nav/Nav2';
+import {Login, Register} from './components/client/login-form/PageLR';
+import { Booking } from './components/client/reservation/Booking';
 import { Routes, Route } from "react-router-dom";
-import { Appraise } from "./components/reservation/Appraise";
-import { LegalAdvice } from './components/reservation/LegalAdvise';
-import { Design } from './components/reservation/Design';
-import { Documents } from './components/reservation/Documents';
-import { Property } from './components/reservation/Property';
-import { Home } from './components/home/Home';
+import { Appraise } from "./components/client/reservation/Appraise";
+import { LegalAdvice } from './components/client/reservation/LegalAdvise';
+import { Design } from './components/client/reservation/Design';
+import { Documents } from './components/client/reservation/Documents';
+import { Property } from './components/client/reservation/Property';
+import { Home } from './components/client/home/Home';
+import { DashboardAdmin } from './components/admin/dashboard/Dashboard';
+import { DashboardAdvisory } from './components/advisor/dashboard/Dashboard';
 
 function App() {
  
@@ -28,6 +30,12 @@ function App() {
             <Route path="design" element={<Design/>} />
             <Route path="documents" element={<Documents/>} />
             <Route path="search" element={<Property/>} />
+        </Route>
+        <Route path="admin" element={<DashboardAdmin/>}>
+            <Route path="admin/state"/>
+        </Route>
+        <Route path="advisory" element={<DashboardAdvisory/>}>
+            <Route path="admin/state"/>
         </Route>
       </Routes>
     </div>
