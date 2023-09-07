@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+
+*{
+    font-family: 'Quicksand', sans-serif;
+    color: aliceblue;
+}
+
+.profile-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 7%;
+    padding-right: 7%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+.user-info{
+    width: 20%;
+    height: 250px;
+    border-radius: 20px;
+    border: 3px solid white;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    margin-right: 5%;
+
+}
+
+.account-data{
+    width: 60%;
+    height: 400px;
+    border-radius: 20px;
+    border: 3px solid white;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px); 
+}
+
+.button-box{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.button-account{
+    width: 30%;
+    height: 50px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: none;
+    background: rgba(0, 10, 28, 1);
+    color: white;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
+.button-account:hover{
+    cursor: pointer;
+    background-color: rgba(0, 10, 28, 0.7);
+}
+
+.title{
+    font-weight: 100;
+    font-size: 44px;
+    align-items: center;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.data-box{
+    font-size: 20px;
+    font-weight: lighter;
+    padding:10% 12%;
+}
+
+.info-text-title{
+    display: inline;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.user-info-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info-img > img{
+    width: 60%;
+}
+
+.user-info > p {
+    font-weight: lighter;
+    font-size: 18px;
+    padding-left: 15%;
+    padding-top: 10%;
+}

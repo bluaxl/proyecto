@@ -72,7 +72,7 @@ const DashboardLeft = () => {
                                     </div>
                                 </li>
                             </ul>
-                        </li>   
+                        </li>
                     </ul>
                 </nav>
             </div>

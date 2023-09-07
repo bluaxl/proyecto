@@ -11,7 +11,8 @@ import { Documents } from './components/client/reservation/Documents';
 import { Property } from './components/client/reservation/Property';
 import { Home } from './components/client/home/Home';
 import { DashboardAdmin } from './components/admin/dashboard/Dashboard';
-import { DashboardAdvisory } from './components/advisor/dashboard/Dashboard';
+import { DashboardAdvisory } from './components/advisor/dashboard/Dashboard'
+import { Profile } from './components/client/profile/Profile';
 
 function App() {
  
@@ -22,6 +23,7 @@ function App() {
             <Route path="login" element={<Login/>} />
             <Route path="register" element={<Register/>} />
             <Route path="" element={<Home/>}/>
+            <Route path="profile" element={<Profile/>}/>
         </Route>
         <Route path="/" element={<Nav2/>}>
             <Route path="reservation" element={<Booking/>} />
