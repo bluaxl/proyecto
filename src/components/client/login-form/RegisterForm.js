@@ -1,9 +1,12 @@
+// Importación de módulos y componentes
 import { Link, Navigate } from "react-router-dom";
 import "../../../css/Client/register-form.css"
 import { useState } from "react";
 import { useAuth } from "../../../auth/AuthProvider";
 
+// Componente de formulario de registro
 function RegisterForm() {
+    // Declaración de estados
     const [name, setName] = useState("");
     const [identification, setIdentification] = useState("");
     const [email, setEmail] = useState("");
@@ -12,12 +15,15 @@ function RegisterForm() {
     const [cell, setCell] = useState("");
     const [password, setPassword] = useState("");
 
+    // Acceso al contexto de autenticación
     const auth = useAuth();
 
+    // Redirección si el usuario está autenticado
     if(auth.isAuthenticated) {
         return  <Navigate to="/admin"/>;
     }
 
+    // Renderización del componente
     return (
         <div className="loginForm">
             <div className="title-login">

@@ -1,19 +1,23 @@
+// Importación de módulos y componentes
 import "../../../css/Client/profile-cli.css";
 import { Footer } from "../footer/footer";
 
+// Componente ButtonProfile
 function ButtonProfile({ props }) {
     return (
         <button className="button-account">
             <p>{props}</p>
-        </button >
+        </button>
     );
 }
 
-
+// Componente Profile
 export function Profile() {
     return (
         <div>
+            {/* Contenedor principal del perfil */}
             <div className="profile-box">
+                {/* Información del usuario */}
                 <div className="user-info">
                     <div className="user-info-img">
                         <img src="./../img/user-profile.png"></img>
@@ -21,11 +25,14 @@ export function Profile() {
                     <p><p className="info-text-title">Estado:</p> Activo</p>
                     <p><p className="info-text-title">Usuario:</p> AO123456</p>
                 </div>
+
+                {/* Datos de la cuenta */}
                 <div class="account-data">
                     <div className="title">
                         <p>Datos de la cuenta</p>
                     </div>
 
+                    {/* Caja de datos */}
                     <div className="data-box">
                         <p><p className="info-text-title">Tipo de Identificación:</p> Tarjeta de Identidad</p>
                         <p><p className="info-text-title">Nombres:</p> Angela Valentina</p>
@@ -34,6 +41,7 @@ export function Profile() {
                         <p><p className="info-text-title">Numero de telefono:</p> 300 1234567</p>
                     </div>
 
+                    {/* Botones de acción */}
                     <div className="button-box">
                         <ButtonProfile props="Actualizar mis datos" />
                         <ButtonProfile props="Inactivar Cuenta" />
@@ -41,6 +49,8 @@ export function Profile() {
                     </div>
                 </div>
             </div>
+
+            {/* Componente del pie de página */}
             <div>
                 <Footer />
             </div>

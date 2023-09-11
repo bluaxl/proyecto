@@ -1,3 +1,4 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
 /* Contenedores */
@@ -7,6 +8,7 @@
     display: flex;
 }
 
+/* Estilos para el contenedor de registro y registro */
 .registro, .register{
     width: 60%;
     background-color: rgb(197, 193, 197);
@@ -15,15 +17,19 @@
     border-radius: 15px;
     justify-content: center;
 }
+
+/* Estilos para el formulario dentro de .registro */
 .registro > form{
     display: flex;
     height: 300px;
 }
 
+/* Estilos para el formulario dentro de .register */
 .register > form{
     height: 350px;
 }
 
+/* Estilos para la información dentro de .information */
 .information{
     width: 50%;
     height: 250px;
@@ -31,10 +37,12 @@
     flex-direction: column;
 }
 
+/* Estilos para los elementos h4, option, p, h5 */
 h4, option, p, h5{
     color: black;
 }
 
+/* Estilos para la información dentro de .information2 */
 .information2{
     width: 100%;
     height: 150px;
@@ -42,17 +50,20 @@ h4, option, p, h5{
     flex-direction: column;
 }
 
+/* Estilos para el cuadro de archivos dentro de .files-box */
 .files-box >div{
     width: 400px;
     padding: 4px;
 }
 
+/* Estilos para el cuadro de fecha y hora dentro de .datetime-box */
 .datetime-box{
     width: auto;
     height: auto;
     margin-top: 5%;
 }
 
+/* Estilos para el cuadro de archivos dentro de .files-box */
 .files-box{
     width: 50%;
     height: 250px;
@@ -63,6 +74,7 @@ h4, option, p, h5{
     flex-wrap: wrap;
 }
 
+/* Estilos para el cuadro de botones dentro de .btn-box */
 .btn-box{
     align-items: center;
     justify-content: center;
@@ -70,12 +82,14 @@ h4, option, p, h5{
     margin-top: 5%;
 }
 
+/* Estilos para el cuadro de fecha y hora dentro de .datetime-div */
 .datetime-div{
     align-items: center;
     justify-content: center;
     display: flex;
 }
 
+/* Estilos para el cuadro de regreso dentro de .return-box */
 .return-box{
     margin: 5%;
     justify-content: center;
@@ -96,7 +110,7 @@ h5{
     font-family: 'Quicksand', sans-serif;  
 }
 
-/* Botones */
+/* Botones y elementos de entrada */
 .select, input[type="date"], input[type="time"]{
     font-size: 16px;
     border-radius: 5px;
@@ -107,6 +121,7 @@ h5{
     border: none;
 }
 
+/* Estilos para los enlaces en .files-box */
 .files-box >div >a{
     text-decoration: none;
     color: #fff;
@@ -115,7 +130,7 @@ h5{
     background-color: rgba(11, 43, 85, 0.651);
 }
 
-
+/* Estilos para el botón de reserva */
 .btn-reservation{
     background: rgb(0, 15, 27);
     width: 200PX;
@@ -130,6 +145,7 @@ h5{
     font-family: 'Quicksand', sans-serif;
 }
 
+/* Estilos para el elemento de archivo */
 input[type="file"]{
     background-color: rgba(11, 43, 85, 0.651);
     width: 100%;
@@ -142,6 +158,7 @@ input[type="file"]{
     border: none;
 }
 
+/* Estilos para la entrada de texto en .information2 */
 .information2 >input[type="text"]{
     width: 90%;
     height: 100%;
@@ -149,4 +166,3 @@ input[type="file"]{
     background-color: white;
     color: black;
 }
-

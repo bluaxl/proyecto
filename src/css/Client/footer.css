@@ -1,3 +1,7 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+/* Estilos para el pie de página */
 .footer  {
     background-color: rgb(0, 10, 28);
     padding: 20px;
@@ -5,11 +9,18 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+/* Estilos para los elementos p dentro del pie de página */
+footer > div > p{
+    color: #ffffff;
+}
+
+/* Estilos para la sección de información en el pie de página */
 .info-footer {
     display: flex;
     justify-content: space-around;
 }
 
+/* Estilos para las columnas en el pie de página */
 .footer-column {
     flex-direction: column;
     padding: 10px;
@@ -18,17 +29,20 @@
     font-size: 16px;
 }
 
+/* Estilos para los títulos en las columnas del pie de página */
 .footer-column > .title {
     font-size: 18px;
     margin-bottom: 50px;
     font-weight:500;
 }
 
+/* Estilos para los párrafos en las columnas del pie de página */
 .footer-column > p, .footer-column > div> p {
     margin-bottom: 10px;
     font-weight:lighter;
 }
 
+/* Estilos para los íconos sociales en el pie de página */
 .social-icons a {
     flex-direction: column;
     margin-right: 10px;
@@ -36,32 +50,37 @@
     color: #ffffff;
 }
 
+/* Línea divisoria en el pie de página */
 .line-footer{
     border-bottom:2px solid #c9c9c9;
     margin-bottom: 20px;
     width: 80%;
 }
 
+/* Contenedor de la línea divisoria en el pie de página */
 .line-footer-box{
     align-items: center;
     justify-content: center;
     display: flex;
 }
+
+/* Estilos para las imágenes en el pie de página */
 .img-footer{
     align-items: center;
     justify-content: center;
     display: flex;
-
 }
 
+/* Estilos para las imágenes dentro del pie de página */
 .img-footer > img{
     height: 50px;
 }
 
+/* Estilos para los símbolos material en el pie de página */
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
 }
