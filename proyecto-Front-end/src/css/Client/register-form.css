@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+*{
+
+}
+
+.loginForm{
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 50%;
+    font-family: 'Quicksand', sans-serif;
+    backdrop-filter: blur (10px);
+    border: 1px solid white;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    margin-top: 5%;
+}
+
+.loginForm > div{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.title-login{
+    text-align: center;
+    margin:5px 0px 20px 0px;
+}
+form > div > div > div >input, form > div >div> input{
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.2);
+    font-family: 'Quicksand',sans-serif;   
+    font-size:16px;
+    color: white;
+    width: 90%;
+    margin-top: 2%;
+}
+
+.password-div{
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    text-align: left;
+    padding: 2%;
+}
+
+.container1, .container2{
+    width: 50%;
+    margin-right: 5%;
+}
+
+form >div{
+    display: flex;
+}
+
+select{
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.2);
+    font-family: 'Quicksand',sans-serif;   
+    font-size:16px;
+    color: rgb(40, 32, 87);
+    width: 90%;
+    margin-top: 2%;
+}
+.label-login{
+    margin-top: 5%;
+}
+
+.button-div{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 5%;
+}
+
+
+.btn-login{
+    margin:10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color:white;
+    font-family: 'Quicksand',sans-serif;   
+    font-size: 16px; 
+    background-color: #000A1C ;
+    width: 40%;
+}
+
+.btn-login:hover{
+    background-color: #000a1ca6;
+}
+
+.link-form{
+    text-decoration: none;
+    color: white;
+}
