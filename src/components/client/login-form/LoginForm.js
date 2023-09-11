@@ -1,7 +1,19 @@
-import { Link } from "react-router-dom";
-import "../../../css/Client/login-form.css"
+import { Link, Navigate } from "react-router-dom";
+import "../../../css/Client/login-form.css";
+import { useState } from "react";
+import { useAuth } from "../../../auth/AuthProvider";
+
 
 function LoginForm() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const auth = useAuth();
+
+    if(auth.isAuthenticated) {
+        return  <Navigate to="/profile"/>;
+    }
+
     return (
         <div className="loginForm">
             <div className="title-login">
@@ -12,13 +24,13 @@ function LoginForm() {
                     <label><b>Correo: </b> </label>
                 </div>
                 <div>
-                    <input type="email" />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                 </div>
                 <div className="label-login">
                     <label><b>Contraseña: </b></label>
                 </div>
                 <div>
-                    <input type="password" />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className="button-div">
                     <button className="btn-login" type="submit"><b>Enviar</b></button>

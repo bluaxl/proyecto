@@ -13,6 +13,7 @@ import { Home } from './components/client/home/Home';
 import { DashboardAdmin } from './components/admin/dashboard/Dashboard';
 import { DashboardAdvisory } from './components/advisor/dashboard/Dashboard'
 import { Profile } from './components/client/profile/Profile';
+import {ProtectedRoute ,ProtectedRoute2} from './auth/ProtectedRoute';
 
 function App() {
  
@@ -33,10 +34,10 @@ function App() {
             <Route path="documents" element={<Documents/>} />
             <Route path="search" element={<Property/>} />
         </Route>
-        <Route path="admin" element={<DashboardAdmin/>}>
+        <Route path="/admin" element={<ProtectedRoute><DashboardAdmin/></ProtectedRoute>} >
             <Route path="admin/state"/>
         </Route>
-        <Route path="advisory" element={<DashboardAdvisory/>}>
+        <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path="admin/state"/>
         </Route>
       </Routes>
