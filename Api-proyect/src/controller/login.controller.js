@@ -91,21 +91,4 @@ export const registrar = async(req, res)=>{
 }
 
 
-//Funcion para registrar inmuebles
-export const registroInmueble=async(req,res)=>{
-    const {nombre,pisos,material}=req.body;
-    try{
-    const [rows]=await pool.query('insert into inmuebles values(?,?,?)',[nombre,pisos,material])
-    if (rows.affectedRows === 0) return res.status(404).json();
-    res.send(rows)
-    }
-    catch(error){
-        return res.status(500).json({
-            message: 'something goes wrong',
-            error
-        })
-    }
-    
-}
-
 
