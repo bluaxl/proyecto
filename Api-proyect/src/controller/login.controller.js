@@ -11,7 +11,7 @@ function generateAccessToken(user) {
 
 //Funcion para iniciar sesion con validacion de errores 
 export const inicioSession = async (req, res) => {
-    const { name, password } = req.body;
+    const { name,password } = req.body;
     try {
         const [rows] = await pool.query('select * from usuario where nombre=? and contra=?', [name, password]);
         if (rows.length === 0) return res.status(404).json();
@@ -76,9 +76,9 @@ export const consultar = async (req, res)=>{
 
 //Funcion que registra un usuario 
 export const registrar = async(req, res)=>{
-    const { name, password } = req.body;
+    const { name,numId,email,lastName,typeId,number,password } = req.body;
     try{
-    const [rows]= await pool.query('insert into usuario values(?,?)',[name, password])
+    const [rows]= await pool.query('insert into usuario values(?,?,?,?,?,?,?)',[name,numId,email,lastName,typeId,number,password])
     if (rows.affectedRows === 1) return res.status(404).json();
     res.send(rows)
     }
