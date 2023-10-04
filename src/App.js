@@ -14,6 +14,10 @@ import { DashboardAdmin } from './components/admin/dashboard/Dashboard';
 import { DashboardAdvisory } from './components/advisor/dashboard/Dashboard'
 import { Profile } from './components/client/profile/Profile';
 import {ProtectedRoute ,ProtectedRoute2} from './auth/ProtectedRoute';
+import { CrudState } from './components/admin/state/CrudState';
+import { CrudProyects } from './components/admin/proyects/CrudProyects';
+import { NewState } from './components/admin/state/NewState';
+import { NewProyect } from './components/admin/proyects/NewProyect';
 
 function App() {
  
@@ -35,7 +39,10 @@ function App() {
             <Route path="search" element={<Property/>} />
         </Route>
         <Route path="/admin" element={<ProtectedRoute><DashboardAdmin/></ProtectedRoute>} >
-            <Route path="admin/state"/>
+            <Route path="propierty-list" element={<CrudState/>}/>
+            <Route path="publish-new-propierty" element={<NewState/>}/>
+            <Route path="create-proyect" element={<NewProyect/>}/>
+            <Route path="proyects-list" element={<CrudProyects/>}/>
         </Route>
         <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path="admin/state"/>

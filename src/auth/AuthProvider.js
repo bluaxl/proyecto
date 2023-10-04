@@ -3,7 +3,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 
 // Props para AuthProvider (ajustado para uso correcto)
 const AuthProviderProps = {
-    children: React.ReactNode
+    children: "React.ReactNode"
 };
 
 // Creación del contexto de autenticación

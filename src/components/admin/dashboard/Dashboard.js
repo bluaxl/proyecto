@@ -71,7 +71,7 @@ const DashboardLeft = () => {
                                 {/* Opción "Ver Proyectos" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">
-                                        <i className="fa-regular fa-eye normal" style={{ color: "white" }}></i><Link to="show-propierty" className="link-list">Ver Proyectos</Link>
+                                        <i className="fa-regular fa-eye normal" style={{ color: "white" }}></i><Link to="proyects-list" className="link-list">Ver Proyectos</Link>
                                     </div>
                                 </li>
                                 {/* Opción "Crear Proyecto" */}
