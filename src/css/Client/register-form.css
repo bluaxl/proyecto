@@ -1,22 +1,32 @@
 /* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
-/* Resetear márgenes y rellenos por defecto */
-*{
+:root {
+    --texto-funcional: 12px;
+    --texto-nomal: 16px;
+    --titulo-secundario: 20px;
+    --titulo-principal: 44px;
+    --font: 'Quicksand', sans-serif;
 
-}
+
+    --light-blue: #D8E3E2;
+    --dark-gray: #3D4A5A;
+    --dark-blue: #000A1C;
+    --light-gray: #92969E;
+  }
 
 /* Estilos para el formulario de registro */
 .loginForm{
     background-color: rgba(255, 255, 255, 0.3);
     width: 50%;
-    font-family: 'Quicksand', sans-serif;
+    font-family: var(--font);
     backdrop-filter: blur (10px);
     border: 1px solid white;
     border-radius: 10px;
     color: white;
     padding: 10px;
     margin-top: 5%;
+    height: auto;
 }
 
 /* Estilos para la alineación y centrado de elementos */
@@ -45,8 +55,8 @@ form > div > div > div >input, form > div >div> input{
     border-radius: 20px;
     border: 1px solid rgb(255, 255, 255);
     background-color: rgba(255, 255, 255, 0.2);
-    font-family: 'Quicksand',sans-serif;   
-    font-size:16px;
+    font-family: var(--font);   
+    font-size:var(--texto-nomal);
     color: white;
     width: 90%;
     margin-top: 2%;
@@ -81,8 +91,8 @@ select{
     border-radius: 20px;
     border: 1px solid rgb(255, 255, 255);
     background-color: rgba(255, 255, 255, 0.2);
-    font-family: 'Quicksand',sans-serif;   
-    font-size:16px;
+    font-family: var(--font);   
+    font-size: var(--texto-nomal);
     color: rgb(40, 32, 87);
     width: 90%;
     margin-top: 2%;
@@ -108,8 +118,8 @@ select{
     border-radius: 20px;
     border: none;
     color:white;
-    font-family: 'Quicksand',sans-serif;   
-    font-size: 16px; 
+    font-family: var(--font);   
+    font-size: var(--texto-nomal); 
     background-color: #000A1C ;
     width: 40%;
 }

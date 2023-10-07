@@ -32,32 +32,32 @@ const DashboardLeft = () => {
         <div>
             <div className="left-dashboard">
                 <div className="img-dashboard-box">
-                    <img src="./../img/Logo2.png"></img>
+                    <img src="./../img/icons/Logo2.png"></img>
                 </div>
                 <nav className="nav-left-dashboard">
                     <ul className="list">
                         {/* Elemento de menú "Inmuebles" con submenú */}
                         <li className="menu-item">
                             <div className="item-text down">
-                                <i className="fa-solid fa-house-user normal" style={{ color: "white" }}></i>Inmuebles<span class="material-symbols-outlined normal-row">expand_more</span>
+                                <i className="fa-solid fa-house-user normal" style={{ color: "white" }}></i><p className="txt-white">Inmuebles</p><span class="material-symbols-outlined normal-row">expand_more</span>
                             </div>
                             <ul className="submenu">
                                 {/* Opción "Publicar Nuevo Inmueble" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">
-                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="publish-new-propierty" className="link-list"> Publicar Nuevo Inmueble </Link><span class="material-symbols-outlined normal-row">expand_more</span>
+                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="publish-new-propierty" className="link-list"><p className="txt-white">Publicar Nuevo Inmueble</p></Link>
                                     </div>
                                 </li>
                                 {/* Opción "Publicar Proyecto" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">
-                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="publish-proyect" className="link-list"> Publicar Proyecto </Link><span class="material-symbols-outlined normal-row">expand_more</span>
+                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="publish-proyect" className="link-list"><p className="txt-white"> Publicar Proyecto </p></Link>
                                     </div>
                                 </li>
                                 {/* Opción "Ver Inmuebles" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">
-                                        <i className="fa-regular fa-eye normal" style={{ color: "white" }}></i><Link to="propierty-list" className="link-list">Ver Inmuebles</Link>
+                                        <i className="fa-regular fa-eye normal" style={{ color: "white" }}></i><Link to="propierty-list" className="link-list"><p className="txt-white">Ver Inmuebles</p></Link>
                                     </div>
                                 </li>
                             </ul>
@@ -65,19 +65,19 @@ const DashboardLeft = () => {
                         {/* Elemento de menú "Proyectos" con submenú */}
                         <li className="menu-item">
                             <div className="item-text down">
-                                <i className="fa-solid fa-clock normal" style={{ color: "white" }}></i>Proyectos<span class="material-symbols-outlined normal-row">expand_more</span>
+                                <i className="fa-solid fa-clock normal" style={{ color: "white" }}></i> <p className="txt-white">Proyectos</p><span class="material-symbols-outlined normal-row">expand_more</span>
                             </div>
                             <ul className="submenu">
                                 {/* Opción "Ver Proyectos" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">
-                                        <i className="fa-regular fa-eye normal" style={{ color: "white" }}></i><Link to="proyects-list" className="link-list">Ver Proyectos</Link>
+                                        <i className="fa-regular fa-eye normal" style={{ color: "white" }}></i><Link to="proyects-list" className="link-list"><p className="txt-white">Ver Proyectos</p></Link>
                                     </div>
                                 </li>
                                 {/* Opción "Crear Proyecto" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">
-                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="create-proyect" className="link-list">Crear Proyecto</Link>
+                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="create-proyect" className="link-list"><p className="txt-white">Crear Proyecto</p></Link>
                                     </div>
                                 </li>
                             </ul>
@@ -85,13 +85,13 @@ const DashboardLeft = () => {
                         {/* Elemento de menú "Usuarios" */}
                         <li className="menu-item">
                             <div className="item-text">
-                                <i className="fa-regular fa-user normal" style={{ color: "white" }}></i><Link to="Users-list" className="link-list">Usuarios</Link>
+                                <i className="fa-regular fa-user normal" style={{ color: "white" }}></i><Link to="users-list" className="link-list"><p className="txt-white">Usuarios</p></Link>
                             </div>
                         </li>
                         {/* Elemento de menú "Estadísticas" */}
                         <li className="menu-item">
                             <div className="item-text">
-                                <i className="fa-solid fa-chart-simple normal" style={{ color: "white" }}></i><Link to="statistics-page" className="link-list">Estadísticas</Link>
+                                <i className="fa-solid fa-chart-simple normal" style={{ color: "white" }}></i><Link to="statistics-page" className="link-list"><p className="txt-white">Estadísticas</p></Link>
                             </div>
                         </li>
                     </ul>
@@ -106,7 +106,7 @@ const DashboardSup = () => {
     return (
         <div className="sup-dashboard">
             <div className="title-dashboard">
-                <p>
+                <p className="txt-white">
                     Administrador Dashboard
                 </p>
             </div>

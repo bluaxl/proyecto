@@ -6,9 +6,9 @@ import "../../../css/Client/nav.css"
 export const Nav = () => {
     return (
         <div>
-            <nav className="principal-nav">
-                <img src="./img/Logo2.png"></img>
-                <div className="principal-nav-option2">
+            <nav className="principal-nav nav-bg-color-dark">
+                <img src="./img/icons/Logo2.png"></img>
+                <div className="principal-nav-option">
                     <ul>
                         <li>
                             <Link to="/" className="nav-text">Inicio</Link>

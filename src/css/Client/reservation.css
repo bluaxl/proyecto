@@ -1,6 +1,20 @@
 /* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
 
+:root {
+    --texto-funcional: 12px;
+    --texto-nomal: 16px;
+    --titulo-secundario: 20px;
+    --titulo-principal: 44px;
+    --font: 'Quicksand', sans-serif;
+
+
+    --light-blue: #D8E3E2;
+    --dark-gray: #3D4A5A;
+    --dark-blue: #000A1C;
+    --light-gray: #92969E;
+  }
+
 /* Contenedores */
 .container-reservation{
     align-items: center;
@@ -68,8 +82,8 @@ h4, option, p, h5{
     width: 50%;
     height: 250px;
     padding: 0px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 16px;
+    font-family: var(--font);
+    font-size: var(--texto-nomal);
     display: flex;
     flex-wrap: wrap;
 }
@@ -101,23 +115,23 @@ h4, option, p, h5{
 /* Texto */
 h4{
     margin-bottom: 20px;
-    font-size: 20px;
-    font-family: 'Quicksand', sans-serif;    
+    font-size: var(--titulo-secundario);
+    font-family: var(--font);    
 }
 
 h5{
-    font-size: 16px;
-    font-family: 'Quicksand', sans-serif;  
+    font-size: var(--texto-nomal);
+    font-family: var(--font);  
 }
 
 /* Botones y elementos de entrada */
 .select, input[type="date"], input[type="time"]{
-    font-size: 16px;
+    font-size: var(--texto-nomal);
     border-radius: 5px;
     padding: 15px;
     color: black;
     background-color: rgb(231, 231, 231);
-    font-family: 'Quicksand', sans-serif;
+    font-family: var(--font);
     border: none;
 }
 
@@ -132,7 +146,7 @@ h5{
 
 /* Estilos para el botón de reserva */
 .btn-reservation{
-    background: rgb(0, 15, 27);
+    background: var(--dark-blue);
     width: 200PX;
     color: rgb(255, 255, 255);
     justify-content: center;
@@ -141,8 +155,8 @@ h5{
     display: flex;
     text-decoration: none;
     cursor: pointer;
-    font-size: 15px;
-    font-family: 'Quicksand', sans-serif;
+    font-size: var(--texto-nomal);
+    font-family: var(--font);
 }
 
 /* Estilos para el elemento de archivo */
@@ -153,8 +167,8 @@ input[type="file"]{
     border-radius: 5px;
     padding: 12px;
     cursor: pointer;
-    font-size: 16px;
-    font-family: 'Quicksand', sans-serif;
+    font-size: var(--texto-nomal);
+    font-family: var(--font);
     border: none;
 }
 

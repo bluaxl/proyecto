@@ -3,10 +3,10 @@ import "../../../css/Client/profile-cli.css";
 import { Footer } from "../footer/footer";
 
 // Componente ButtonProfile
-function ButtonProfile({ props }) {
+export function ButtonProfile({ props }) {
     return (
         <button className="button-account">
-            <p>{props}</p>
+            <p className="txt-white">{props}</p>
         </button>
     );
 }
@@ -14,31 +14,33 @@ function ButtonProfile({ props }) {
 // Componente Profile
 export function Profile() {
     return (
-        <div>
+        <div className="principal">
             {/* Contenedor principal del perfil */}
             <div className="profile-box">
                 {/* Información del usuario */}
                 <div className="user-info">
                     <div className="user-info-img">
-                        <img src="./../img/user-profile.png"></img>
+                        <img src="./../img/icons/user-profile.png"></img>
                     </div>
-                    <p><p className="info-text-title">Estado:</p> Activo</p>
-                    <p><p className="info-text-title">Usuario:</p> AO123456</p>
+                    <div className="user-info-data">
+                    <p className="txt-white"><p className="info-text-title">Estado:</p> Activo</p>
+                    <p className="txt-white"><p className="info-text-title">Usuario:</p> AO123456</p>
+                    </div>
                 </div>
 
                 {/* Datos de la cuenta */}
                 <div class="account-data">
                     <div className="title">
-                        <p>Datos de la cuenta</p>
+                        <p className="txt-white">Datos de la cuenta</p>
                     </div>
 
                     {/* Caja de datos */}
                     <div className="data-box">
-                        <p><p className="info-text-title">Tipo de Identificación:</p> Tarjeta de Identidad</p>
-                        <p><p className="info-text-title">Nombres:</p> Angela Valentina</p>
-                        <p><p className="info-text-title">Apellidos:</p> Saavedra Fernandez</p>
-                        <p><p className="info-text-title">Correo:</p> vale123@hotmail.com</p>
-                        <p><p className="info-text-title">Numero de telefono:</p> 300 1234567</p>
+                        <p className="txt-white"><p className="info-text-title">Tipo de Identificación:</p> Tarjeta de Identidad</p>
+                        <p className="txt-white"><p className="info-text-title">Nombres:</p> Angela Valentina</p>
+                        <p className="txt-white"><p className="info-text-title">Apellidos:</p> Saavedra Fernandez</p>
+                        <p className="txt-white"><p className="info-text-title">Correo:</p> vale123@hotmail.com</p>
+                        <p className="txt-white"><p className="info-text-title">Numero de telefono:</p> 300 1234567</p>
                     </div>
 
                     {/* Botones de acción */}

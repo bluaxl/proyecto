@@ -1,6 +1,20 @@
 /* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
+:root {
+    --texto-funcional: 12px;
+    --texto-nomal: 16px;
+    --titulo-secundario: 20px;
+    --titulo-principal: 44px;
+    --font: 'Quicksand', sans-serif;
+
+
+    --light-blue: #D8E3E2;
+    --dark-gray: #3D4A5A;
+    --dark-blue: #000A1C;
+    --light-gray: #92969E;
+  }
+
 /* Estilos para el contenedor principal */
 .container{
     display: flex;
@@ -25,7 +39,7 @@
     cursor: pointer;
     border-radius: 5px;
     color: white;
-    font-family: 'Quicksand', sans-serif;
+    font-family: var(--font);
     font-size: 150%;  
 }
 
@@ -71,8 +85,8 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    font-size: 150%;
-    font-family: 'Quicksand', sans-serif;
+    font-size: var(--titulo-secundario);
+    font-family: var(--font);
 }
 
 /* Estilos para el elemento h2 dentro del título de reservación */

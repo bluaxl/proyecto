@@ -18,6 +18,8 @@ import { CrudState } from './components/admin/state/CrudState';
 import { CrudProyects } from './components/admin/proyects/CrudProyects';
 import { NewState } from './components/admin/state/NewState';
 import { NewProyect } from './components/admin/proyects/NewProyect';
+import { CrudUsers } from "./components/admin/users/CrudUsers";
+import { UserProfile } from './components/admin/users/UserProfile';
 
 function App() {
  
@@ -43,6 +45,8 @@ function App() {
             <Route path="publish-new-propierty" element={<NewState/>}/>
             <Route path="create-proyect" element={<NewProyect/>}/>
             <Route path="proyects-list" element={<CrudProyects/>}/>
+            <Route path="users-list" element={<CrudUsers/>}/>
+            <Route path="user-profile" element={<UserProfile/>}/>
         </Route>
         <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path="admin/state"/>

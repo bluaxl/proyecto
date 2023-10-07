@@ -1,0 +1,77 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+:root {
+    --texto-funcional: 12px;
+    --texto-nomal: 16px;
+    --titulo-secundario: 20px;
+    --titulo-principal: 44px;
+    --font: 'Quicksand', sans-serif;
+
+
+    --light-blue: #D8E3E2;
+    --dark-gray: #3D4A5A;
+    --dark-blue: #000A1C;
+    --light-gray: #92969E;
+  }
+
+.information-crud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+}
+
+.filter-box-crud{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.title-box-crud > h2{
+    color: black;
+}
+
+.title-crud{
+    color: black;
+}
+
+.filter-option{
+    background-color: var(--dark-gray);
+    color: white;
+    padding: 2%;
+    border-radius: 5px;
+}
+
+.crud-state-table {
+    margin-left: 5%;
+    background-color: var(--dark-gray);
+    width: 90%;
+    margin-top: 5%;   
+    border-radius: 10px;
+}
+
+td{
+    text-align: center;
+    padding: 2%;
+    margin: 2%;
+    border-bottom: 1px solid white;  
+    color: var(--light-blue);  
+}
+
+.wd-20{
+    width: 23%;
+}
+
+.wd-10{
+    width: 10%;
+}
+
+.action-button{
+    border: none;
+    background-color: transparent;
+}

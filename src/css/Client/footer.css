@@ -1,19 +1,32 @@
 /* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
+:root {
+    --texto-funcional: 12px;
+    --texto-nomal: 16px;
+    --titulo-secundario: 20px;
+    --titulo-principal: 44px;
+    --font: 'Quicksand', sans-serif;
+
+
+    --light-blue: #D8E3E2;
+    --dark-gray: #3D4A5A;
+    --dark-blue: #000A1C;
+    --light-gray: #92969E;
+  }
+
 /* Estilos para el pie de página */
 .footer  {
-    background-color: rgb(0, 10, 28);
+    background-color: var(--dark-blue);
     padding: 20px;
     color: #ffffff;
-    font-family: 'Quicksand', sans-serif;
+    font-family: var(--font);
 }
 
 /* Estilos para los elementos p dentro del pie de página */
-footer > div > p{
+.txt-light {
     color: #ffffff;
 }
-
 /* Estilos para la sección de información en el pie de página */
 .info-footer {
     display: flex;
@@ -26,12 +39,12 @@ footer > div > p{
     padding: 10px;
     margin-left: 6%;
     margin-right: 6%;
-    font-size: 16px;
+    font-size: var(--texto-nomal);
 }
 
 /* Estilos para los títulos en las columnas del pie de página */
 .footer-column > .title {
-    font-size: 18px;
+    font-size: var(--titulo-secundario);
     margin-bottom: 50px;
     font-weight:500;
 }
@@ -52,7 +65,7 @@ footer > div > p{
 
 /* Línea divisoria en el pie de página */
 .line-footer{
-    border-bottom:2px solid #c9c9c9;
+    border-bottom:2px solid var(--light-blue);
     margin-bottom: 20px;
     width: 80%;
 }

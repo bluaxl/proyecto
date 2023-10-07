@@ -1,9 +1,23 @@
 /* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
+:root {
+    --texto-funcional: 12px;
+    --texto-nomal: 16px;
+    --titulo-secundario: 20px;
+    --titulo-principal: 44px;
+    --font: 'Quicksand', sans-serif;
+
+
+    --light-blue: #D8E3E2;
+    --dark-gray: #3D4A5A;
+    --dark-blue: #000A1C;
+    --light-gray: #92969E;
+  }
+
 /* Estilos generales para el texto y la fuente */
 *{
-    font-family: 'Quicksand', sans-serif;
+    font-family: var(--font);
     color: aliceblue;
 }
 
@@ -14,14 +28,19 @@
     justify-content: center;
     padding-left: 7%;
     padding-right: 7%;
-    margin-top: 5%;
+    padding-top: 7%;
     margin-bottom: 10%;
+}
+
+.principal{
+    background-image: url('../../../public/img/bg-img/fondo-profile.png');
+    background-size: cover;
 }
 
 /* Estilos para la información del usuario */
 .user-info{
     width: 20%;
-    height: 250px;
+    height: auto;
     border-radius: 20px;
     border: 3px solid white;
     background: rgba(255, 255, 255, 0.15);
@@ -29,10 +48,14 @@
     margin-right: 5%;
 }
 
+.user-info-data {
+    margin: 10% 15%;
+}
+
 /* Estilos para los datos de la cuenta */
 .account-data{
     width: 60%;
-    height: 400px;
+    height: auto;
     border-radius: 20px;
     border: 3px solid white;
     background: rgba(255, 255, 255, 0.15);
@@ -46,6 +69,7 @@
     align-items: center;
     padding-left: 10%;
     padding-right: 10%;
+    margin-bottom: 5%;
 }
 
 /* Estilos para el botón de la cuenta */
@@ -58,7 +82,7 @@
     background: rgba(0, 10, 28, 1);
     color: white;
     font-weight: lighter;
-    font-size: 16px;
+    font-size: var(--texto-nomal);
 }
 
 /* Estilos para el estado hover del botón de la cuenta */
@@ -70,7 +94,7 @@
 /* Estilos para el título */
 .title{
     font-weight: 100;
-    font-size: 44px;
+    font-size: var(--titulo-principal);
     align-items: center;
     text-align: center;
     margin-top: 2%;
@@ -78,7 +102,7 @@
 
 /* Estilos para el contenedor de datos */
 .data-box{
-    font-size: 20px;
+    font-size: var(--titulo-secundario);
     font-weight: lighter;
     padding:10% 12%;
 }
@@ -88,6 +112,7 @@
     display: inline;
     font-weight: bold;
     letter-spacing: 1px;
+    color: white;
 }
 
 /* Estilos para la imagen del usuario */
@@ -105,7 +130,12 @@
 /* Estilos para el texto en la información del usuario */
 .user-info > p {
     font-weight: lighter;
-    font-size: 18px;
+    font-size: var(--texto-nomal);
     padding-left: 15%;
     padding-top: 10%;
 }
+
+.txt-white {
+    color: white;
+}
+

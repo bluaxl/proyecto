@@ -1,27 +1,63 @@
 // Importación de módulos y componentes
-import { Link, Navigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import "../../../css/Client/register-form.css"
-import { useState } from "react";
+import { useRef } from "react";
 import { useAuth } from "../../../auth/AuthProvider";
 
 // Componente de formulario de registro
 function RegisterForm() {
-    // Declaración de estados
-    const [name, setName] = useState("");
-    const [identification, setIdentification] = useState("");
-    const [email, setEmail] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [typeIdentification, setTypeIdentification] = useState("");
-    const [cell, setCell] = useState("");
-    const [password, setPassword] = useState("");
+    
+    // const nameRef = useRef(null);
+    // const numIdRef = useRef(null);
+    // const emailRef = useRef(null);
+    // const lastNameRef = useRef(null);
+    // const typeIdRef = useRef(null);
+    // const numberRef = useRef(null);
+    // const passwordRef = useRef(null);
 
-    // Acceso al contexto de autenticación
-    const auth = useAuth();
+    // const form = document.querySelector('#myform');
+  
+    // function handleRegister(e) {
+    //   e.preventDefault();
+  
+    //   const nameValue = nameRef.current.value;
+    //   const numIdValue = numIdRef.current.value;
+    //   const emailValue = emailRef.current.value;
+    //   const lastNameValue = lastNameRef.current.value;
+    //   const typeIdValue = typeIdRef.current.value;
+    //   const numberValue = numberRef.current.value;
+    //   const passwordValue = passwordRef.current.value;
+  
+    //   const requestData = {
+    //     name: nameValue,
+    //     numId: numIdValue,
+    //     email: emailValue,
+    //     lastName: lastNameValue,
+    //     typeId: typeIdValue,
+    //     number: numberValue,
+    //     password: passwordValue
 
-    // Redirección si el usuario está autenticado
-    if(auth.isAuthenticated) {
-        return  <Navigate to="/admin"/>;
-    }
+    //   };
+  
+    //   fetch("http://localhost:3001/registro", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(requestData),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
+    //       console.log("Registro exitoso", data);
+    //       useNavigate("/login")
+    //     })
+    //     .catch((error) => {
+    //       // Manejar errores, por ejemplo, mostrar un mensaje de error
+    //       console.error("Error al registrar:", error);
+    //       form.reset()
+    //     });
+    // }
 
     // Renderización del componente
     return (
@@ -29,26 +65,26 @@ function RegisterForm() {
             <div className="title-login">
                 <h1>Crear una cuenta</h1>
             </div>
-            <form>
+            <form method="POST">
                 <div>
                     <div className="container1">
                         <div className="label-login">
                             <label><b>Nombre: </b> </label>
                         </div>
                         <div>
-                            <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+                            <input type="text"/>
                         </div>
                         <div className="label-login">
                             <label><b>Número de identificación: </b> </label>
                         </div>
                         <div>
-                            <input type="long" value={identification} onChange={(e) => setIdentification(e.target.value)}/>
+                            <input type="long"/>
                         </div>
                         <div className="label-login">
                             <label><b>Correo: </b> </label>
                         </div>
                         <div>
-                            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                            <input type="email"/>
                         </div>
                     </div>
                     <div className="container2">
@@ -56,13 +92,13 @@ function RegisterForm() {
                             <label><b>Apellido: </b></label>
                         </div>
                         <div>
-                            <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)}/>
+                            <input type="text"/>
                         </div>
                         <div className="label-login">
                             <label><b>Tipo de identificación: </b></label>
                         </div>
                         <div>
-                            <select name="tidentificacion" id="tipoiden" value={typeIdentification} onChange={(e) => setTypeIdentification(e.target.value)}>
+                            <select name="tidentificacion" id="tipoiden">
                                 <option value="cedula-ciudadania">Cédula de ciudadanía</option>
                                 <option value="pasaporte">Pasaporte</option>
                                 <option value="cedula-extrangeria">Cédula de extranjería</option>
@@ -73,7 +109,7 @@ function RegisterForm() {
                             <label><b>Número de teléfono: </b></label>
                         </div>
                         <div>
-                            <input type="long" value={cell} onChange={(e) => setCell(e.target.value)}/>
+                            <input type="long"/>
                         </div>
                     </div>
                 </div>
@@ -83,7 +119,7 @@ function RegisterForm() {
                             <label><b>Contraseña: </b> </label>
                         </div>
                         <div>
-                            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>

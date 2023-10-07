@@ -3,21 +3,30 @@ import "../../../css/Client/login-form.css"
 // Importación de componentes
 import LoginForm from "./LoginForm"
 import RegisterForm from "./RegisterForm"
+import { Footer } from "../footer/footer.js"
 
 // Componente de inicio de sesión
-export function Login(){
+export function Login() {
     return (
+        <> 
         <div className="form-container">
-            <LoginForm/>
+            <LoginForm />
         </div>
+            <Footer />
+        </>
+
     )
 }
 
 // Componente de registro
-export function Register(){
+export function Register() {
     return (
+        <>
         <div className="form-container">
-            <RegisterForm/>
+            <RegisterForm />
         </div>
+        <Footer />
+        </>
+
     )
 }

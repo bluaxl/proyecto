@@ -32,9 +32,9 @@ const DashboardLeft = () => {
         <div>
             <div className="left-dashboard">
                 <div className="img-dashboard-box">
-                    <img src="./../img/Logo2.png"></img>
+                    <img src="./../img/icons/Logo2.png"></img>
                 </div>
-                <nav className="nav-left-dashboard">
+                <div className="nav-left-dashboard">
                     <ul className="list">
                         {/* Elemento de menú "Inmuebles" con submenú */}
                         <li className="menu-item">
@@ -83,7 +83,7 @@ const DashboardLeft = () => {
                             </ul>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </div>
         </div>
     )
