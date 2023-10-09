@@ -1,19 +1,6 @@
 /* Importar la fuente 'Quicksand' desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
-
-:root {
-    --texto-funcional: 12px;
-    --texto-nomal: 16px;
-    --titulo-secundario: 20px;
-    --titulo-principal: 44px;
-    --font: 'Quicksand', sans-serif;
-
-
-    --light-blue: #D8E3E2;
-    --dark-gray: #3D4A5A;
-    --dark-blue: #000A1C;
-    --light-gray: #92969E;
-  }
+@import url('../principal.css');
 
 
 /* Estilos para el contenedor principal de la página de inicio */

@@ -1,4 +1,4 @@
-import "../../../css/Admin/dashboard.css";
+import "../../../css/Advisory//dashboard.css";
 import { Outlet, Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import $ from 'jquery';
@@ -95,7 +95,7 @@ const DashboardSup = () => {
     return (
         <div className="sup-dashboard">
             <div className="title-dashboard">
-                <p>
+                <p className="txt-white">
                     Asesor Dashboard
                 </p>
             </div>
