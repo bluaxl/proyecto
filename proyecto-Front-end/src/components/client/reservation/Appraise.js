@@ -1,18 +1,20 @@
+// Importación de módulos y componentes
 import "../../../css/Client/reservation.css"
 import { Button, DateTimeButton } from "./Reservation"
 
-
+// Componente Appraise
 export function Appraise() {
     return (
         <div className="container-reservation">
             <div className="registro">
                 <form method="POST" name="elForm">
+                    {/* Información para el avalúo */}
                     <div className="information">
                         <div>
-                            <h4>¿Para que desea realizar el aváluo?</h4>
+                            <h4>¿Para qué desea realizar el avalúo?</h4>
                             <select className="select">
                                 <option disabled selected>Seleccione una Opción</option>
-                                <option value="avaluo-catastral">Subir o bajar aváluo catastral</option>
+                                <option value="avaluo-catastral">Subir o bajar avalúo catastral</option>
                                 <option value="venta">Para venta</option>
                                 <option value="compra">Para compra</option>
                                 <option value="garantia">Para garantía hipotecaria</option>
@@ -21,11 +23,14 @@ export function Appraise() {
                             </select>
                         </div>
                         <div>
+                            {/* Componente DateTimeButton */}
                             <DateTimeButton css="datetime-box" />
                         </div>
                     </div>
+
+                    {/* Caja para subir archivos */}
                     <div className="files-box">
-                        <p>Por favor, para continuar subir los archivos correspondientes, son documenntos del inmueble</p>
+                        <p>Por favor, para continuar subir los archivos correspondientes, son documentos del inmueble</p>
                         <div>
                             <input type="file"></input>
                         </div>
@@ -37,6 +42,8 @@ export function Appraise() {
                         </div>
                     </div>
                 </form>
+
+                {/* Botón de retorno */}
                 <div className="return-box">
                     <Button route="/reservation" name="Volver" />
                 </div>

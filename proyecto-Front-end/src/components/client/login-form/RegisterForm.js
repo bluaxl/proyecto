@@ -1,87 +1,90 @@
-import { Link, useNavigate } from "react-router-dom";
+// Importación de módulos y componentes
+import { Link} from "react-router-dom";
+import "../../../css/Client/register-form.css"
 import { useRef } from "react";
-import "../../../css/login-form.css"
+import { useAuth } from "../../../auth/AuthProvider";
 
-const navigate = useNavigate();
-
-    const nameRef = useRef(null);
-    const numIdRef = useRef(null);
-    const emailRef = useRef(null);
-    const lastNameRef = useRef(null);
-    const typeIdRef = useRef(null);
-    const numberRef = useRef(null);
-    const passwordRef = useRef(null);
-
-    const form = document.querySelector('#myform');
-  
-    function handleRegister(e) {
-      e.preventDefault();
-  
-      const nameValue = nameRef.current.value;
-      const numIdValue = numIdRef.current.value;
-      const emailValue = emailRef.current.value;
-      const lastNameValue = lastNameRef.current.value;
-      const typeIdValue = typeIdRef.current.value;
-      const numberValue = numberRef.current.value;
-      const passwordValue = passwordRef.current.value;
-  
-      const requestData = {
-        name: nameValue,
-        numId: numIdValue,
-        email: emailValue,
-        lastName: lastNameValue,
-        typeId: typeIdValue,
-        number: numberValue,
-        password: passwordValue
-
-      };
-  
-      fetch("http://localhost:3001/registro", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
-          console.log("Registro exitoso", data);
-          navigate("/login")
-        })
-        .catch((error) => {
-          // Manejar errores, por ejemplo, mostrar un mensaje de error
-          console.error("Error al registrar:", error);
-          form.reset()
-        });
-    }
-
+// Componente de formulario de registro
 function RegisterForm() {
+    
+    // const nameRef = useRef(null);
+    // const numIdRef = useRef(null);
+    // const emailRef = useRef(null);
+    // const lastNameRef = useRef(null);
+    // const typeIdRef = useRef(null);
+    // const numberRef = useRef(null);
+    // const passwordRef = useRef(null);
+
+    // const form = document.querySelector('#myform');
+  
+    // function handleRegister(e) {
+    //   e.preventDefault();
+  
+    //   const nameValue = nameRef.current.value;
+    //   const numIdValue = numIdRef.current.value;
+    //   const emailValue = emailRef.current.value;
+    //   const lastNameValue = lastNameRef.current.value;
+    //   const typeIdValue = typeIdRef.current.value;
+    //   const numberValue = numberRef.current.value;
+    //   const passwordValue = passwordRef.current.value;
+  
+    //   const requestData = {
+    //     name: nameValue,
+    //     numId: numIdValue,
+    //     email: emailValue,
+    //     lastName: lastNameValue,
+    //     typeId: typeIdValue,
+    //     number: numberValue,
+    //     password: passwordValue
+
+    //   };
+  
+    //   fetch("http://localhost:3001/registro", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(requestData),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
+    //       console.log("Registro exitoso", data);
+    //       useNavigate("/login")
+    //     })
+    //     .catch((error) => {
+    //       // Manejar errores, por ejemplo, mostrar un mensaje de error
+    //       console.error("Error al registrar:", error);
+    //       form.reset()
+    //     });
+    // }
+
+    // Renderización del componente
     return (
         <div className="loginForm">
             <div className="title-login">
                 <h1>Crear una cuenta</h1>
             </div>
-            <form>
+            <form method="POST">
                 <div>
                     <div className="container1">
                         <div className="label-login">
                             <label><b>Nombre: </b> </label>
                         </div>
                         <div>
-                            <input type="text" ref={nameRef}/>
+                            <input type="text"/>
                         </div>
                         <div className="label-login">
                             <label><b>Número de identificación: </b> </label>
                         </div>
                         <div>
-                            <input type="long" ref={numIdRef}/>
+                            <input type="long"/>
                         </div>
                         <div className="label-login">
                             <label><b>Correo: </b> </label>
                         </div>
                         <div>
-                            <input type="email" ref={emailRef}/>
+                            <input type="email"/>
                         </div>
                     </div>
                     <div className="container2">
@@ -89,13 +92,13 @@ function RegisterForm() {
                             <label><b>Apellido: </b></label>
                         </div>
                         <div>
-                            <input type="text" ref={lastNameRef}/>
+                            <input type="text"/>
                         </div>
                         <div className="label-login">
                             <label><b>Tipo de identificación: </b></label>
                         </div>
                         <div>
-                            <select name="tidentificacion" id="tipoiden" type="text" ref={typeIdRef}>
+                            <select name="tidentificacion" id="tipoiden">
                                 <option value="cedula-ciudadania">Cédula de ciudadanía</option>
                                 <option value="pasaporte">Pasaporte</option>
                                 <option value="cedula-extrangeria">Cédula de extranjería</option>
@@ -106,7 +109,7 @@ function RegisterForm() {
                             <label><b>Número de teléfono: </b></label>
                         </div>
                         <div>
-                            <input type="long" ref={numberRef}/>
+                            <input type="long"/>
                         </div>
                     </div>
                 </div>
@@ -116,7 +119,7 @@ function RegisterForm() {
                             <label><b>Contraseña: </b> </label>
                         </div>
                         <div>
-                            <input type="text" ref={passwordRef}/>
+                            <input type="text"/>
                         </div>
                     </div>
                 </div>
