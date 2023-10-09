@@ -21,7 +21,7 @@ export const registroInmueble=async(req,res)=>{
     [barrio,direccion,areaConstruida,areaLote,dimensiones,estadoConstruccion,numPisos,numHabitaciones,numBaños,estrato,garaje,file])
     if (rows.affectedRows === 0) return res.status(404).json();
     res.send(rows)
-    }
+    }   
     catch(error){
         return res.status(500).json({
             message: 'something goes wrong',
