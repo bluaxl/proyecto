@@ -6,22 +6,31 @@ config();
 //Funcion para generar un token mediante una palabra secreta
 
 function generateAccessToken(user) {
-    return jwt.sign(user,' process.env.SECRET', { expiresIn: '10s' });
+    return jwt.sign(user, process.env.SECRET, { expiresIn: '120m' });
+
+    //en el primer campo se envian las credenciales y en segundo la palabra secreta 
 }
 
 //Funcion para iniciar sesion con validacion de errores 
 export const inicioSession = async (req, res) => {
-    const { name,password } = req.body;
+    const { email,password } = req.body;
     try {
-        const [rows] = await pool.query('select * from usuario where nombre=? and contra=?', [name, password]);
+        const [rows] = await pool.query('select * from Usuario where correoElectronico=? and contraseña=?', [email, password]);
         if (rows.length === 0) return res.status(404).json();
 
-        const user = { username: name };
+        //credenciales para el token
+        const user = { 
+            username: name,
+            rolUser: rows[0].rol,
+            idUser: rows[0].idUsuario 
+        };
 
         const accessToken = generateAccessToken(user);
+        //para decodificar el token const decodeToken = jwt.decode(accessToken)
 
         res.status(200).json({
-            token: accessToken
+            token: accessToken,
+            rolUser: rows[0].rol,
         });
         
     } catch (error) {
@@ -36,19 +45,24 @@ export const inicioSession = async (req, res) => {
 
 export function validateToken(req, res, next) {
     const accessToken = req.header('Authorization');
-    if (!accessToken) return res.status(401).send('Access denied: Token missing'); // Mensaje claro para token faltante
+    console.log(accessToken)
+    if (!accessToken) {
+        return res.status(401).send('Access denied: Token missing'); // Mensaje claro para token faltante
+    }
 
-    jwt.verify(accessToken, process.env.SECRET, (err, user) => {
+    jwt.verify(accessToken, process.env.SECRET, (err, decoded) => {
         if (err) {
             return res.status(403).send('Access denied: Token expired or incorrect'); // Mensaje claro para token inválido
         } else {
-            // Si el token es válido, puedes almacenar el usuario en req.user si lo necesitas.
-            req.status(200).user = user;
+            // Si el token es válido, almacena el usuario en req.user si lo necesitas.
+            console.log(decoded)
+            res.status(200).json({decodeToken: decoded})
             console.log("El token es válido");
             next();
         }
     });
 }
+
 
 
 
@@ -78,7 +92,7 @@ export const consultar = async (req, res)=>{
 export const registrar = async(req, res)=>{
     const { name,numId,email,lastName,typeId,number,password } = req.body;
     try{
-    const [rows]= await pool.query('insert into usuario values(?,?,?,?,?,?,?)',[name,numId,email,lastName,typeId,number,password])
+    const [rows]= await pool.query('insert into usuario values(?,?,?,?,?,?,?)',[name,lastName, numId, typeId, email, number, password])
     if (rows.affectedRows === 1) return res.status(404).json();
     res.send(rows)
     }

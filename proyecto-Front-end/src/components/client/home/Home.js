@@ -1,11 +1,32 @@
 // Importación de estilos CSS
 import "../../../css/Client/home.css";
-
 // Importación del componente Footer
 import { Footer } from "../footer/footer";
+import axios from "axios";
+
 
 // Componente Index
 function Index() {
+
+    const navigate = useNavigate();
+    const token = document.cookie.replace('token=','')
+
+    axios.get("http://localhost:3001/inicio", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": token
+        }
+      }).then((response) => {
+          const data = response.data
+          // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
+          console.log("acceso exitoso", data);
+        })                                                                                                                                                                                                        
+        .catch((error) => {
+          // Manejar errores, por ejemplo, mostrar un mensaje de error
+          console.error("Error:", error);
+          navigate("/login")
+        });
+
     return (
         // Contenedor principal de la página de inicio
         <div className="container-index" >
