@@ -13,6 +13,7 @@ function generateAccessToken(user) {
 
 //Funcion para iniciar sesion con validacion de errores 
 export const inicioSession = async (req, res) => {
+    console.log("si entre")
     const { email,password } = req.body;
     try {
         const [rows] = await pool.query('select * from Usuario where correoElectronico=? and contraseña=?', [email, password]);
@@ -20,7 +21,7 @@ export const inicioSession = async (req, res) => {
 
         //credenciales para el token
         const user = { 
-            username: name,
+            username: email,
             rolUser: rows[0].rol,
             idUser: rows[0].idUsuario 
         };

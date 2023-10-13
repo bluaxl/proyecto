@@ -1,5 +1,5 @@
 // Importaciones
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../../css/Client/login-form.css";
 import React, { useRef } from "react";
 import axios from "axios";
@@ -20,7 +20,7 @@ function LoginForm() {
       const passwordValue = passwordRef.current.value;
   
       const requestData = {
-        email: nameValue,
+        email: emailValue,
         password: passwordValue,
       };
       axios.post("http://localhost:3001/login", requestData, {
@@ -33,8 +33,8 @@ function LoginForm() {
           console.log("Registro exitoso", data);
           document.cookie = `token=${data.token}; max-age=${3600 * 2}; path=/; samesite=strict`;
           console.log(document.cookie);
-          if (data.rolUser === "administrador") {
-            navigate("admin/state");
+          if (data.rolUser === "admin") {
+            navigate("/admin/create-proyect");
           } else if (data.rolUser === "user") {
             navigate("/");
           }

@@ -2,6 +2,7 @@
 import "../../../css/Client/home.css";
 // Importación del componente Footer
 import { Footer } from "../footer/footer";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
