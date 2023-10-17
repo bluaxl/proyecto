@@ -23,6 +23,12 @@ import { UserProfile } from './components/admin/users/UserProfile';
 import { ProfileAdvisory } from './components/advisor/users/ProfileAdvisory';
 import { CrudStates } from './components/advisor/state/CrudState';
 import { NewStates } from './components/advisor/state/NewStates';
+import { UploadProyect } from './components/admin/proyects/UploadProyect';
+import { ViewState } from './components/admin/state/ViewState';
+import { CrudReservation } from './components/advisor/reservation/CrudReservation';
+import { NotificationReservation } from './components/advisor/reservation/NotificationReservation';
+import { SolicitudReservation } from './components/advisor/reservation/SolicitudReservation';
+import { CalendarReservation } from './components/advisor/reservation/CalendarReservation';
 
 function App() {
  
@@ -50,12 +56,19 @@ function App() {
             <Route path="proyects-list" element={<CrudProyects/>}/>
             <Route path="users-list" element={<CrudUsers/>}/>
             <Route path="user-profile" element={<UserProfile/>}/>
+            <Route path="publish-proyect" element={<UploadProyect/>}/>
+            <Route path="view-state" element={<ViewState/>}/>
         </Route>
         <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path=""/>
             <Route path="user-profile" element={<ProfileAdvisory/>}/>
             <Route path="propierty-list" element={<CrudStates/>}/>
             <Route path="publish-new-propierty" element={<NewStates/>}/>
+            <Route path="requests-reserves" element={<CrudReservation/>}/> 
+            <Route path="request" element={<SolicitudReservation/>}/> 
+            <Route path="create-menssage" element={<NotificationReservation/>}/> 
+            <Route path="show-reserves" element={<CalendarReservation/>}/> 
+            
         </Route>
       </Routes>
     </div>
