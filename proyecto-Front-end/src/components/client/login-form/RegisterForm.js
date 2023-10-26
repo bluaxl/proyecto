@@ -1,22 +1,24 @@
+// Importación de módulos y componentes
 import { Link, useNavigate } from "react-router-dom";
+import "../../../css/Client/register-form.css"
 import { useRef } from "react";
 import axios from "axios";
-import "../../../css/login-form.css"
 
+
+// Componente de formulario de registro
 function RegisterForm() {
+
     const navigate = useNavigate();
-
-        const nameRef = useRef(null);
-        const numIdRef = useRef(null);
-        const emailRef = useRef(null);
-        const lastNameRef = useRef(null);
-        const typeIdRef = useRef(null);
-        const numberRef = useRef(null);
-        const passwordRef = useRef(null);
-
-        const form = document.querySelector('#myform');
     
-        function handleRegister(e) {
+    const nameRef = useRef(null);
+    const numIdRef = useRef(null);
+    const emailRef = useRef(null);
+    const lastNameRef = useRef(null);
+    const typeIdRef = useRef(null);
+    const numberRef = useRef(null);
+    const passwordRef = useRef(null);
+  
+    function handleRegister(e) {
         e.preventDefault();
     
         const nameValue = nameRef.current.value;
@@ -47,22 +49,23 @@ function RegisterForm() {
             const data = response.data
             // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
             console.log("Registro exitoso", data);
+            alert("Registro exitoso");
             navigate("/login")
             })
             .catch((error) => {
             // Manejar errores, por ejemplo, mostrar un mensaje de error
             console.error("Error al registrar:", error);
-            form.reset()
+            alert("Error en la solicitud: " + error.message);
             });
         }
 
-
+    // Renderización del componente
     return (
         <div className="loginForm">
             <div className="title-login">
                 <h1>Crear una cuenta</h1>
             </div>
-            <form onSubmit={handleRegister} id="myform">
+            <form method="POST" onSubmit={handleRegister}>
                 <div>
                     <div className="container1">
                         <div className="label-login">
@@ -95,7 +98,7 @@ function RegisterForm() {
                             <label><b>Tipo de identificación: </b></label>
                         </div>
                         <div>
-                            <select name="tidentificacion" id="tipoiden" type="text" ref={typeIdRef}>
+                            <select name="tidentificacion" id="tipoiden" ref={typeIdRef}>
                                 <option value="cedula-ciudadania">Cédula de ciudadanía</option>
                                 <option value="pasaporte">Pasaporte</option>
                                 <option value="cedula-extrangeria">Cédula de extranjería</option>

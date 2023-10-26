@@ -15,11 +15,11 @@ export const upload = multer({ storage });
 
 //Funcion para registrar inmuebles
 export const registroProyect=async(req,res)=>{
-    const {barrio, direccion, areaConstruida, areaLote, dimensiones, estadoConstruccion, numPisos, numHabitaciones, numBanos, estrato, garaje,}=req.body;
+    const {barrio, direccion, areaConstruida, areaLote, dimensiones, estadoConstruccion, numPisos, numHabitaciones, numBanos, estrato, garaje, descripcion}=req.body;
     const { filename } = req.file;
     try{
-        const [rows]=await pool.query('insert into inmueble (barrio, direccion, areaConstruida, areaLote, dimensiones, estadoConstruccion, numPisos, numHabitaciones, numBaños, estrato, garaje, imagen) values(?,?,?,?,?,?,?,?,?,?,?,?)', 
-        [barrio, direccion, areaConstruida, areaLote, dimensiones,estadoConstruccion,numPisos, numHabitaciones, numBanos, estrato, garaje, filename])
+        const [rows]=await pool.query('insert into proyecto (barrio, direccion, areaConstruida, areaLote, dimensiones, estadoConstruccion, numPisos, numHabitaciones, numBaños, estrato, garaje, imagen, descripcion) values(?,?,?,?,?,?,?,?,?,?,?,?,?)', 
+        [barrio, direccion, areaConstruida, areaLote, dimensiones,estadoConstruccion,numPisos, numHabitaciones, numBanos, estrato, garaje, filename, descripcion])
     if (rows.affectedRows === 0) return res.status(404).json();
     res.send(rows)
     }

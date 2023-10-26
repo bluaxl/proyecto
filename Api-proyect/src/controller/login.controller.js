@@ -76,7 +76,7 @@ export const inicio = (req, res) => {
 //funcion para consultar todos los usuarios registrados en la base de datos 
 
 export const consultar = async (req, res)=>{
-    try{11
+    try{
         const [rows] =  await pool.query('select * from usuario')
         res.send(rows)
     }
@@ -93,8 +93,8 @@ export const consultar = async (req, res)=>{
 export const registrar = async(req, res)=>{
     const { name,numId,email,lastName,typeId,number,password } = req.body;
     try{
-    const [rows]= await pool.query('insert into usuario values(?,?,?,?,?,?,?)',[name,lastName, numId, typeId, email, number, password])
-    if (rows.affectedRows === 1) return res.status(404).json();
+    const [rows]= await pool.query('insert into usuario (nombre, apellido, numIdentificacion, tipoIdentificacion, correoElectronico, numero, contraseña) values(?,?,?,?,?,?,?)',[name,lastName, numId, typeId, email, number, password])
+    if (rows.affectedRows === 0) return res.status(404).json();
     res.send(rows)
     }
     catch(error){
@@ -105,5 +105,18 @@ export const registrar = async(req, res)=>{
     }
 }
 
+export const consultarInfoUsuario = async(req, res)=>{
+    const {id} = req.params
+    console.log(id)
+    try{
+        const [rows]= await pool.query('select * from usuario where idUsuario = ?', [id])
+        res.send(rows)
+        }
+        catch(error){
+            return res.status(500).json({
+                message: 'something goes wrong',
+                error
+            });
+        }
 
-
+}

@@ -1,6 +1,19 @@
 import "../../../css/Admin/cruds.css";
+import axios from "axios";
 
 export function CrudUsers() {
+
+    axios.get('http://localhost:3001/consult',{
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then((response) => {
+        const data = response.data
+        console.log("informacion extraída", data)
+    }).catch((error)=>{
+        console.error("Error", error)
+    })
+
     return(
         <>
             <div className="information-crud">

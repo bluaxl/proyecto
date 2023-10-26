@@ -1,7 +1,38 @@
 import "../../../css/Admin/user-profile.css";
+import React, {useEffect } from 'react';
+import axios from "axios";
 import { ButtonProfile } from "../../client/profile/Profile";
 
 export function UserProfile() {
+
+    useEffect(() => {
+        const token = document.cookie.replace('token=', ''); // Reemplaza por tu método de obtención de token
+
+        axios.get('http://localhost:3001/inicio', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+        })
+            .then((response) => {
+                const id = response.data.decodeToken.idUser;
+                axios.get(`http://localhost:3001/consultUser/${id}`)
+                .then(userResponse => {
+                  // Manejar la respuesta de la segunda solicitud
+                  console.log(userResponse.data);
+                })
+                .catch(error => {
+                  // Manejar errores de la segunda solicitud
+                  console.error('Error en la segunda solicitud:', error);
+                });
+                
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                
+            });
+    });
+
     return (
         <>
             <div className="Principal-content">
