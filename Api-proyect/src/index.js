@@ -3,6 +3,7 @@ import cors from "cors"
 import {PORT} from './config.js'
 import user from './routes/user.routes.js';
 import realEstate from './routes/realEstate.routes.js'
+import proyects from './routes/proyects.routes.js' 
 
 //Inicializamos express
 const app = express()
@@ -11,8 +12,8 @@ app.use(cors())
 //Vaalidar archivos json en la app
 app.use(express.json())
 //Usar las rutas en la app
-app.use(user)
-app.use(realEstate)
+app.use(user, realEstate, proyects)
+
 
 //Ejecutar el puerto
 app.listen(PORT, ()=>{

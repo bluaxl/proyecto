@@ -1,3 +1,4 @@
+import { pool } from '../bd.js';
 //multer 
 import multer from 'multer';
 
@@ -14,38 +15,18 @@ export const upload = multer({ storage });
 
 //Funcion para registrar inmuebles
 export const registroProyect=async(req,res)=>{
-    const {barrio,direccion,areaConstruida,areaLote,dimensiones,estadoConstruccion,numPisos,numHabitaciones,numBaños,estrato,garaje,descripcion}=req.body;
+    const {barrio, direccion, areaConstruida, areaLote, dimensiones, estadoConstruccion, numPisos, numHabitaciones, numBanos, estrato, garaje,}=req.body;
     const { filename } = req.file;
     try{
-    const [rows]=await pool.query('insert into proyecto (barrio,direccion,areaConstruida,areaLote,dimensiones,estadoConstruccion,numPisos,numHabitaciones,numBaños,estrato,garaje,descripcion,imagen) values(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-    [barrio,direccion,areaConstruida,areaLote,dimensiones,estadoConstruccion,numPisos,numHabitaciones,numBaños,estrato,garaje,descripcion,filename])
+        const [rows]=await pool.query('insert into inmueble (barrio, direccion, areaConstruida, areaLote, dimensiones, estadoConstruccion, numPisos, numHabitaciones, numBaños, estrato, garaje, imagen) values(?,?,?,?,?,?,?,?,?,?,?,?)', 
+        [barrio, direccion, areaConstruida, areaLote, dimensiones,estadoConstruccion,numPisos, numHabitaciones, numBanos, estrato, garaje, filename])
     if (rows.affectedRows === 0) return res.status(404).json();
     res.send(rows)
-    }   
+    }
     catch(error){
         return res.status(500).json({
-            message: 'something goes wrong',
-            error
+            message: 'something goes wrong',error
         })
     }
-    
 }
 
-export const actualizarProyect =async(req,res)=>{
-    const {id} = req.params
-    const {barrio,direccion,areaConstruida,areaLote,dimensiones,estadoConstruccion,numPisos,numHabitaciones,numBaños,estrato,garaje,estado}=req.body;
-    const filename = req.file ? req.file.filename : null;
-    try{
-    const [rows]=await pool.query('update proyecto set barrio = IFNULL(?, name), direccion = IFNULL(?,direccion), areaConstruida = IFNULL(?,areaConstruida), areaLote = IFNULL(?,areaLote), dimensiones = IFNULL(?, dimensiones), estadoConstruccion = IFNULL(?,estadoConstruccion), numPisos = IFNULL(?,numPisos), numHabitaciones = (?, numHabitaciones), numBaños = IFNULL(?,numBaños), estrato = (?,estrato), garaje = IFNULL(?,garaje), imagen = IFNULL(?,imagen) estado = IFNULL(?,estado) where idProyecto = ?',
-    [barrio,direccion,areaConstruida,areaLote,dimensiones,estadoConstruccion,numPisos,numHabitaciones,numBaños,estrato,garaje,filename,estado, id])
-    if (rows.affectedRows === 0) return res.status(404).json();
-    res.send(rows)
-    }
-    catch(error){
-        return res.status(500).json({
-            message: 'something goes wrong',
-            error
-        })
-    }
-    
-}
