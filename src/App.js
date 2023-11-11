@@ -29,7 +29,7 @@ import { CrudReservation } from './components/advisor/reservation/CrudReservatio
 import { NotificationReservation } from './components/advisor/reservation/NotificationReservation';
 import { SolicitudReservation } from './components/advisor/reservation/SolicitudReservation';
 import { CalendarReservation } from './components/advisor/reservation/CalendarReservation';
-import { AccesDenied } from './components/client/other/accesDenied';
+import { AccesDenied } from './components/client/other/AccesDenied';
 
 function App() {
  
