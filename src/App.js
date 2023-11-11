@@ -29,6 +29,7 @@ import { CrudReservation } from './components/advisor/reservation/CrudReservatio
 import { NotificationReservation } from './components/advisor/reservation/NotificationReservation';
 import { SolicitudReservation } from './components/advisor/reservation/SolicitudReservation';
 import { CalendarReservation } from './components/advisor/reservation/CalendarReservation';
+import { AccesDenied } from './components/client/other/accesDenied';
 
 function App() {
  
@@ -68,8 +69,9 @@ function App() {
             <Route path="request" element={<SolicitudReservation/>}/> 
             <Route path="create-menssage" element={<NotificationReservation/>}/> 
             <Route path="show-reserves" element={<CalendarReservation/>}/> 
-            
         </Route>
+
+        <Route path="access-denied" element={<AccesDenied/>}></Route>
       </Routes>
     </div>
   );
