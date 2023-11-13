@@ -1,8 +1,13 @@
 // Importación de estilos CSS
 import "../../../css/Client/home.css";
+import { useNavigate } from 'react-router-dom';
+
 
 // Importación del componente Footer
 import { Footer } from "../footer/footer";
+
+import React, { useState, useEffect } from 'react';
+
 
 // Componente Index
 function Index() {
@@ -65,6 +70,34 @@ function Index() {
 
 // Componente Estate
 function Estate() {
+    const navigate = useNavigate();
+
+    const [casas, setCasas] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:3001/verInmuebles", {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => setCasas(data))
+            .catch(error => console.error('Error:', error));
+    }, []);
+
+    function verInmueble({ idInmueble }) {
+        console.log(idInmueble);
+
+        fetch(`http://localhost:3001/verInmueble/${idInmueble}`)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                navigate(`state/${idInmueble}`);
+            })
+            .catch(error => console.error("Error", error));
+    }
+    
+
+    const opciones = { style: 'decimal', maximumFractionDigits: 2 };
+
     return (
         // Contenedor de la sección de información sobre inmuebles
         <div className="container-estates">
@@ -75,6 +108,20 @@ function Estate() {
                 </div>
                 <div className="info-estate">
                     <p>Desde casas hasta lotes, con el filtro de búsqueda encuentra lo que necesitas</p>
+                </div>
+
+                <div className="houses-catalogue">
+                    {casas.map(casa => (
+                        <div key={casa.idInmueble} className="house-catalogue">
+                            <img src={casa.imagenes} className="house-img-catalogue"></img>
+                            <div className="house-description-catalogue">
+                                <h3 className="house-h2-description txt-white">{casa.tipoInmueble} {casa.barrio}</h3>
+                                <p className="area-description txt-white">area: {casa.areaLote} m²</p>
+                                <h3 className="house-h2-description txt-white">COP: ${Number(casa.precio).toLocaleString('es-ES', opciones)}</h3>
+                            </div>
+                            <button className="show-state-catalogue txt-black" onClick={() => verInmueble({idInmueble: casa.idInmueble})}>Ver</button>
+                        </div>))}
+
                 </div>
             </div>
         </div>
@@ -94,7 +141,7 @@ function AboutBox({ title, info, svg }) {
             <div className="line-info-box"></div>
             {/* Icono */}
             <div className="icon-box">
-                <img src={svg} alt="Icono"></img>
+                <img src={svg} alt="Icono" className="img-about-box"></img>
             </div>
         </div>
     );

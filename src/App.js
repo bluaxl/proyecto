@@ -30,6 +30,7 @@ import { NotificationReservation } from './components/advisor/reservation/Notifi
 import { SolicitudReservation } from './components/advisor/reservation/SolicitudReservation';
 import { CalendarReservation } from './components/advisor/reservation/CalendarReservation';
 import { AccesDenied } from './components/client/other/AccesDenied';
+import { StateDetail } from './components/client/home/StateDetail';
 
 function App() {
  
@@ -41,6 +42,8 @@ function App() {
             <Route path="register" element={<Register/>} />
             <Route path="" element={<Home/>}/>
             <Route path="profile" element={<Profile/>}/>
+            <Route path="state/:id" element={<StateDetail/>} />
+
         </Route>
         <Route path="/" element={<Nav2/>}>
             <Route path="reservation" element={<Booking/>} />
