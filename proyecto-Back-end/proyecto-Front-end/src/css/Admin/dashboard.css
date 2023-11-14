@@ -1,0 +1,137 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('../principal.css');
+
+
+/* Estilo para el panel izquierdo del dashboard */
+.left-dashboard {
+    background-color: var(--dark-blue); /* Usar el color personalizado */
+    color: white;
+    position: fixed;
+    width:20%;
+    height: 100vh;
+    padding-right: 1%;
+}
+
+/* Estilo para la caja de imagen del dashboard */
+.img-dashboard-box {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 15%;
+}
+
+/* Estilo para las imágenes dentro de la caja */
+.img-dashboard-box > img {
+    width: 80%;
+}
+
+/* Estilo para la navegación izquierda del dashboard */
+.nav-left-dashboard {
+    margin-left: 10%;
+    font-size: var(--titulo-secundario);
+    font-family: var(--font); /* Usar la fuente personalizada */
+    font-weight: lighter;
+    list-style: none;
+    margin-top: 30%;
+    max-width: 80%;
+}
+
+/* Estilo para la lista en la navegación izquierda */
+.list {
+    list-style: none;
+    width: 80%;
+}
+
+/* Estilo para cada elemento de menú */
+.menu-item {
+    margin-bottom: 20%;
+    height: 100%;
+}
+
+/* Estilo para los submenús (inicialmente ocultos) */
+.submenu {
+    display: none;
+    list-style: none;
+    transition: max-height 0.5s ease-in-out; /* Efecto de despliegue suave */
+    overflow: hidden;
+    max-height: 0;
+}
+
+/* Mostrar submenú al pasar el mouse sobre el elemento de menú */
+.menu-item:hover > .submenu {
+    display: block;
+    max-height: 300px;
+    max-width: 300px;
+}
+
+/* Estilo para los elementos del submenú */
+.sub-menu-item {
+    margin-left: 10%;
+    margin-top: 10%;
+}
+
+/* Estilo para los elementos de texto dentro de los elementos del menú */
+.item-text {
+    display: flex;
+}
+
+/* Estilo para los elementos de menú normales */
+.normal {
+    margin-right: 15%;
+}
+
+/* Estilo para los elementos de menú en una fila normal */
+.normal-row {
+    margin-left: 15%;
+}
+
+/* Agregar un efecto de borde inferior al pasar el mouse sobre el elemento del menú */
+.item-text:hover {
+    border-bottom: 3px solid var(--light-gray);
+}
+
+/* Estilo para los enlaces en la lista */
+.link-list {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilo para el encabezado superior del dashboard */
+.sup-dashboard {
+    width: 100%;
+    height: 8%;
+    position: fixed;
+    margin-left: 20%;
+    background-color: var(--dark-blue); /* Usar el color personalizado */
+    color: white;
+    align-items: center;
+    display: flex;
+}
+
+/* Estilo para el título en el encabezado superior */
+.title-dashboard {
+    margin-left: 10%;
+    font-family: var(--font); /* Usar la fuente personalizada */
+    font-size: 22px;
+}
+
+/* Estilo para el icono en el encabezado superior */
+.icon-dashboard {
+    margin-left: 35%;
+}
+
+/* Estilo para el contenido principal del dashboard */
+.principal-content {
+    position: fixed;
+    background-color: white;
+    width: 80%;
+    height: 100%;
+    z-index: -1;
+    padding-top: 8%;
+    padding-left: 23%;
+}
+
+.txt-white {
+    color: white;
+}
