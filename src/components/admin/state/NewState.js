@@ -19,17 +19,24 @@ export function NewState() {
             </div>
             <form className="form-state" method="POST">
                 <div class="publish-box">
-                    <InputForm type="text" options="Barrio: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="text" options="Dirección: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="number" options="Área Construida: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="number" options="Área de lote: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="text" options="Dimensiones: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="text" options="Estado Construcción: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="number" options="Número de pisos: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="number" options="Número de habitaciones " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="number" options="Número de Baños: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="number" options="Estrato: " placeholder="ingrese el nombre del barrio" />
-                    <InputForm type="text" options="Garaje: " placeholder="ingrese el nombre del barrio" />
+                <InputForm type="text" options="Barrio: " placeholder="ingrese el nombre del barrio" />
+                    <InputForm type="text" options="Dirección: " placeholder="ingrese la dirección" />
+                    <InputForm type="text" options="Área Construida: " placeholder="ingrese el área construida (ej: 6 x 12)" />
+                    <InputForm type="text" options="Área de lote: " placeholder="ingrese el area del lote" />
+                    <InputForm type="text" options="Estado Construcción: " placeholder="ingrese el estado (ej: Terminada)" />
+                    <InputForm type="number" options="Número de pisos: " placeholder="ingrese el numero de pisos" />
+                    <InputForm type="number" options="Número de habitaciones " placeholder="ingrese el numero de habitaciones" />
+                    <InputForm type="number" options="Precio " placeholder="ingrese el precio del inmueble" />
+                    <InputForm type="number" options="Número de Baños: " placeholder="ingrese el numero de baños" />
+                    <div class="subdiv-publish-box ">
+                        <p className="name-option">Tipo de Inmueble:</p>
+                        <select id="tipoInmueble" name="tipoInmueble" className="select-type-state">
+                            <option value="casa">Casa</option>
+                            <option value="apartamento">Apartamento</option>
+                            <option value="lote">Lote</option>
+                            <option value="casaLote">Casa Lote</option>
+                        </select>
+                    </div>
                 </div>
                 <div className="buttons-box">
                     <input type="file" name="images" accept="image/*" multiple ></input>

@@ -64,3 +64,9 @@ body {
     font-weight: 100;
     cursor: pointer;
 }
+
+.select-type-state{
+    background-color: #D9D9D9;
+    padding: 7%;
+    width: 95%;
+}

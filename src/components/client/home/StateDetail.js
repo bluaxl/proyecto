@@ -16,7 +16,7 @@ export function StateDetail() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                setCasa(null); // Puedes establecer casa en null o manejarlo de otra manera según tus necesidades
+                setCasa(null); 
             });
     }, [id]);
 

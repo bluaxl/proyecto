@@ -91,7 +91,6 @@ export function ViewState() {
           <p className="txt-black mrg-5"><strong className="txt-black">Área construida: </strong> </p>
           <p className="txt-black mrg-5"><strong className="txt-black">Dimensiones: </strong> </p>
           <p className="txt-black mrg-5"><strong className="txt-black">Estado de construcción: </strong></p>
-          <p className="txt-black mrg-5"><strong className="txt-black">Estrato: </strong></p>
         </div>
       </div>
       <div className="action-div">

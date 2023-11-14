@@ -1,6 +1,37 @@
 import "../../../css/Advisory/cruds.css";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export function CrudStates() {
+
+    const [states, setStates] = useState([]);
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        fetch("http://localhost:3001/verInmuebles", {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(data => setStates(data))
+            .catch(error => console.error('Error:', error));
+    }, []);
+
+    function verInmueble({ idInmueble }) {
+        console.log(idInmueble);
+
+        fetch(`http://localhost:3001/verInmueble/${idInmueble}`)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                navigate(`/advisory/state-advisory/${idInmueble}`);
+            })
+            .catch(error => console.error("Error", error));
+    }
+    
+
     return (
         <>
             <div className="information-crud">
@@ -16,38 +47,16 @@ export function CrudStates() {
             </div>
             <table className="crud-state-table">
                 <tbody className="crud-state-tbody">
-                    <tr className="crud-state-tr">
-                        <td>Casa La Faena</td>
-                        <td>3 x 12</td>
-                        <td>Activo</td>
-                        <td>
-                            <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
-                        </td>
-                    </tr>
-                    <tr className="crud-state-tr">
-                        <td>Casa El Muelle</td>
-                        <td>6 x 12</td>
-                        <td>Archivado</td>
-                        <td>
-                            <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
-                        </td>
-                    </tr>
-                    <tr className="crud-state-tr">
-                        <td>Casa El Muelle</td>
-                        <td>6 x 12</td>
-                        <td>Archivado</td>
-                        <td>
-                            <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
-                        </td>
-                    </tr>
-                    <tr className="crud-state-tr">
-                        <td>Casa El Muelle</td>
-                        <td>6 x 12</td>
-                        <td>Archivado</td>
-                        <td>
-                            <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
-                        </td>
-                    </tr>
+                    {states.map(state => (
+                        <tr className="crud-state-tr">
+                            <td>{state.tipoInmueble} {state.barrio}</td>
+                            <td>{state.areaLote} m²</td>
+                            <td>{state.estadoConstruccion}</td>
+                            <td>
+                                <button className="action-button" onClick={() => verInmueble({idInmueble: state.idInmueble})}><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </>

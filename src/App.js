@@ -31,6 +31,7 @@ import { SolicitudReservation } from './components/advisor/reservation/Solicitud
 import { CalendarReservation } from './components/advisor/reservation/CalendarReservation';
 import { AccesDenied } from './components/client/other/AccesDenied';
 import { StateDetail } from './components/client/home/StateDetail';
+import { ViewStateAdvisory } from './components/advisor/state/ViewState';
 
 function App() {
  
@@ -72,6 +73,7 @@ function App() {
             <Route path="request" element={<SolicitudReservation/>}/> 
             <Route path="create-menssage" element={<NotificationReservation/>}/> 
             <Route path="show-reserves" element={<CalendarReservation/>}/> 
+            <Route path="state-advisory/:id" element={<ViewStateAdvisory/>}/>
         </Route>
 
         <Route path="access-denied" element={<AccesDenied/>}></Route>
