@@ -5,14 +5,15 @@ create table Inmueble(
 idInmueble int primary key auto_increment,
 numPisos int not null,
 estadoConstruccion varchar(20) not null,
-areaConstruida int not null,
-areaLote int not null,
+areaConstruida varchar(20) not null,
+areaLote varchar(20) not null,
 numHabitaciones int not null,
 imagenes blob not null,
 numBaños int not null,
 direccion varchar (50) not null,
 barrio varchar(50) not null,
-descripcionProyecto text not null,
+precio Long not null,
+descripcionProyecto text null,
 tipoInmueble varchar(20) not null,
 clasificacion boolean not null
 );
@@ -87,10 +88,10 @@ values (1,"cliente"),
 (2,"administrador"),
 (3,"asesor");
 
-insert into inmueble(numpisos, estadoconstruccion, areaConstruida, areaLote, numHabitaciones, imagenes, numBaños, direccion ,barrio, descripcionProyecto, tipoInmueble, clasificacion)
-values (1, 'Obra Negra', 120, 200, 4, '/files/imagen1.jpg', 2, 'Calle Principal 123', 'Centro', 'Hermoso edificio residencial', 'Apartamento', true),
-(2, 'obra gris', 150, 250, 3, '/files/imagen2.jpg', 3, 'Avenida Principal 456', 'Barrio Norte', 'Proyecto de viviendas en desarrollo', 'Casa', true),
-(1, 'terminado', 180, 300, 5, '/files/imagen3.jpg', 4, 'Calle Secundaria 789', 'Barrio Este', 'Condominio de lujo con vista al mar', 'Departamento', true);
+insert into inmueble(numpisos, estadoconstruccion, areaConstruida, areaLote, numHabitaciones, imagenes, numBaños, direccion ,barrio,precio, descripcionProyecto, tipoInmueble, clasificacion)
+values (1, 'Obra Negra', 120, 200, 4, '/files/imagen1.jpg', 2, 'Calle Principal 123', 'Centro',120000000, 'Hermoso edificio residencial', 'Apartamento', true),
+(2, 'obra gris', 150, 250, 3, '/files/imagen2.jpg', 3, 'Avenida Principal 456', 'Barrio Norte',500000000, 'Proyecto de viviendas en desarrollo', 'Casa', true),
+(1, 'terminado', 180, 300, 5, '/files/imagen3.jpg', 4, 'Calle Secundaria 789', 'Barrio Este',320000000, 'Condominio de lujo con vista al mar', 'Departamento', true);
 
 insert into tiporeserva(nombretiporeserva)
 values ("Asesoria legal"),
@@ -266,6 +267,7 @@ BEGIN
 END;
 //
 DELIMITER ;
+
 
 /*Ver las reservas en el calendario, las reservas del día*/
 DELIMITER //
