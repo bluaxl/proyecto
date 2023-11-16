@@ -27,7 +27,7 @@ import { UploadProyect } from './components/admin/proyects/UploadProyect';
 import { ViewState } from './components/admin/state/ViewState';
 import { CrudReservation } from './components/advisor/reservation/CrudReservation';
 import { NotificationReservation } from './components/advisor/reservation/NotificationReservation';
-import { SolicitudReservation } from './components/advisor/reservation/SolicitudReservation';
+import { SolicitudReservationNormal, SolicitudReservationAvaluo } from './components/advisor/reservation/SolicitudReservation';
 import { CalendarReservation } from './components/advisor/reservation/CalendarReservation';
 import { AccesDenied } from './components/client/other/AccesDenied';
 import { StateDetail } from './components/client/home/StateDetail';
@@ -70,7 +70,8 @@ function App() {
             <Route path="propierty-list" element={<CrudStates/>}/>
             <Route path="publish-new-propierty" element={<NewStates/>}/>
             <Route path="requests-reserves" element={<CrudReservation/>}/> 
-            <Route path="request" element={<SolicitudReservation/>}/> 
+            <Route path="requestS/:id" element={<SolicitudReservationNormal/>}/> 
+            <Route path="requestA/:id" element={<SolicitudReservationAvaluo/>}/> 
             <Route path="create-menssage" element={<NotificationReservation/>}/> 
             <Route path="show-reserves" element={<CalendarReservation/>}/> 
             <Route path="state-advisory/:id" element={<ViewStateAdvisory/>}/>

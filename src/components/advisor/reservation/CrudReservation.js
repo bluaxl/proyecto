@@ -1,9 +1,14 @@
 import "../../../css/Advisory/cruds.css";
+// Importación de estilos CSS
+import "../../../css/Client/home.css";
+import { useNavigate } from 'react-router-dom';
+
 import React, { useState, useEffect } from 'react';
 
 
-export function CrudReservation() {
 
+export function CrudReservation() {
+    const navigate = useNavigate();
     const [requests, setRequests ]= useState([])
 
     useEffect(() => {
@@ -11,9 +16,28 @@ export function CrudReservation() {
             method: 'GET'
         })
             .then(response => response.json())
-            .then(data => setRequests(data))
+            .then(response =>{ setRequests(response)
+                 console.log(response)})
             .catch(error => console.error('Error:', error));
     }, []);
+
+    function verSolicitud({ idSolicitud }) {
+        console.log(idSolicitud);
+
+        fetch(`http://localhost:3001/requestIndividual/${idSolicitud}`)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response[0].nombreTipoReserva);
+
+                if(response.nombreTipoReserva != "Avaluo"){
+                    navigate(`/advisory/requestS/${idSolicitud}`);
+                }else{
+                    navigate(`/advisory/requestN/${idSolicitud}`);
+                }
+                
+            })
+            .catch(error => console.error("Error", error));
+    }
 
     return (
         <>
@@ -25,11 +49,12 @@ export function CrudReservation() {
             <table className="crud-state-table">
                 <tbody className="crud-state-tbody">
                 {requests.map(request => (
-                    <tr className="crud-state-tr">
-                        <td>Fecha: {request.fechaSolicitud}</td>
+                    <tr key={request.idSolicitud} className="crud-state-tr">
+                        <td>Fecha: {new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
                         <td>Tipo: {request.nombreTipoReserva}</td>
+                        <td>Cliente: {request.nombreCliente}</td>
                         <td>
-                            <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
+                            <button className="action-button" onClick={() => verSolicitud({idSolicitud: request.idSolicitud})}><i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
                         </td>
                     </tr>
                 ))}
