@@ -1,6 +1,38 @@
 import "../../../css/Admin/cruds.css";
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 export function CrudUsers() {
+
+    const navigate = useNavigate();
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        fetch(`http://localhost:3001/consult`, {
+            method: 'GET'
+        })
+            .then(response => response.json())
+            .then(response => {
+                setUsers(response)
+                console.log(response)
+            })
+            .catch(error => console.error('Error:', error));
+    }, []);
+
+    function verPerfil({ idUsuario }) {
+        console.log(idUsuario);
+
+        fetch(`http://localhost:3001/consultUser/${idUsuario}`)
+            .then(response => response.json())
+            .then(response => {
+                if (response.idUsuario !== "") {
+                    navigate(`/admin/user-profile/${idUsuario}`);
+                } else {
+                   alert("Error al mostrar el usuario")
+                }
+            })
+            .catch(error => console.error("Error", error));
+    }
     return(
         <>
             <div className="information-crud">
@@ -8,38 +40,29 @@ export function CrudUsers() {
                 <h2>Usuarios</h2>
             </div>
         </div>
+        {users.length === 0 ? (
+                <div className="zero-data">
+                    <p>No hay Usuarios Disponibles.</p>
+                </div>
+            ) : (
         <table className="crud-state-table">
        
         <tbody className="crud-state-tbody">
-            <tr className="crud-state-tr">
-                <td className="wd-20">Axl Rodriguez Quiceno</td>
-                <td className="wd-20">Cédula de Ciudadanía</td>
-                <td className="wd-20">1016951062</td>
-                <td className="wd-20">Asesor</td>
+        {users.map(user => (
+            <tr key={user.idUsuario} className="crud-state-tr">
+                <td className="wd-20">{user.nombre} {user.apellido}</td>
+                <td className="wd-20">{user.tipoIdentificacion}</td>
+                <td className="wd-20">{user.nombreRol}</td>
+                <td className="wd-10">{user.estado === 1 ? "activo" : "inactivo"}</td>
+
                 <td className="wd-10">
-                    <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
+                    <button className="action-button" onClick={() => verPerfil({ idUsuario: user.idUsuario })}><i className="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
                 </td>
             </tr>
-            <tr className="crud-state-tr">
-                <td>Axl Rodriguez Quiceno</td>
-                <td>Cédula de Ciudadanía</td>
-                <td>1016951062</td>
-                <td>Asesor</td>
-                <td>
-                    <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
-                </td>
-            </tr>
-            <tr className="crud-state-tr">
-                <td >Axl Rodriguez Quiceno</td>
-                <td>Cédula de Ciudadanía</td>
-                <td>1016951062</td>
-                <td>Asesor</td>
-                <td>
-                    <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
-                </td>
-            </tr>
+             ))}
         </tbody>
-    </table>       
+    </table>     
+    )}  
         </>
     )
 }

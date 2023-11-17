@@ -1,11 +1,12 @@
 import "../../../css/Advisory/solicitudes.css";
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export function SolicitudReservationNormal() {
 
     const { id } = useParams();
     const [request, setRequest] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`http://localhost:3001/requestIndividual/${id}`)
@@ -19,6 +20,102 @@ export function SolicitudReservationNormal() {
                 setRequest(null);
             });
     }, [id]);
+
+    function sendEmailTrue() {
+        const fechaSolicitud = new Date(request[0].FechaSolicitud);
+        const fechaFormateada = fechaSolicitud.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        
+        // En tu componente React
+        fetch('http://localhost:3001/sendEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                destinatario: request[0].correoElectronico,
+                asunto: 'Aprobación Solicitud de Reserva en Arquideco',
+                mensaje: `¡Hola ${request[0].nombreCliente}! \n  \n Su solicitud para realizar una reserva de ${request[0].nombreTipoReserva} para el día ${fechaFormateada} a las ${request[0].HoraSolicitud} ha sido aprobada. Estamos emocionados de darle la bienvenida a Arquideco. \n \n ¡Esperamos que tenga una experiencia maravillosa!`,
+            }),
+        })
+
+    }
+
+    function sendEmailFalse() {
+        const fechaSolicitud = new Date(request[0].FechaSolicitud);
+        const fechaFormateada = fechaSolicitud.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        
+        fetch('http://localhost:3001/sendEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                destinatario: request[0].correoElectronico,
+                asunto: 'Solicitud de Reserva en Arquideco - Rechazada',
+                mensaje: ` ¡Hola ${request[0].nombreCliente}!
+    
+                Lamentamos informarle que su solicitud para realizar ${request[0].nombreTipoReserva} a las ${fechaFormateada} ha sido rechazada. Le recomendamos revisar los detalles y volver a realizar la solicitud si es necesario.
+                
+                Agradecemos su comprensión y esperamos poder recibirle en futuras ocasiones. Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros.
+                
+                Gracias y hasta pronto.`,
+            }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Correo enviado exitosamente');
+                } else {
+                    console.error('Error al enviar el correo');
+                }
+            })
+            .catch(error => {
+                console.error('Error al enviar el correo:', error);
+            });
+    }
+
+    async function aceptRequest() {
+        fetch(`http://localhost:3001/aceptRequest/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Solicitud aceptada correctamente');
+                    sendEmailTrue();
+                    navigate('/advisory/requests-reserves');
+                } else {
+                    console.error('Error al aceptar la solicitud:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error al realizar la solicitud:', error);
+            });
+    }
+
+    async function deleteRequest() {
+        fetch(`http://localhost:3001/deleteRequest/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Solicitud Rechazada correctamente');
+                    sendEmailFalse();
+                    navigate('/advisory/requests-reserves');
+                } else {
+                    console.error('Error al rechazar la solicitud:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error al realizar la solicitud:', error);
+            });
+    }
 
     return (
         <div>
@@ -46,12 +143,12 @@ export function SolicitudReservationNormal() {
                     </p>
 
                     <div className="actions-box">
-                        <button className="request-button"><p className="txt-white">Aceptar reserva</p></button>
-                        <button className="request-button"><p className="txt-white">Rechazar reserva</p></button>
+                        <button className="request-button" onClick={() => aceptRequest()}><p className="txt-white">Aceptar reserva</p></button>
+                        <button className="request-button" onClick={() => deleteRequest()}><p className="txt-white">Rechazar reserva</p></button>
                     </div>
                 </div>
             ) : (
-                <p>Cargando detalles del inmueble...</p>
+                <p>Cargando detalles de la reserva...</p>
             )}
         </div>
     );

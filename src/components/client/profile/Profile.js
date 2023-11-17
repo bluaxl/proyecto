@@ -3,9 +3,9 @@ import "../../../css/Client/profile-cli.css";
 import { Footer } from "../footer/footer";
 
 // Componente ButtonProfile
-export function ButtonProfile({ props }) {
+export function ButtonProfile({ props, action }) {
     return (
-        <button className="button-account">
+        <button className="button-account" onClick={action}>
             <p className="txt-white">{props}</p>
         </button>
     );

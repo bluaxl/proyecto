@@ -20,6 +20,7 @@ import { NewState } from './components/admin/state/NewState';
 import { NewProyect } from './components/admin/proyects/NewProyect';
 import { CrudUsers } from "./components/admin/users/CrudUsers";
 import { UserProfile } from './components/admin/users/UserProfile';
+import { UsersProfile } from './components/admin/users/UsersProfile';
 import { ProfileAdvisory } from './components/advisor/users/ProfileAdvisory';
 import { CrudStates } from './components/advisor/state/CrudState';
 import { NewStates } from './components/advisor/state/NewStates';
@@ -60,7 +61,8 @@ function App() {
             <Route path="create-proyect" element={<NewProyect/>}/>
             <Route path="proyects-list" element={<CrudProyects/>}/>
             <Route path="users-list" element={<CrudUsers/>}/>
-            <Route path="user-profile" element={<UserProfile/>}/>
+            <Route path="admin-profile" element={<UserProfile/>}/>
+            <Route path="user-profile/:id" element={<UsersProfile/>}/>
             <Route path="publish-proyect" element={<UploadProyect/>}/>
             <Route path="view-state" element={<ViewState/>}/>
         </Route>

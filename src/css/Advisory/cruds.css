@@ -67,3 +67,8 @@ td{
 .wd-30{
     width: 40%;
 }
+
+.zero-data{
+    margin: 5%;
+    font-size: var(--titulo-secundario);
+}
