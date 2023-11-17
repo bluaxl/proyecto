@@ -7,9 +7,12 @@ import { Button, DateTimeButton } from "./Reservation";  // DateTimeButton2 no e
 // Componente Design
 export function Design() {
     const fecha = useRef(null);
+    const descripcionRef = useRef(null)
 
     function handleRegister(e) {
         e.preventDefault();
+
+        const descripcion = descripcionRef.current.value;
 
         const dateValue = fecha.current.querySelector(".fechaReserva").value;
         const hourValue = fecha.current.querySelector(".horaReserva").value;
@@ -18,13 +21,26 @@ export function Design() {
             fecha: dateValue,
             hora: hourValue
         }
-        
-        axios.post("http://localhost:3001/disponibilidad", datos, {
+
+        const token = document.cookie.replace('token=','')
+
+        axios.get("http://localhost:3001/inicio", {
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization": token
+            }
+        }).then((response) => {
+            const data = response.data
+            const idCliente = data.decodeToken.rolUser
+            console.log(idCliente);
+            
+            axios.post("http://localhost:3001/disponibilidad", datos, {
             headers: {
                 "Content-Type": "application/json"
             },
-        }).then((data)=>{
-            console.log('ascesor disponible', data);
+            }).then((data)=>{
+                const idAsesor = data.data.idUsuario
+                console.log(idAsesor);
 
                 axios.post("http://localhost:3001/solicitud", datos, {
                     headers: {
@@ -32,27 +48,68 @@ export function Design() {
                     },
                 })
                 .then((data1) => {
-                    console.log("Registro exitoso", data1);
                     axios.post("http://localhost:3001/consultarSoli", datos, {
                         headers: {
                             "Content-Type": "application/json"
                         },
                         }).then((info) => {
                             const data = info.data
-                            console.log("id de solicitud", data);
+                            const idSolicitud = data.ultimoIdSolicitud
+                            console.log(idSolicitud);
+
+                            const datos1 = {
+                                idSolicitud: idSolicitud,
+                                idCliente: idCliente,
+                                idAsesor: idAsesor
+                            }
+
+                            const datos2 = {
+                                descripcion: descripcion,
+                                idSolicitud: idSolicitud
+                            }
+
+                            axios.post("http://localhost:3001/insertSoliUsuario", datos1, {
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                }).then((data) => {
+                                    console.log("inserto correctamente en insertSoliUsuario", data);
+
+                                }).catch((error)=>{ 
+                                    console.log("Error:", error);
+                                })
+
+                            axios.post("http://localhost:3001/Desing", datos2, {
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                }).then((data) => {
+                                    console.log("inserto diseño", data);
+                                    alert("Solicitud Exitosa")
+
+                                }).catch((error)=>{ 
+                                    console.log("Error:", error);
+                                })
+
                         }).catch((error)=>{
-                            console.log("elol", error);
+                            console.log("Error:", error);
                         })
                     })
                 .catch((error) => {
                     console.error("Error", error);
                 });
             
-        }).catch((error)=>{
-            console.log('no se encontro asesor');
-            alert('no hay asesores disponible ingrese otra fecha')
-        })
+            }).catch((error)=>{
+                console.log('no se encontro asesor');
+                alert('no hay asesores disponible ingrese otra fecha')
+            })
 
+
+            })                                                                                                                                                                                                        
+        .catch((error) => {
+            // Manejar errores, por ejemplo, mostrar un mensaje de error
+            console.error("Error:", error);
+        });
     
     }
 
@@ -63,7 +120,7 @@ export function Design() {
                     {/* Razón de solicitud del diseño arquitectónico */}
                     <div className="information2">
                         <h4>¿Cuál es la razón por la que solicita el diseño arquitectónico?</h4>
-                        <input type="text" placeholder="No ingrese más de 300 caracteres" />
+                        <input type="text" ref={descripcionRef} placeholder="No ingrese más de 300 caracteres" />
                     </div>
                     {/* Selección de fecha y hora */}
                     <div className="datetime-div" ref={fecha}>

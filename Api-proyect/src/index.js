@@ -10,7 +10,7 @@ const app = express()
 //Usando cors en la aplicación 
 app.use(cors())
 //usar archivos estaticos para que esta carpeta pueda ser accedida desde el navegaor
-app.use(express.static('src/dbImages/')) 
+app.use(express.static('src/dbFiles/images/')) 
 //Vaalidar archivos json en la app
 app.use(express.json())
 //Usar las rutas en la app

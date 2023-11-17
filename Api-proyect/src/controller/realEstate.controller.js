@@ -18,7 +18,7 @@ export const upload = multer({ storage });
 //Funcion para registrar inmuebles
 export const registroInmueble=async(req,res)=>{
     const {numPisos, estadoConstruccion, areaConstruida, areaLote, numHabitaciones, numBanos, direccion, barrio, descripcion, tipoInmueble, clasificacion}=req.body;
-    const { filename } = req.file;
+    const {filename} = req.file;
     const imagePath = 'src/uploads/imageRealEstate/' + filename;
   
     try {
@@ -61,6 +61,41 @@ export const actualizarInmueble =async(req,res)=>{
   
 }
 
+
+export const consultarInmuebles = async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM Inmueble');
+
+    const images = [];
+
+    for (const img of rows) {
+      const imagePath = `${img.idInmueble}.jpg`; // Asegúrate de tener una extensión de archivo adecuada
+
+      // Asegúrate de que img.imagenes contiene datos binarios
+      const imageBuffer = Buffer.from(img.imagenes, 'base64');
+
+      await fs.promises.writeFile(path.join('src/dbFiles/images/',imagePath), imageBuffer);
+
+      images.push({
+        id: img.idInmueble,
+        imagen: imagePath
+      });
+    }
+
+    console.log(images);
+    res.json(images);
+
+  } catch (error) {
+    console.error('Error al consultar inmuebles:', error);
+    res.status(500).json({
+      message: 'Something went wrong',
+      error,
+    });
+  }
+};
+
+
+
 //consultar todos los inmuebles
 
 // export const consultarInmuebles = async (req, res) => {
@@ -83,42 +118,6 @@ export const actualizarInmueble =async(req,res)=>{
 //       });
 //   }
 // };
-
-
-
-
-
-export const consultarInmuebles = async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * FROM Inmueble');
-
-    const images = [];
-
-    for (const img of rows) {
-      const imagePath = `${img.idInmueble}.jpg`; // Asegúrate de tener una extensión de archivo adecuada
-
-      // Asegúrate de que img.imagenes contiene datos binarios
-      const imageBuffer = Buffer.from(img.imagenes, 'base64');
-
-      await fs.promises.writeFile(path.join('src/dbImages/',imagePath), imageBuffer);
-
-      images.push({
-        id: img.idInmueble,
-        imagen: imagePath
-      });
-    }
-
-    console.log(images);
-    res.json(images);
-
-  } catch (error) {
-    console.error('Error al consultar inmuebles:', error);
-    res.status(500).json({
-      message: 'Something went wrong',
-      error,
-    });
-  }
-};
 
 
 

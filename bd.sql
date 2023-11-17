@@ -138,10 +138,10 @@ select * from inmueble;
 select * from rol;
 select * from usuario;
 select * from solicitud;
-select * from solicitudusuario;
+select * from solicitudusuario;	
 select * from tiporeserva;
 select * from detalletiporeserva;
-select * from datossolicitud;
+select * from datossolicitud;		
 
 /*Trae asesores sin reservas a esa fecha y hora, puedes probar con call sp_dispo_asesores('2023-09-07', '15:00:00') trae a ana*/
 DELIMITER //
@@ -159,6 +159,7 @@ END;
 DELIMITER ;
 call sp_dispo_asesores('2023-09-07', '14:30:00');
 call sp_dispo_asesores('2005-10-06', '17:00:00');
+call sp_dispo_asesores('2023-11-24', '14:30:00');
 
 
 /*insertar datos en la tabla solicitud*/
@@ -170,8 +171,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-
 
 
 /*Consultar id solicitud creada anteriormente*/
@@ -189,6 +188,18 @@ DELIMITER ;
 
 call sp_consultar_solcitud('2023-09-07', '14:30:00');
 call sp_consultar_solcitud('2023-12-12', '15:00:00');
+
+DELIMITER //
+CREATE PROCEDURE sp_insert_soliUsuario (IN p_idSolicitud INT, IN p_idCliente INT, IN p_idAsesor INT)
+BEGIN
+	insert into solicitudusuario(idsolictudFK, idClienteFK, idAsesorFK)
+    values(p_idSolicitud, p_idCliente, p_idAsesor);
+END;
+//
+DELIMITER ;
+
+call sp_insert_soliUsuario (11,2,5)
+
 
 /*Insertar Datos solicitud de documentos*/
 DELIMITER //
@@ -212,7 +223,7 @@ DELIMITER ;
 
 /*Insertar Datos solicitud avalúo*/
 DELIMITER //
-CREATE PROCEDURE sp_insert_reavaluo(tipoAvaluo VARCHAR(50), catastral VARCHAR(50), libertad VARCHAR(50), idSolicitud INT)
+CREATE PROCEDURE sp_insert_reavaluo(tipoAvaluo VARCHAR(150), catastral VARCHAR(150), libertad VARCHAR(150), idSolicitud INT)
 BEGIN
 	insert into datossolicitud (datoSolicitud, idDetalleReservaFK, idSolicitudFK)
     values(tipoAvaluo, 2, idSolicitud);
