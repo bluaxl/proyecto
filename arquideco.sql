@@ -5,15 +5,15 @@ create table Inmueble(
 idInmueble int primary key auto_increment,
 numPisos int not null,
 estadoConstruccion varchar(20) not null,
-areaConstruida varchar(20) not null,
-areaLote varchar(20) not null,
+areaConstruida int not null,
+areaLote int not null,
 numHabitaciones int not null,
 imagenes blob not null,
 numBaños int not null,
 direccion varchar (50) not null,
 barrio varchar(50) not null,
 precio Long not null,
-descripcionProyecto text null,
+descripcionProyecto text not null,
 tipoInmueble varchar(20) not null,
 clasificacion boolean not null
 );
@@ -35,6 +35,7 @@ apellido varchar(30) not null,
 correoElectronico varchar(40) not null,
 numIdentificacion int not null,
 tipoIdentificacion varchar (30),
+telefono Long,
 contraseña varchar(100) not null,
 estado boolean,
 idRolFK int not null,
@@ -91,7 +92,7 @@ values (1,"cliente"),
 insert into inmueble(numpisos, estadoconstruccion, areaConstruida, areaLote, numHabitaciones, imagenes, numBaños, direccion ,barrio,precio, descripcionProyecto, tipoInmueble, clasificacion)
 values (1, 'Obra Negra', 120, 200, 4, '/files/imagen1.jpg', 2, 'Calle Principal 123', 'Centro',120000000, 'Hermoso edificio residencial', 'Apartamento', true),
 (2, 'obra gris', 150, 250, 3, '/files/imagen2.jpg', 3, 'Avenida Principal 456', 'Barrio Norte',500000000, 'Proyecto de viviendas en desarrollo', 'Casa', true),
-(1, 'terminado', 180, 300, 5, '/files/imagen3.jpg', 4, 'Calle Secundaria 789', 'Barrio Este',320000000, 'Condominio de lujo con vista al mar', 'Departamento', true);
+(1, 'terminado', 180, 300, 5, '/files/imagen3.jpg', 4, 'Calle Secundaria 789', 'Barrio Este',230000000, 'Condominio de lujo con vista al mar', 'Departamento', true);
 
 insert into tiporeserva(nombretiporeserva)
 values ("Asesoria legal"),
@@ -101,12 +102,12 @@ values ("Asesoria legal"),
 ("Busqueda de inmuebles");
 
 /*la constraseña está en SHA-256*/
-INSERT INTO Usuario (nombre, apellido, correoElectronico, numIdentificacion, tipoIdentificacion, contraseña, idRolFK, estado)
-VALUES ('Juan', 'Pérez', 'juan@example.com', 123456789, 'Cedula de ciudadania', 'ac1be349ec1a3cf8bf3d96d11b62c7ec015355b450093a33e79d3cc8f0b9232e', 1, true),
-('María', 'Gómez', 'maria@example.com', 987654321, 'Pasaporte', '33e7183996951c46189f74338104f97e2b05f3d1a1d8d8e11de36c24f431a1d5', 2, 1),
-('Carlos', 'López', 'carlos@example.com', 555555555, 'Cedula de ciudadania', '0c34ab7c7c92917a9d6cd7392185cd189ae1e6f910d65d679b8985248ac3d35f', 3, true),
-('Laura', 'Martínez', 'laura@example.com', 111111111, 'Pasaporte', '343eaeac32d1259f7b0d3bfdef3fb9ea65129b6844f034ff184b25b3f130664', 1, 1),
-('Ana', 'Rodríguez', 'ana@example.com', 999999999, 'Cedula de ciudadania', '13e83664ea35db30095e98492a7b0e14bbcbfadd23d7b4cb3bf6e1105b3ff54', 3, true);
+INSERT INTO Usuario (nombre, apellido, correoElectronico, numIdentificacion,telefono, tipoIdentificacion, contraseña, idRolFK, estado)
+VALUES ('Juan', 'Pérez', 'loreingp@hotmail.com', 123456789, 3103480318, 'Cedula de ciudadania', 'ac1be349ec1a3cf8bf3d96d11b62c7ec015355b450093a33e79d3cc8f0b9232e', 1, true),
+('María', 'Gómez', 'loreingp@hotmail.com', 987654321,3103480318, 'Pasaporte', '33e7183996951c46189f74338104f97e2b05f3d1a1d8d8e11de36c24f431a1d5', 2, 1),
+('Carlos', 'López', 'loreingp@hotmail.com', 555555555,3103480318, 'Cedula de ciudadania', '0c34ab7c7c92917a9d6cd7392185cd189ae1e6f910d65d679b8985248ac3d35f', 3, true),
+('Laura', 'Martínez', 'loreingp@hotmail.com', 111111111,3103480318, 'Pasaporte', '343eaeac32d1259f7b0d3bfdef3fb9ea65129b6844f034ff184b25b3f130664', 1, 1),
+('Ana', 'Rodríguez', 'loreingp@hotmail.com', 999999999,3103480318, 'Cedula de ciudadania', '13e83664ea35db30095e98492a7b0e14bbcbfadd23d7b4cb3bf6e1105b3ff54', 3, true);
 
 insert into detalletiporeserva(datoDetTipoReserva, idTipoReservaFK)
 values ("Descripcion",1),
@@ -173,8 +174,20 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sp_consultar_solcitud (fechaReserva DATE, horaReserva TIME)
 BEGIN
-	select distinct sol.idSolicitud from solicitud sol
-    where sol.FechaSolicitud = fechaReserva and sol.horaSolicitud BETWEEN horaReserva AND ADDTIME(horaReserva, '01:00:00');
+	SELECT DISTINCT MAX(sol.idSolicitud) as ultimoIdSolicitud
+FROM solicitud sol
+WHERE sol.FechaSolicitud = fechaReserva
+      AND sol.horaSolicitud BETWEEN horaReserva AND ADDTIME(horaReserva, '01:00:00') and sol.estado =1;
+END;
+//
+DELIMITER ;
+
+/*Insertar datos en la tabla solicitudUsuario*/
+DELIMITER //
+CREATE PROCEDURE sp_insert_soliUsuario (p_idSolicitud INT, p_idAsesor INT)
+BEGIN
+	insert into solicitudusuario(idSolicitudFK, idClienteFK, idAsesorFK)
+    values(p_idSolicitud, 1, p_idAsesor);
 END;
 //
 DELIMITER ;
@@ -235,14 +248,13 @@ DELIMITER ;
 
 /*Vista de todas las solicitudes de reserva*/
 CREATE VIEW view_sol_reserva AS
-SELECT distinct sol.idSolicitud, sol.FechaSolicitud, sol.HoraSolicitud, su.idClienteFK as idCliente, su.idAsesorFK as idAsesor,
+SELECT distinct sol.idSolicitud, u.correoElectronico, sol.FechaSolicitud, sol.HoraSolicitud, su.idClienteFK as idCliente, su.idAsesorFK as idAsesor,
 u.nombre AS nombreCliente, tr.nombreTipoReserva, ds.datoSolicitud, sol.estado FROM Solicitud sol
     JOIN SolicitudUsuario su ON sol.idSolicitud = su.idSolictudFK
     JOIN Usuario u ON su.idClienteFK = u.idUsuario
     JOIN DatosSolicitud ds ON sol.idSolicitud = ds.idSolicitudFK
     JOIN detalleTipoReserva dtr ON ds.idDetalleReservaFK = dtr.idDetalleReserva
     JOIN TipoReserva tr ON dtr.idTipoReservaFK = tr.idTipoReserva;
-    
     
 select * from view_sol_reserva;
 
@@ -256,6 +268,7 @@ END;
 //
 DELIMITER ;
 
+
 /*Ver cada reserva Individualmente. Si llamas call sp_ver_reserva(4) 
 salen 3 resultados, es relevante ya que es para un avalúo el cual
 tiene 3 datos diferentes que consultar, los demás solo devuelven 1*/
@@ -268,16 +281,68 @@ END;
 //
 DELIMITER ;
 
-
 /*Ver las reservas en el calendario, las reservas del día*/
 DELIMITER //
 CREATE PROCEDURE sp_reserva_dia(fecha DATE, idAsesor INT)
 BEGIN
 	select distinct idCliente, nombreCliente, horaSolicitud, fechaSolicitud
     from view_sol_reserva sol
-    where sol.fechaSolicitud = fecha and sol.idAsesor = idAsesor ;
+    where sol.fechaSolicitud = fecha and sol.idAsesor = idAsesor and sol.estado = 0;
 END;
 //
 DELIMITER ;
+
+/*Aceptar Solicitudes*/
+DELIMITER //
+CREATE PROCEDURE sp_update_request(IN p_idSolicitud INT)
+BEGIN
+   UPDATE solicitud
+   SET estado = 0
+   WHERE idSolicitud = p_idSolicitud;
+
+END;
+//
+DELIMITER ;
+
+/*Rechazar solicitudes*/
+DELIMITER //
+CREATE PROCEDURE sp_delete_request(IN p_idSolicitud INT)
+BEGIN
+ DELETE FROM datossolicitud where idSolicitudFK = p_idSolicitud;
+   DELETE FROM solicitudusuario where idSolicitudUsuario = p_idSolicitud;
+   DELETE FROM solicitud where idSolicitud = p_idSolicitud;
+END;
+//
+DELIMITER ;
+
+/*Vista para traer info de los usuarios, casi igualita a la tabla usuarios pero de paso trae
+el tipo de usuario*/
+CREATE VIEW view_usuario AS
+SELECT distinct u.idUsuario, u.nombre, u.apellido,u.telefono , u.correoElectronico, u.numIdentificacion
+,u.tipoIdentificacion, u.estado, r.idRol, r.nombreRol FROM usuario u
+    JOIN rol r ON r.idRol = u.idRolFK;
+
+select * from view_usuario;
+
+DELIMITER //
+CREATE PROCEDURE sp_insert_soliUsuario (p_idSolicitud INT, p_idCliente INT, p_idAsesor INT)
+BEGIN
+	insert into solicitudusuario(idSolictudFK, idClienteFK, idAsesorFK)
+    values(p_idSolicitud, p_idCliente, p_idAsesor);
+END;
+//
+DELIMITER ;
+
+/*Estadística de cantidad de reservas y solicitudes realizadas*/
+DELIMITER //
+CREATE PROCEDURE sp_contar_reservas(IN p_estado INT)
+BEGIN
+	 SELECT COUNT(DISTINCT idSolicitud) AS cantidad
+    FROM view_sol_reserva
+    WHERE estado = p_estado;
+END;
+//
+DELIMITER ;
+
 
 
