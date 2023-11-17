@@ -1,0 +1,83 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('../principal.css');
+
+
+/* Estilos para el contenedor principal */
+.container{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+/* Estilos para las cajas de botones */
+.box-btn{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    text-align: center; 
+    margin: 20px 20px;
+}
+
+/* Estilos para los botones */
+.btn{
+    width: 100%;
+    height: 120px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-family: var(--font);
+    font-size: 150%;  
+}
+
+/* Estilos para el primer botón */
+.one{
+    background-image: url("option-1.png");
+    background-size: cover;
+}
+
+/* Estilos para el segundo botón */
+.two{
+    background-image: url("option-2.png");
+    background-size: cover;
+}
+
+/* Estilos para el tercer botón */
+.three{
+    background-image: url("option-3.png");
+    background-size: cover;
+}
+
+/* Estilos para el cuarto botón */
+.four{
+    background-image: url("option-4.png");
+    background-size: cover;
+}
+
+/* Estilos para el quinto botón */
+.five{
+    background-image: url("option-5.png");
+    background-size: cover;
+}
+
+/* Estilos para el texto dentro de los botones */
+.btn > strong{
+    margin: 0% auto;
+    position: relative;
+    top: 30%;
+}
+
+/* Estilos para el título de reservación */
+.title-booking{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: var(--titulo-secundario);
+    font-family: var(--font);
+}
+
+/* Estilos para el elemento h2 dentro del título de reservación */
+.title-booking > h2{
+    color: black;
+}
