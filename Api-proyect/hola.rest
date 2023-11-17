@@ -1,2 +1,0 @@
-GET http://localhost:3001/inicio
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImF4bCIsImlhdCI6MTY5MzM0NjE2MiwiZXhwIjoxNjkzMzQ2MTcyfQ.TZ_u6Lt_yiqzCNSRH8jFCa7FLv1fS2hsGBL5N2sm48A
