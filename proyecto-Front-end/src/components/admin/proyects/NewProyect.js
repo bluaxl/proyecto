@@ -36,7 +36,7 @@ export function NewProyect() {
             .then((response) => {
                 const data = response.data;
 
-                if (data.decodeToken.rolUser === 'admin') {
+                if (data.decodeToken.rolUser === 2) {
                     setUserRole(data.decodeToken.rolUser);
                 } else {
                     // Redirigir al usuario a una página de acceso denegado
@@ -83,7 +83,7 @@ export function NewProyect() {
         });
     };
 
-    if (userRole === 'admin') {
+    if (userRole === 2) {
         return (
             <div>
                 <div className="information-header">
@@ -93,8 +93,8 @@ export function NewProyect() {
                     <div class="publish-box">
                         <InputForm type="text" options="Barrio: " placeholder="ingrese el nombre del barrio" refe={barrioRef}/>
                         <InputForm type="text" options="Dirección: "  placeholder="ingrese la dirección" refe={direccionRef}/>
-                        <InputForm type="number" options="Área Construida: " placeholder="ingrese el área construida" refe={areaConstruidaRef}/>
-                        <InputForm type="number" options="Área de lote: "  placeholder="ingrese el área del lote" refe={areaLoteRef}/>
+                        <InputForm type="text" options="Área Construida: " placeholder="ingrese el área construida" refe={areaConstruidaRef}/>
+                        <InputForm type="text" options="Área de lote: "  placeholder="ingrese el área del lote" refe={areaLoteRef}/>
                         <InputForm type="text" options="Dimensiones: "  placeholder="ingrese las dimensiones" refe={dimensionesRef}/>
                         <InputForm type="text" options="Estado Construcción: "  placeholder="ingrese el estado de construcción" refe={estaConstruccionRef}/>
                         <InputForm type="number" options="Número de pisos: "  placeholder="ingrese el número de pisos" refe={numPisosRef}/>

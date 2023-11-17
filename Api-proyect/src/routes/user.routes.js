@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import {inicioSession, consultar, validateToken, registrar, consultarInfoUsuario} from '../controller/login.controller.js'
+import {inicioSession, consultar, validateToken, registrar, consultarInfoUsuario} from '../controller/user.controller.js'
 
 
 //Definición de rutas 

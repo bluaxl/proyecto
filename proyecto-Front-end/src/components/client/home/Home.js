@@ -2,89 +2,41 @@
 import "../../../css/Client/home.css";
 // Importación del componente Footer
 import { Footer } from "../footer/footer";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState } from 'react';
 import axios from "axios";
 
 
 // Componente Index
 function Index() {
-
-    const navigate = useNavigate();
-    const token = document.cookie.replace('token=','')
-
-    axios.get("http://localhost:3001/inicio", {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": token
+    const [inmuebles, setInmuebles] = useState([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:3001/verInmuebles');
+          setInmuebles(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
         }
-      }).then((response) => {
-          const data = response.data
-          // Manejar la respuesta del servidor, por ejemplo, mostrar un mensaje de éxito
-          console.log("acceso exitoso", data);
-        })                                                                                                                                                                                                        
-        .catch((error) => {
-          // Manejar errores, por ejemplo, mostrar un mensaje de error
-          console.error("Error:", error);
-          navigate("/login")
-        });
-
+      };
+  
+      fetchData();
+    }, []);
+  
     return (
-        // Contenedor principal de la página de inicio
-        <div className="container-index" >
-            {/* Título principal */}
-            <div className="main-title-box">
-                <p className="txt-white">Encuentra el <b>inmueble </b> perfecto con nosotros</p>
-            </div>
-            {/* Filtros de búsqueda */}
-            <div className="filter-box">
-                <div className="filter-index">
-                    {/* Selección de ubicación */}
-                    <select className="select">
-                        <option disabled selected>Ubicación</option>
-                        <option value="Engativa">Engativá</option>
-                        <option value="Fontibon">Fontibón</option>
-                        <option value="Usme">Usme</option>
-                    </select>
-                    {/* Selección de precio */}
-                    <select className="select">
-                        <option disabled selected>Precio</option>
-                        <option value="50">menos de 50 millones</option>
-                        <option value="50-100">50 - 100 millones</option>
-                        <option value="100-200">100 - 200 millones</option>
-                        <option value="200-200">200 - 300 millones</option>
-                        <option value="300">más de 300 millones</option>
-                    </select>
-                    {/* Selección de tipo de inmueble */}
-                    <select className="select">
-                        <option disabled selected>Tipo de Inmueble</option>
-                        <option value="50">Casa</option>
-                        <option value="50-100">Casa lote</option>
-                        <option value="100-200">Lote</option>
-                        <option value="200-200">Apartamento</option>
-                    </select>
-                    {/* Selección de estado */}
-                    <select className="select">
-                        <option disabled selected>Estado</option>
-                        <option value="50">Terminada</option>
-                        <option value="50-100">Semi-terminada</option>
-                        <option value="100-200">Obra negra</option>
-                        <option value="200-200">Obra gris</option>
-                    </select>
-                    {/* Botón de búsqueda */}
-                    <div className="search">
-                        <button className="search-btn"><span className="material-symbols-outlined">search
-                        </span>Buscar</button>
-                    </div>
-                </div>
-            </div>
-            {/* Indicador de desplazamiento */}
-            <div className="arrow-box">
-                <span className="material-symbols-outlined">arrow_downward</span>
-            </div>
-        </div >
+      <div>
+        {inmuebles.map((inmueble) => (
+          <div key={inmueble.id}>
+            <h2>{inmueble.id}</h2>
+            {/* Asegúrate de usar la propiedad correcta */}
+            <img src={`http://localhost:3001/${inmueble.imagen}`} alt={`Inmueble ${inmueble.id}`} />
+          </div>
+        ))}
+      </div>
     );
-}
-
+  }
+  
 // Componente Estate
 function Estate() {
     return (
@@ -171,3 +123,4 @@ export function Home() {
         </div>
     );
 }
+

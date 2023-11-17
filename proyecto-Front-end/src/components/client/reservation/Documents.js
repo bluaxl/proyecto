@@ -1,18 +1,128 @@
 // Importación de módulos y componentes
+import axios from "axios";
+import React, { useRef } from 'react';
 import "../../../css/Client/reservation.css";
 import { Button, DateTimeButton } from "./Reservation";
 
 // Componente Documents
 export function Documents() {
+
+    const fecha = useRef(null);
+    const tipoDocumentoRef = useRef(null)
+
+    function handleRegister(e) {
+        e.preventDefault();
+
+        const tipoDocumento = tipoDocumentoRef.current.value;
+
+        const dateValue = fecha.current.querySelector(".fechaReserva").value;
+        const hourValue = fecha.current.querySelector(".horaReserva").value;
+
+        const datos = {
+            fecha: dateValue,
+            hora: hourValue
+        }
+
+        const token = document.cookie.replace('token=','')
+
+        axios.get("http://localhost:3001/inicio", {
+            headers: {
+            "Content-Type": "application/json",
+            "Authorization": token
+            }
+        }).then((response) => {
+            const data = response.data
+            const idCliente = data.decodeToken.rolUser
+            console.log(idCliente);
+            
+            axios.post("http://localhost:3001/disponibilidad", datos, {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            }).then((data)=>{
+                const idAsesor = data.data.idUsuario
+                console.log(idAsesor);
+
+                axios.post("http://localhost:3001/solicitud", datos, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                })
+                .then((data1) => {
+                    axios.post("http://localhost:3001/consultarSoli", datos, {
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        }).then((info) => {
+                            const data = info.data
+                            const idSolicitud = data.ultimoIdSolicitud
+                            console.log(idSolicitud);
+
+                            const datos1 = {
+                                idSolicitud: idSolicitud,
+                                idCliente: idCliente,
+                                idAsesor: idAsesor
+                            }
+
+                            const datos2 = {
+                                tipoDocumento: tipoDocumento,
+                                idSolicitud: idSolicitud
+                            }
+
+                            axios.post("http://localhost:3001/insertSoliUsuario", datos1, {
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                }).then((data) => {
+                                    console.log("inserto correctamente en insertSoliUsuario", data);
+
+                                }).catch((error)=>{ 
+                                    console.log("Error:", error);
+                                })
+
+                            axios.post("http://localhost:3001/documents", datos2, {
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                }).then((data) => {
+                                    console.log("inserto diseño", data);
+                                    alert("Solicitud Exitosa")
+
+                                }).catch((error)=>{ 
+                                    console.log("Error:", error);
+                                })
+
+                        }).catch((error)=>{
+                            console.log("Error:", error);
+                        })
+                    })
+                .catch((error) => {
+                    console.error("Error", error);
+                });
+            
+            }).catch((error)=>{
+                console.log('no se encontro asesor');
+                alert('no hay asesores disponible ingrese otra fecha')
+            })
+
+
+            })                                                                                                                                                                                                        
+        .catch((error) => {
+            // Manejar errores, por ejemplo, mostrar un mensaje de error
+            console.error("Error:", error);
+        });
+    
+    }
+
     return (
         <div className="container-reservation">
             <div className="registro">
-                <form method="POST">
+                <form method="POST" onSubmit={handleRegister}>
                     {/* Selección de tipo de documento */}
                     <div className="information">
                         <div>
                             <h4>¿Qué tipo de documentos desea?</h4>
-                            <select className="select">
+                            <select className="select" ref={tipoDocumentoRef}>
                                 <option disabled selected>Seleccione una Opción</option>
                                 <option value="promesa-compraventa">Promesa de compraventa</option>
                                 <option value="contrato-arrendamiento">Contrato de arrendamiento</option>
@@ -20,7 +130,7 @@ export function Documents() {
                             </select>
                         </div>
                         {/* Selección de fecha y hora */}
-                        <div>
+                        <div ref={fecha}>
                             <DateTimeButton css="datetime-box" />
                         </div>
                     </div>

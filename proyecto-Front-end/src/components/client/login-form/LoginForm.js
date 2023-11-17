@@ -33,9 +33,9 @@ function LoginForm() {
           console.log("Registro exitoso", data);
           document.cookie = `token=${data.token}; max-age=${3600 * 2}; path=/; samesite=strict`;
           console.log(document.cookie);
-          if (data.rolUser === "admin") {
+          if (data.rolUser === 2) {
             navigate("/admin/create-proyect");
-          } else if (data.rolUser === "user") {
+          } else if (data.rolUser === 1) {
             navigate("/");
           }
         })
@@ -56,18 +56,18 @@ function LoginForm() {
                     <label><b>Correo: </b> </label>
                 </div>
                 <div>
-                    <input type="email" ref={emailRef}/>
+                    <input type="email" required ref={emailRef}/>
                 </div>
                 {/* Campo de contraseña */}
                 <div className="label-login">
                     <label><b>Contraseña: </b></label>
                 </div>
                 <div>
-                    <input type="password" ref={passwordRef}/>
+                    <input type="password" required ref={passwordRef}/>
                 </div>
                 {/* Botón de enviar */}
                 <div className="button-div">
-                    <button className="btn-login" type="submit"><b>Enviar</b></button>
+                    <button className="btn-login" type="submit"><b>Ingresar</b></button>
                 </div>
             </form>
             {/* Enlace para registrarse */}

@@ -35,8 +35,8 @@ function RegisterForm() {
             email: emailValue,
             lastName: lastNameValue,
             typeId: typeIdValue,
-            number: numberValue,
-            password: passwordValue
+            num: numberValue,
+            password: passwordValue,
 
         };
     
@@ -72,19 +72,19 @@ function RegisterForm() {
                             <label><b>Nombre: </b> </label>
                         </div>
                         <div>
-                            <input type="text" ref={nameRef}/>
+                            <input type="text" required ref={nameRef}/>
                         </div>
                         <div className="label-login">
                             <label><b>Número de identificación: </b> </label>
                         </div>
                         <div>
-                            <input type="long" ref={numIdRef}/>
+                            <input type="long" required ref={numIdRef}/>
                         </div>
                         <div className="label-login">
                             <label><b>Correo: </b> </label>
                         </div>
                         <div>
-                            <input type="email" ref={emailRef}/>
+                            <input type="email" required ref={emailRef}/>
                         </div>
                     </div>
                     <div className="container2">
@@ -92,7 +92,7 @@ function RegisterForm() {
                             <label><b>Apellido: </b></label>
                         </div>
                         <div>
-                            <input type="text" ref={lastNameRef}/>
+                            <input type="text" required ref={lastNameRef}/>
                         </div>
                         <div className="label-login">
                             <label><b>Tipo de identificación: </b></label>
@@ -109,7 +109,7 @@ function RegisterForm() {
                             <label><b>Número de teléfono: </b></label>
                         </div>
                         <div>
-                            <input type="long" ref={numberRef}/>
+                            <input type="long" required ref={numberRef}/>
                         </div>
                     </div>
                 </div>
@@ -119,12 +119,12 @@ function RegisterForm() {
                             <label><b>Contraseña: </b> </label>
                         </div>
                         <div>
-                            <input type="text" ref={passwordRef}/>
+                            <input type="text" required ref={passwordRef}/>
                         </div>
                     </div>
                 </div>
                 <div className="button-div">
-                    <button className="btn-login" type="submit"><b>Enviar</b></button>
+                    <button className="btn-login" type="submit"><b>Registrar</b></button>
                 </div>
             </form>
             <div>
