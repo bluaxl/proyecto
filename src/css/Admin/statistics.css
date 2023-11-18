@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('../principal.css');
+
+
+.estatistics-box{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 20px; 
+    width: 90%;
+    margin-top: 5%;
+}
+
+.info-statistics{
+    width: 90%;
+    background-color: var(--light-blue);
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top:2%;
+}
+
+.advisory-statistics{
+    grid-column: span 2;
+    width: 95%;
+}
+
+.txt-blue{
+    color: darkblue;
+}

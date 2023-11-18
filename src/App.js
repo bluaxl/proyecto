@@ -33,6 +33,7 @@ import { CalendarReservation } from './components/advisor/reservation/CalendarRe
 import { AccesDenied } from './components/client/other/AccesDenied';
 import { StateDetail } from './components/client/home/StateDetail';
 import { ViewStateAdvisory } from './components/advisor/state/ViewState';
+import { Statistics} from './components/admin/dashboard/Statistics';
 
 function App() {
  
@@ -65,6 +66,7 @@ function App() {
             <Route path="user-profile/:id" element={<UsersProfile/>}/>
             <Route path="publish-proyect" element={<UploadProyect/>}/>
             <Route path="view-state" element={<ViewState/>}/>
+            <Route path="statistics-page" element={<Statistics/>}/>
         </Route>
         <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path=""/>
