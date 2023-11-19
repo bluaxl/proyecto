@@ -30,7 +30,6 @@ function Index() {
 // Componente Estate
 function Estate() {
 
-
     const navigate = useNavigate();
     const [inmuebles, setInmuebles] = useState([]);
     const [images, setImages] = useState([]);
@@ -71,7 +70,7 @@ function Estate() {
                     {inmuebles.map((casa, index) => (
                         <div key={casa.idInmueble} className="house-catalogue">
                             {images[index] && images[index].imagen && (
-                                <img src={`http://localhost:3001/${images[index].imagen}`} alt={`Inmueble ${casa.idInmueble}`} />
+                                <img className="img-home-catalogue" src={`http://localhost:3001/${images[index].imagen}`} alt={`Inmueble ${casa.idInmueble}`} />
                             )}
                             <div className="house-description-catalogue">
                                 <h3 className="house-h2-description txt-white">{casa.tipoInmueble} {casa.barrio}</h3>

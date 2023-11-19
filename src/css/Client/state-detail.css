@@ -13,3 +13,16 @@
     justify-content: space-between;
     margin: 0% 10%;
 }
+
+.img-box-individual-state{
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-individual{
+    width: 50%;
+    height: 20rem;
+    object-fit: cover;
+}

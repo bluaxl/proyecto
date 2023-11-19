@@ -6,17 +6,20 @@ import "../../../css/Client/state-detail.css";
 export function StateDetail() {
     const { id } = useParams();
     const [casa, setCasa] = useState(null);
+    const [images, setImages] = useState([]);
+
 
     useEffect(() => {
         fetch(`http://localhost:3001/verInmueble/${id}`)
             .then(response => response.json())
             .then(response => {
-                setCasa(response);
-                console.log(response);
+                setCasa(response.rows);
+                setImages(response.imageResult);
+                console.log(response.rows)
             })
             .catch(error => {
                 console.error('Error:', error);
-                setCasa(null); 
+                setCasa(null);
             });
     }, [id]);
 
@@ -29,25 +32,30 @@ export function StateDetail() {
             {casa ? (
                 <>
                     <div className='header-info-detail'>
-                        <h2 className="txt-black">{casa[0].tipoInmueble} {casa[0].barrio}</h2>
-                        <h2 className='txt-black'>${Number(casa[0].precio).toLocaleString('es-ES', opciones)}</h2>
+                        <h2 className="txt-black">{casa.tipoInmueble} {casa.barrio}</h2>
+                        <h2 className='txt-black'>${Number(casa.precio).toLocaleString('es-ES', opciones)}</h2>
                     </div>
 
+                    {images && (
+                        <div className='img-box-individual-state'>
+                            <img className='img-individual' src={`http://localhost:3001/${images.imagen}`}></img>
+                        </div>
+                    )}
                     <div className="data-detail">
                         <div className='caracteristicas'>
                             <h3 className='txt-black'>Caracteristicas</h3>
-                        <p>Barrio: {casa[0].barrio}</p>
-                        <p>Direccion: {casa[0].direccion}</p>
-                        <p>Area del lote: {casa[0].areaLote}</p>
-                        <p>Area Construida: {casa[0].areaConstruida}</p>
-                        <p>Estado de construccion: {casa[0].estadoConstruccion}</p>
-                    
+                            <p>Barrio: {casa.barrio}</p>
+                            <p>Direccion: {casa.direccion}</p>
+                            <p>Area del lote: {casa.areaTerreno}</p>
+                            <p>Area Construida: {casa.areaConstruida}</p>
+                            <p>Estado de construccion: {casa.estadoConstruccion}</p>
+
                         </div>
                         <div className='distribucion'>
                             <h3 className='txt-black'>Distribución</h3>
-                            <p>Numero De Habitaciones: {casa[0].numHabitaciones}</p>
-                            <p>Numeor de pisos: {casa[0].numPisos}</p>
-                            <p>Numero de Baños: {casa[0].numBaños}</p>
+                            <p>Numero De Habitaciones: {casa.numHabitaciones}</p>
+                            <p>Numeor de pisos: {casa.numPisos}</p>
+                            <p>Numero de Baños: {casa.numBaños}</p>
                         </div>
                     </div>
                 </>

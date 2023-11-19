@@ -34,6 +34,7 @@ import { AccesDenied } from './components/client/other/AccesDenied';
 import { StateDetail } from './components/client/home/StateDetail';
 import { ViewStateAdvisory } from './components/advisor/state/ViewState';
 import { Statistics} from './components/admin/dashboard/Statistics';
+import { UpdateStates } from './components/advisor/state/UpdateState';
 
 function App() {
  
@@ -79,6 +80,7 @@ function App() {
             <Route path="create-menssage" element={<NotificationReservation/>}/> 
             <Route path="show-reserves" element={<CalendarReservation/>}/> 
             <Route path="state-advisory/:id" element={<ViewStateAdvisory/>}/>
+            <Route path="UpdateState/:id" element={<UpdateStates/>}/>
         </Route>
 
         <Route path="access-denied" element={<AccesDenied/>}></Route>

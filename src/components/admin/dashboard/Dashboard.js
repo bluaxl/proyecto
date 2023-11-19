@@ -32,7 +32,7 @@ const DashboardLeft = () => {
         <div>
             <div className="left-dashboard">
                 <div className="img-dashboard-box">
-                    <img src="./../img/icons/Logo2.png"></img>
+                    <img src="../../../img/icons/Logo2.png"></img>
                 </div>
                 <nav className="nav-left-dashboard">
                     <ul className="list">

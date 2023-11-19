@@ -1,11 +1,11 @@
 import "../../../css/Admin/newstate.css"
 import React, { useRef } from "react";
 
-export function InputForm({ placeholder, options, type, refe }) {
+export function InputForm({ placeholder, options, type, refe, value }) {
     return (
       <div className="subdiv-publish-box">
         <p className="name-option">{options}</p>
-        <input type={type} className="input-new-state" placeholder={placeholder} ref={refe}></input>
+        <input type={type} className="input-new-state" value={value} placeholder={placeholder} ref={refe}></input>
       </div>
     );
   }
@@ -65,7 +65,7 @@ export function NewState() {
         </div>
         <form className="form-state" onSubmit={handleRegister} method="POST">
         <div className="publish-box">
-                    <InputForm type="text" options="Barrio: " placeholder="Ingrese el nombre del barrio" refe={barrioRef} />
+                    <InputForm type="text" options="Barrio: "  placeholder="Ingrese el nombre del barrio" refe={barrioRef} />
                     <InputForm type="text" options="Dirección: " placeholder="Ingrese la dirección" refe={direccionRef} />
                     <InputForm type="text" options="Área Construida: " placeholder="Ingrese el área construida (ej: 6 x 12)" refe={areaConstruidaRef} />
                     <InputForm type="text" options="Área de lote: " placeholder="Ingrese el área del lote" refe={areaLoteRef} />
