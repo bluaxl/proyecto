@@ -1,45 +1,59 @@
 import "../../../css/Advisory/cruds.css";
-// Importación de estilos CSS
 import "../../../css/Client/home.css";
-import { useNavigate } from 'react-router-dom';
-
 import React, { useState, useEffect } from 'react';
-
-
+import { useNavigate } from 'react-router-dom';
 
 export function CrudReservation() {
     const navigate = useNavigate();
-    const [requests, setRequests] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(8);
+    const [requests, setRequests] = useState([]);
 
     useEffect(() => {
+        fetchRequests();
+    }, [currentPage]);
+
+    const fetchRequests = () => {
+        // Lógica para obtener las solicitudes de la página actual desde el servidor
         fetch(`http://localhost:3001/requestReservation?tipo=${1}`, {
-            method: 'GET'
+            method: 'GET',
         })
             .then(response => response.json())
             .then(response => {
-                setRequests(response)
-                console.log(response)
+                const uniqueIds = new Set();
+                const uniqueRequests = response.filter(requests => {
+                    if (uniqueIds.has(requests.idSolicitud)) {
+                        return false; 
+                    }
+                    uniqueIds.add(requests.idSolicitud);
+                    return true;
+                });
+
+                setRequests(uniqueRequests);
             })
             .catch(error => console.error('Error:', error));
-    }, []);
+    };
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentRequests = requests.slice(indexOfFirstItem, indexOfLastItem);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     function verSolicitud({ idSolicitud }) {
-        console.log(idSolicitud);
-
         fetch(`http://localhost:3001/requestIndividual/${idSolicitud}`)
             .then(response => response.json())
             .then(response => {
-                console.log(response[0].nombreTipoReserva);
-
-                if (response.nombreTipoReserva != "Avaluo") {
+                if (response.nombreTipoReserva !== "Avaluo") {
                     navigate(`/advisory/requestS/${idSolicitud}`);
                 } else {
                     navigate(`/advisory/requestN/${idSolicitud}`);
                 }
-
             })
             .catch(error => console.error("Error", error));
     }
+
+
 
     return (
         <>
@@ -53,21 +67,32 @@ export function CrudReservation() {
                     <p>No hay solicitudes disponibles.</p>
                 </div>
             ) : (
-                <table className="crud-state-table">
-                    <tbody className="crud-state-tbody">
-                        {requests.map(request => (
-                            <tr key={request.idSolicitud} className="crud-state-tr">
-                                <td>Fecha: {new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
-                                <td>Tipo: {request.nombreTipoReserva}</td>
-                                <td>Cliente: {request.nombreCliente}</td>
-                                <td>
-                                    <button className="action-button" onClick={() => verSolicitud({ idSolicitud: request.idSolicitud })}><i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div>
+                    <table className="crud-state-table">
+                        <tbody className="crud-state-tbody">
+                        {currentRequests.map(request => (
+                                <tr key={request.idSolicitud} className="crud-state-tr">
+                                    <td>Fecha: {new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
+                                    <td>Tipo: {request.nombreTipoReserva}</td>
+                                    <td>Cliente: {request.nombreCliente}</td>
+                                    <td>
+                                        <button className="action-button" onClick={() => verSolicitud({ idSolicitud: request.idSolicitud })}><i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    {requests.length > itemsPerPage && (
+                        <ul className="pagination">
+                            {Array.from({ length: Math.ceil(requests.length / itemsPerPage) }, (_, index) => (
+                                <li key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active  txt-black' : ' txt-black'}>
+                                    {index + 1}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             )}
         </>
-    )
+    );
 }
