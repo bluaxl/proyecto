@@ -1,9 +1,13 @@
 import "../../../css/Advisory/newstate.css";
 import { InputForm } from "../../admin/state/NewState";
+import { useNavigate } from "react-router-dom";
 import React, { useRef } from "react";
 
 
 export function NewStates() {
+
+    const navigate = useNavigate();
+
     const barrioRef = useRef(null);
     const direccionRef = useRef(null);
     const areaConstruidaRef = useRef(null);
@@ -18,7 +22,7 @@ export function NewStates() {
 
     async function handleRegister(e) {
         e.preventDefault();
-
+        
         const formData = new FormData();
         formData.append("barrio", barrioRef.current.value);
         formData.append("direccion", direccionRef.current.value);
@@ -45,6 +49,7 @@ export function NewStates() {
             .then((data) => {
                 console.log("Registro exitoso", data);
                 alert("Registro exitoso");
+                navigate(`/advisory/propierty-list`);
             })
             .catch((error) => {
                 console.error("Error", error);
@@ -62,7 +67,7 @@ export function NewStates() {
                     <InputForm type="text" options="Barrio: " placeholder="Ingrese el nombre del barrio" refe={barrioRef} />
                     <InputForm type="text" options="Dirección: " placeholder="Ingrese la dirección" refe={direccionRef} />
                     <InputForm type="text" options="Área Construida: " placeholder="Ingrese el área construida (ej: 6 x 12)" refe={areaConstruidaRef} />
-                    <InputForm type="text" options="Área de lote: " placeholder="Ingrese el área del lote" refe={areaLoteRef} />
+                    <InputForm type="text" options="Área Terreno: " placeholder="Ingrese el área del terreno" refe={areaLoteRef} />
                     <InputForm type="text" options="Estado Construcción: " placeholder="Ingrese el estado de construcción (ej: Terminada)" refe={estadoConstruccionRef} />
                     <InputForm type="number" options="Número de pisos: " placeholder="Ingrese el número de pisos" refe={numPisosRef} />
                     <InputForm type="number" options="Número de habitaciones " placeholder="Ingrese el número de habitaciones" refe={numHabitacionesRef} />

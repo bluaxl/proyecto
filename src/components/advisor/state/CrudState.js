@@ -15,7 +15,8 @@ export function CrudStates() {
             method: 'GET'
         })
             .then(response => response.json())
-            .then(data => setStates(data))
+            .then(data =>{ setStates(data.rows) 
+                console.log(data)})
             .catch(error => console.error('Error:', error));
     }, []);
 
@@ -46,11 +47,18 @@ export function CrudStates() {
                 </div>
             </div>
             <table className="crud-state-table">
+                <thead>
+                <td>Nombre Inmueble</td>
+                    <td>area Construida</td>
+                    <td>estado Construcción</td>
+                    <td>Ver</td>
+
+                </thead>
                 <tbody className="crud-state-tbody">
                     {states.map(state => (
                         <tr className="crud-state-tr">
                             <td>{state.tipoInmueble} {state.barrio}</td>
-                            <td>{state.areaLote} m²</td>
+                            <td>{state.areaConstruida} m²</td>
                             <td>{state.estadoConstruccion}</td>
                             <td>
                                 <button className="action-button" onClick={() => verInmueble({idInmueble: state.idInmueble})}><i class="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
