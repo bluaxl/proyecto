@@ -1,5 +1,6 @@
 import "../../../css/Admin/newstate.css";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 export function InputForm({ placeholder, options, type, refe }) {
@@ -14,6 +15,7 @@ export function InputForm({ placeholder, options, type, refe }) {
 }
 
 export function NewState() {
+
   const barrioRef = useRef(null);
   const direccionRef = useRef(null);
   const areaConstruidaRef = useRef(null);
@@ -26,6 +28,35 @@ export function NewState() {
   const estratoRef = useRef(null);
   const garajeRef = useRef(null);
   const imageRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+      const token = localStorage.getItem('token') 
+
+      axios.get('http://localhost:3001/inicio', {
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': token,
+          },
+      })
+          .then((response) => {
+              const data = response.data;
+
+              if (data.decodeToken.rolUser === 2) {
+                  setUserRole(data.decodeToken.rolUser);
+              } else {
+                  // Redirigir al usuario a una página de acceso denegado
+                  navigate('/access-denied');
+              }
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+              navigate('/login');
+          });
+  }, [navigate]);
 
   function handleRegister(e) {
     e.preventDefault();
@@ -59,33 +90,35 @@ export function NewState() {
         alert("Error en la solicitud: " + error.message);
       });
   }
-
-  return (
-    <>
-      <div className="information-header">
-        <h2 className="title-header">Nuevo Inmueble</h2>
-      </div>
-      <form className="form-state" onSubmit={handleRegister} method="POST">
-        <div className="publish-box">
-          <InputForm type="text" options="Barrio: " placeholder="ingrese el nombre del barrio" refe={barrioRef} />
-          <InputForm type="text" options="Dirección: " placeholder="ingrese la dirección" refe={direccionRef}/>
-          <InputForm type="text" options="Área Construida: " placeholder="ingrese el área construida" refe={areaConstruidaRef}/>
-          <InputForm type="text" options="Área de lote: " placeholder="ingrese el área de lote" refe={areaLoteRef}/>
-          <InputForm type="text" options="Dimensiones: " placeholder="ingrese las dimensiones" refe={dimensionesRef}/>
-          <InputForm type="text" options="Estado Construcción: " placeholder="ingrese el estado de construcción" refe={estaConstruccionRef}/>
-          <InputForm type="number" options="Número de pisos: " placeholder="ingrese el número de pisos" refe={numPisosRef}/>
-          <InputForm type="number" options="Número de habitaciones " placeholder="ingrese el número de habitaciones" refe={numHabitacionesRef}/>
-          <InputForm type="number" options="Número de Baños: " placeholder="ingrese el número de baños" refe={numBanosRef}/>
-          <InputForm type="number" options="Estrato: " placeholder="ingrese el estrato" refe={estratoRef}/>
-          <InputForm type="text" options="Garaje: " placeholder="ingrese el garaje" refe={garajeRef}/>
+  if (userRole === 2) {
+    return (
+      <>
+        <div className="information-header">
+          <h2 className="title-header">Nuevo Inmueble</h2>
         </div>
-        <div className="buttons-box">
-          <input type="file" name="imagen" ref={imageRef} accept="image/*" multiple />
-          <button type="submit" className="button-submit">
-            Publicar
-          </button>
-        </div>
-      </form>
-    </>
-  );
+        <form className="form-state" onSubmit={handleRegister} method="POST">
+          <div className="publish-box">
+            <InputForm type="text" options="Barrio: " placeholder="ingrese el nombre del barrio" refe={barrioRef} />
+            <InputForm type="text" options="Dirección: " placeholder="ingrese la dirección" refe={direccionRef}/>
+            <InputForm type="text" options="Área Construida: " placeholder="ingrese el área construida" refe={areaConstruidaRef}/>
+            <InputForm type="text" options="Área de lote: " placeholder="ingrese el área de lote" refe={areaLoteRef}/>
+            <InputForm type="text" options="Dimensiones: " placeholder="ingrese las dimensiones" refe={dimensionesRef}/>
+            <InputForm type="text" options="Estado Construcción: " placeholder="ingrese el estado de construcción" refe={estaConstruccionRef}/>
+            <InputForm type="number" options="Número de pisos: " placeholder="ingrese el número de pisos" refe={numPisosRef}/>
+            <InputForm type="number" options="Número de habitaciones " placeholder="ingrese el número de habitaciones" refe={numHabitacionesRef}/>
+            <InputForm type="number" options="Número de Baños: " placeholder="ingrese el número de baños" refe={numBanosRef}/>
+            <InputForm type="number" options="Estrato: " placeholder="ingrese el estrato" refe={estratoRef}/>
+            <InputForm type="text" options="Garaje: " placeholder="ingrese el garaje" refe={garajeRef}/>
+          </div>
+          <div className="buttons-box">
+            <input type="file" name="imagen" ref={imageRef} accept="image/*" multiple />
+            <button type="submit" className="button-submit">
+              Publicar
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+  return null; 
 }

@@ -22,7 +22,7 @@ export function Design() {
             hora: hourValue
         }
 
-        const token = document.cookie.replace('token=','')
+        const token = localStorage.getItem('token')
 
         axios.get("http://localhost:3001/inicio", {
             headers: {

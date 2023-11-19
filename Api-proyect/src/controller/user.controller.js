@@ -5,11 +5,60 @@ config();
 
 //Funcion para generar un token mediante una palabra secreta
 
-function generateAccessToken(user) {
-    return jwt.sign(user, process.env.SECRET, { expiresIn: '120m' });
 
-    //en el primer campo se envian las credenciales y en segundo la palabra secreta 
+function generateAccessToken(user) {
+    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+    // Establecer tiempo de expiración en 5 segundos
+    const expirationTimeInSeconds = currentTimeInSeconds + 10*60;
+
+    // Agregar tiempo de creación y expiración al token
+    const tokenPayload = {
+        ...user, //están copiando todas las propiedades del objeto user en el nuevo objeto tokenPayload
+        iat: currentTimeInSeconds,  // Tiempo de creación
+        exp: expirationTimeInSeconds,  // Tiempo de expiración
+    };
+
+    const token = jwt.sign(tokenPayload, process.env.SECRET);
+
+    console.log('Token creation time:', currentTimeInSeconds);
+    console.log('Token expiration time:', expirationTimeInSeconds);
+
+    return token;
 }
+
+export function validateToken(req, res, next) {
+    const accessToken = req.header('Authorization');
+
+    if (!accessToken) {
+        return res.status(401).send('Access denied: Token missing');
+    }
+
+    jwt.verify(accessToken, process.env.SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error al verificar el token:', err);
+            return res.status(403).send('Access denied: Token expired or incorrect');
+        } else {
+            const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+            const tokenCreationTime = decoded.iat;
+            const expirationTimeInSeconds = decoded.exp * 60;
+
+            console.log('Current Time:', currentTimeInSeconds);
+            console.log('Token Creation Time:', tokenCreationTime);
+            console.log('Expiration Time:', expirationTimeInSeconds);
+
+            // Verificar manualmente si el token ha expirado
+            if (currentTimeInSeconds <= expirationTimeInSeconds) {
+                console.log("El token es válido");
+                res.status(200).json({ decodeToken: decoded });
+                next();
+            } else {
+                return res.status(403).send('Access denied: Token expired');
+            }
+        }
+    });
+}
+
 
 //Funcion para iniciar sesion con validacion de errores 
 export const inicioSession = async (req, res) => {
@@ -43,27 +92,7 @@ export const inicioSession = async (req, res) => {
     }
 }
 
-//funcion para validar el token 
 
-export function validateToken(req, res, next) {
-    const accessToken = req.header('Authorization');
-    console.log(accessToken)
-    if (!accessToken) {
-        return res.status(401).send('Access denied: Token missing'); // Mensaje claro para token faltante
-    }
-
-    jwt.verify(accessToken, process.env.SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).send('Access denied: Token expired or incorrect'); // Mensaje claro para token inválido
-        } else {
-            // Si el token es válido, almacena el usuario en req.user si lo necesitas.
-            console.log(decoded)
-            res.status(200).json({decodeToken: decoded})
-            console.log("El token es válido");
-            next();
-        }
-    });
-}
 
 
 

@@ -31,8 +31,9 @@ function LoginForm() {
         .then((response) => {
           const data = response.data;
           console.log("Registro exitoso", data);
-          document.cookie = `token=${data.token}; max-age=${3600 * 2}; path=/; samesite=strict`;
-          console.log(document.cookie);
+
+          localStorage.setItem('token', data.token);
+
           if (data.rolUser === 2) {
             navigate("/admin/create-proyect");
           } else if (data.rolUser === 1) {

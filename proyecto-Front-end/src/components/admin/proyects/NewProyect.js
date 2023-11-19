@@ -25,7 +25,7 @@ export function NewProyect() {
     const [userRole, setUserRole] = useState(null);
 
     useEffect(() => {
-        const token = document.cookie.replace('token=', ''); // Reemplaza por tu método de obtención de token
+        const token = localStorage.getItem('token') 
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
