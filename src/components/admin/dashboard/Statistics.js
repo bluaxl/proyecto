@@ -83,3 +83,5 @@ export function Statistics() {
         </>
     );
 }
+
+//https://youtu.be/VgMYzvQGUkc?t=3678
