@@ -72,7 +72,7 @@ export function CrudProyects() {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   function viewProject({ idProyecto }) {
-    navigate(`/admin/view-project/${idProyecto}`);
+    navigate(`/admin/view-proyect/${idProyecto}`);
   }
 
   if (userRole === 2) {

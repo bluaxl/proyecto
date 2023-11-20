@@ -48,12 +48,6 @@ const DashboardLeft = () => {
                                         <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="publish-new-propierty" className="link-list"><p className="txt-white">Publicar Nuevo Inmueble</p></Link>
                                     </div>
                                 </li>
-                                {/* Opción "Publicar Proyecto" */}
-                                <li className="sub-menu-item">
-                                    <div className="item-text">
-                                        <i className="fa-solid fa-circle-plus normal" style={{ color: "white" }}></i><Link to="publish-proyect" className="link-list"><p className="txt-white"> Publicar Proyecto </p></Link>
-                                    </div>
-                                </li>
                                 {/* Opción "Ver Inmuebles" */}
                                 <li className="sub-menu-item">
                                     <div className="item-text">

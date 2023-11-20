@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "../../../css/Client/state-detail.css";
 
 
 export function StateDetail() {
+
+    const navigate = useNavigate();
     const { id } = useParams();
     const [casa, setCasa] = useState(null);
     const [images, setImages] = useState([]);
@@ -26,6 +28,10 @@ export function StateDetail() {
 
     const opciones = { style: 'decimal', maximumFractionDigits: 2 };
 
+    function volverIndex(){
+        navigate(`/`);
+    }
+
 
     return (
         <div>
@@ -34,28 +40,30 @@ export function StateDetail() {
                     <div className='header-info-detail'>
                         <h2 className="txt-black">{casa.tipoInmueble} {casa.barrio}</h2>
                         <h2 className='txt-black'>${Number(casa.precio).toLocaleString('es-ES', opciones)}</h2>
+                        <button className="txt-black b" onClick={() => volverIndex()}>Volver</button>
                     </div>
+                    <div className='catalogue-img-data'>
+                        {images && (
+                            <div className='img-box-individual-state'>
+                                <img className='img-individual' src={`http://localhost:3001/${images.imagen}`}></img>
+                            </div>
+                        )}
+                        <div className="data-detail">
+                            <div className='caracteristicas'>
+                                <h3 className='txt-white t'>Características</h3>
+                                <p className='txt-white'>Barrio: {casa.barrio}</p>
+                                <p className='txt-white'>Dirección: {casa.direccion}</p>
+                                <p className='txt-white'>Area del lote: {casa.areaTerreno}</p>
+                                <p className='txt-white'>Area Construida: {casa.areaConstruida}</p>
+                                <p className='txt-white'>Estado de construcción: {casa.estadoConstruccion}</p>
 
-                    {images && (
-                        <div className='img-box-individual-state'>
-                            <img className='img-individual' src={`http://localhost:3001/${images.imagen}`}></img>
-                        </div>
-                    )}
-                    <div className="data-detail">
-                        <div className='caracteristicas'>
-                            <h3 className='txt-black'>Caracteristicas</h3>
-                            <p>Barrio: {casa.barrio}</p>
-                            <p>Direccion: {casa.direccion}</p>
-                            <p>Area del lote: {casa.areaTerreno}</p>
-                            <p>Area Construida: {casa.areaConstruida}</p>
-                            <p>Estado de construccion: {casa.estadoConstruccion}</p>
-
-                        </div>
-                        <div className='distribucion'>
-                            <h3 className='txt-black'>Distribución</h3>
-                            <p>Numero De Habitaciones: {casa.numHabitaciones}</p>
-                            <p>Numeor de pisos: {casa.numPisos}</p>
-                            <p>Numero de Baños: {casa.numBaños}</p>
+                            </div>
+                            <div className='distribucion'>
+                                <h3 className='txt-white t'>Distribución</h3>
+                                <p className='txt-white'>Numero De Habitaciones: {casa.numHabitaciones}</p>
+                                <p className='txt-white'>Numero de pisos: {casa.numPisos}</p>
+                                <p className='txt-white'>Numero de Baños: {casa.numBaños}</p>
+                            </div>
                         </div>
                     </div>
                 </>

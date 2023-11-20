@@ -4,7 +4,7 @@ import 'popper.js';
 import "../../../css/Admin/view-state.css"
 import axios from 'axios';
 
-export function ViewState() {
+export function ViewProyect() {
 
     const navigate = useNavigate();
     const { id } = useParams();
@@ -38,7 +38,7 @@ export function ViewState() {
                 navigate('/login');
             });
 
-        fetch(`http://localhost:3001/verInmueble/${id}`)
+        fetch(`http://localhost:3001/consultProyect/${id}`)
             .then(response => response.json())
             .then(response => {
                 setState(response.rows);
@@ -52,7 +52,29 @@ export function ViewState() {
     }, [id]);
 
     function editarInmueble() {
-        navigate(`/admin/UpdateState/${id}`)
+        navigate(`/admin/publish-proyect/${id}`)
+    }
+
+    function publicarCatalogo() {
+            fetch(`http://localhost:3001/publishProyect/${id}`, {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                if(response.success){
+                    alert("Proyecto publicado");
+                    navigate(`/admin/proyects-list`);
+                } else {
+                    alert(response.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        
     }
 
     if (userRole === 2) {
@@ -71,9 +93,10 @@ export function ViewState() {
                                     )}
                                 </div>
                                 <div className="action-buttons">
-                                    <button className="button-state" type="submit" onClick={() => navigate("/admin/propierty-list")}><p className="txt-white"> Volver</p></button>
-                                    <button className="button-state" type="submit" onClick={() => editarInmueble()}><p className="txt-white"> Editar</p></button>
                                     <button className="button-state" type="submit" ><p className="txt-white"> Eliminar</p></button>
+                                    <button className="button-state" type="submit" onClick={() => editarInmueble()}><p className="txt-white"> Editar</p></button>
+                                    <button className="button-state" type="submit" onClick={() => publicarCatalogo()}><p className="txt-white"> Publicar para la venta</p></button>
+                                    <button className="button-state" type="submit" onClick={() => navigate("/admin/proyects-list")}><p className="txt-white"> Volver</p></button>
                                 </div>
                             </div>
                             <div className="action-div">

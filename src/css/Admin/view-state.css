@@ -115,6 +115,7 @@
 
 .img-view-state{
   width: 100%;
+  height: 350px;
   border-radius: 20px;
   object-fit: cover;
 }

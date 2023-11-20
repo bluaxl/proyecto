@@ -2,19 +2,36 @@
 @import url('../principal.css');
 
 .header-info-detail{
+    margin-left:15%;
     display: flex;
-    width: 100vw;
+    width: 70vw;
     justify-content: space-around;
-    margin-top: 1%;
+    padding-top: 1%;
+    margin-top:2%;
+    background-color: var(--light-blue);
+    border-radius: 10px 10px 0px 0px;
 }
 
 .data-detail{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: start;
     margin: 0% 10%;
+    gap: 100px;
+    width: 90%;
+}
+
+.caracteristicas, .distribucion{
+    padding: 3%;
+    border-radius: 20px;
+    margin-top: 5%;
+    color:white;
+    width: 60%;
+
 }
 
 .img-box-individual-state{
+    margin-top: 2%;
     width: 100%;
     display:flex;
     justify-content: center;
@@ -22,7 +39,38 @@
 }
 
 .img-individual{
-    width: 50%;
+    width: 70%;
     height: 20rem;
     object-fit: cover;
+    border-radius:10px;
+}
+.catalogue-img-data{
+    background-color: var(--dark-gray);
+    width:70%;
+    height: auto;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    margin-left: 15%;
+    border-radius:0px 0px 10px 10px;
+}
+
+.t{
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+    border-bottom: 2px solid white;
+}
+
+.b{
+    padding:1%;
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.b:hover{
+    background-color: black;
+    color: aliceblue;
 }

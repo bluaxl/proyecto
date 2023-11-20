@@ -36,6 +36,7 @@ import { ViewStateAdvisory } from './components/advisor/state/ViewState';
 import { Statistics} from './components/admin/dashboard/Statistics';
 import { UpdateStates } from './components/advisor/state/UpdateState';
 import { UpdateState }from './components/admin/state/UpdateState';
+import { ViewProyect } from './components/admin/proyects/ViewProyect';
 
 function App() {
  
@@ -70,6 +71,8 @@ function App() {
             <Route path="view-state/:id" element={<ViewState/>}/>
             <Route path="statistics-page" element={<Statistics/>}/>
             <Route path="UpdateState/:id" element={<UpdateState/>}/>
+            <Route path="view-proyect/:id" element={<ViewProyect/>}/>
+
         </Route>
         <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path=""/>

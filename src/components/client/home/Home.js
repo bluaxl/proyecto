@@ -28,84 +28,86 @@ function Index() {
 }
 
 function Estate() {
-    const navigate = useNavigate();
-    const [inmuebles, setInmuebles] = useState([]);
-    const [images, setImages] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(10); // Puedes ajustar el número de inmuebles por página según tu preferencia
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(`http://localhost:3001/verInmuebles`);
-          setInmuebles(response.data.rows);
-          setImages(response.data.images);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-  
-      fetchData();
-    }, []);
-  
-    const verInmueble = (idInmueble) => {
-      console.log(idInmueble);
-      navigate(`state/${idInmueble}`);
+  const navigate = useNavigate();
+  const [inmuebles, setInmuebles] = useState([]);
+  const [images, setImages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/verInmuebles`);
+        setInmuebles(response.data.rows);
+        setImages(response.data.images);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
-  
-    const opciones = { style: 'decimal', maximumFractionDigits: 2 };
-  
-    // Calcular índices de los inmuebles a mostrar en la página actual
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentInmuebles = inmuebles.slice(indexOfFirstItem, indexOfLastItem);
-  
-    // Cambiar de página
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
-    return (
-      <div className="container-estates">
-        <div className="text-estate">
-          <div className="title-estate">
-            <p>Inmuebles</p>
-          </div>
-          <div className="info-estate">
-            <p>Desde casas hasta lotes, con el filtro de búsqueda encuentra lo que necesitas</p>
-          </div>
-  
-          <div className="houses-catalogue">
-            {currentInmuebles.map((casa, index) => (
+
+    fetchData();
+  }, []);
+
+  const verInmueble = (idInmueble) => {
+    console.log(idInmueble);
+    navigate(`state/${idInmueble}`);
+  };
+
+  const opciones = { style: 'decimal', maximumFractionDigits: 2 };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentInmuebles = inmuebles.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  return (
+    <div className="container-estates">
+      <div className="text-estate">
+        <div className="title-estate">
+          <p>Inmuebles</p>
+        </div>
+        <div className="info-estate">
+          <p>Desde casas hasta lotes, puedes seguir consultando nuestro catálogo</p>
+        </div>
+
+        <div className="houses-catalogue">
+          {currentInmuebles.map((casa, index) => {
+            const imageIndex = indexOfFirstItem + index; // Calcular el índice real de la imagen
+            return (
               <div key={casa.idInmueble} className="house-catalogue">
-                {images[index] && images[index].imagen && (
+                {images[imageIndex] && images[imageIndex].imagen && (
                   <img
                     className="img-home-catalogue"
-                    src={`http://localhost:3001/${images[index].imagen}`}
+                    src={`http://localhost:3001/${images[imageIndex].imagen}`}
                     alt={`Inmueble ${casa.idInmueble}`}
                   />
                 )}
                 <div className="house-description-catalogue">
                   <h3 className="house-h2-description txt-white">{casa.tipoInmueble} {casa.barrio}</h3>
                   <p className="area-description txt-white">area: {casa.areaLote} m²</p>
-                  <h3 className="house-h2-description txt-white">COP: ${Number(casa.precio).toLocaleString('es-ES', opciones)}</h3>
+                  <h3 className="house-h2-description txt-white">
+                    COP: ${Number(casa.precio).toLocaleString('es-ES', opciones)}
+                  </h3>
                 </div>
                 <button className="show-state-catalogue txt-black" onClick={() => verInmueble(casa.idInmueble)}>
                   Ver
                 </button>
               </div>
-            ))}
-          </div>
-        </div>
-        {/* Paginación */}
-        <div className="pagination">
-          {Array.from({ length: Math.ceil(inmuebles.length / itemsPerPage) }, (_, index) => (
-            <button key={index} onClick={() => paginate(index + 1)}>
-              {index + 1}
-            </button>
-          ))}
+            );
+          })}
         </div>
       </div>
-    );
-  }
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(inmuebles.length / itemsPerPage) }, (_, index) => (
+          <li key={index} onClick={() => paginate(index + 1)}>
+            {index + 1}
+          </li>
+        ))}
+      </div>
+    </div>
+  );
+}
   
 // omponente AboutBox
 function AboutBox({ title, info, svg }) {

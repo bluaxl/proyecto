@@ -149,7 +149,7 @@
 .houses-catalogue {
     grid-template-columns: repeat(3, 1fr);
     display: grid;
-    grid-gap: 10px;
+    grid-gap: 30px;
     width: 100%;
     margin-top: 5%;
     margin-bottom: 10%;
@@ -187,3 +187,31 @@
 }
 
 
+/* Estilos para la paginación */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 5% 40%;
+    width:100%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.pagination li {
+    cursor: pointer;
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: var(--dark-gray);
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination li:hover {
+    background-color: var(--light-blue);
+}
+
+.pagination .active {
+    background-color: var(--light-blue);
+    color: black;
+}
