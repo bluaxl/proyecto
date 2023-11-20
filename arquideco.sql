@@ -5,15 +5,15 @@ create table Inmueble(
 idInmueble int primary key auto_increment,
 numPisos int not null,
 estadoConstruccion varchar(20) not null,
-areaConstruida int not null,
-areaLote int not null,
+areaTerreno varchar(10) not null,
+areaConstruida varchar(10) not null,
 numHabitaciones int not null,
 imagenes blob not null,
 numBaños int not null,
 direccion varchar (50) not null,
 barrio varchar(50) not null,
 precio Long not null,
-descripcionProyecto text not null,
+descripcionProyecto text null,
 tipoInmueble varchar(20) not null,
 clasificacion boolean not null
 );
@@ -88,11 +88,6 @@ insert into Rol(idRol,nombreRol)
 values (1,"cliente"),
 (2,"administrador"),
 (3,"asesor");
-
-insert into inmueble(numpisos, estadoconstruccion, areaConstruida, areaLote, numHabitaciones, imagenes, numBaños, direccion ,barrio,precio, descripcionProyecto, tipoInmueble, clasificacion)
-values (1, 'Obra Negra', 120, 200, 4, '/files/imagen1.jpg', 2, 'Calle Principal 123', 'Centro',120000000, 'Hermoso edificio residencial', 'Apartamento', true),
-(2, 'obra gris', 150, 250, 3, '/files/imagen2.jpg', 3, 'Avenida Principal 456', 'Barrio Norte',500000000, 'Proyecto de viviendas en desarrollo', 'Casa', true),
-(1, 'terminado', 180, 300, 5, '/files/imagen3.jpg', 4, 'Calle Secundaria 789', 'Barrio Este',230000000, 'Condominio de lujo con vista al mar', 'Departamento', true);
 
 insert into tiporeserva(nombretiporeserva)
 values ("Asesoria legal"),
@@ -406,7 +401,7 @@ END;
 //
 DELIMITER ;
 
-
+/*estadistica cantidad de inmuebles*/
 DELIMITER //
 CREATE PROCEDURE sp_contar_inmuebles()
 BEGIN
@@ -416,3 +411,75 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+/*Procedimiento Insertar Inmuebles*/
+DELIMITER //
+CREATE PROCEDURE sp_insert_inmueble(p_numPisos INT, p_estadoConstruccion VARCHAR(20), p_areaTerreno VARCHAR(10), p_areaConstruida  VARCHAR(10), p_numHabitaciones INT, p_imagenes BLOB, p_numBaños INT, p_direccion VARCHAR(50), p_barrio VARCHAR(50), p_precio LONG, p_tipoInmueble VARCHAR(20))
+BEGIN
+   insert into inmueble(numPisos, estadoConstruccion, areaTerreno, areaConstruida , numHabitaciones, imagenes, numBaños, direccion, barrio, precio, tipoInmueble, clasificacion)
+   values(p_numPisos, p_estadoConstruccion,  p_areaTerreno, p_areaConstruida , p_numHabitaciones, p_imagenes, p_numBaños, p_direccion,  p_barrio, p_precio, p_tipoInmueble, true);
+END;
+//
+DELIMITER ;
+
+
+/*Procedimiento Insertar proyectos*/
+DELIMITER //
+CREATE PROCEDURE sp_insert_proyecto(p_numPisos INT, p_estadoConstruccion VARCHAR(20), p_areaTerreno VARCHAR(10), p_areaConstruida  VARCHAR(10), p_numHabitaciones INT, p_imagenes BLOB, p_numBaños INT, p_direccion VARCHAR(50), p_barrio VARCHAR(50), p_precio LONG, p_tipoInmueble VARCHAR(20), p_descripcionProyecto TEXT)
+BEGIN
+   insert into inmueble(numPisos, estadoConstruccion, areaTerreno, areaConstruida , numHabitaciones, imagenes, numBaños, direccion, barrio, precio, descripcionProyecto, tipoInmueble, clasificacion)
+   values(p_numPisos, p_estadoConstruccion,  p_areaTerreno, p_areaConstruida , p_numHabitaciones, p_imagenes, p_numBaños, p_direccion,  p_barrio, p_precio, p_descripcionProyecto, p_tipoInmueble, false);
+END;
+//
+DELIMITER ;
+
+call sp_insert_proyecto(1,3,3,3,3,3,3,3,3,3,3,3);
+
+/*Actualizar Inmueble*/
+
+DELIMITER //
+CREATE PROCEDURE sp_update_inmueble(p_numPisos INT, p_estadoConstruccion VARCHAR(20), p_areaTerreno VARCHAR(10), p_areaConstruida  VARCHAR(10), p_numHabitaciones INT, p_imagenes BLOB, p_numBaños INT, p_direccion VARCHAR(50), p_barrio VARCHAR(50), p_precio LONG, p_tipoInmueble VARCHAR(20), p_idInmueble INT)
+BEGIN
+    UPDATE Inmueble
+    SET
+		numpisos = IFNULL(p_numPisos, numpisos),
+        estadoconstruccion = IFNULL(p_estadoConstruccion, estadoconstruccion),
+        areaTerreno = IFNULL(p_areaTerreno, areaTerreno),
+        areaConstruida = IFNULL(p_areaConstruida, areaConstruida),
+        numHabitaciones = IFNULL(p_numHabitaciones, numHabitaciones),
+        imagenes = IFNULL(p_imagenes, imagenes),
+        numBaños = IFNULL(p_numBaños, numBaños),
+        direccion = IFNULL(p_direccion, direccion),
+        barrio = IFNULL(p_barrio, barrio),
+        precio = IFNULL(p_precio, precio),
+        tipoInmueble = IFNULL(p_tipoInmueble, tipoInmueble)
+    WHERE
+        idInmueble = p_idInmueble;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE sp_update_proyecto(p_numPisos INT, p_estadoConstruccion VARCHAR(20), p_areaTerreno VARCHAR(10), p_areaConstruida  VARCHAR(10), p_numHabitaciones INT, p_imagenes BLOB, p_numBaños INT, p_direccion VARCHAR(50), p_barrio VARCHAR(50), p_precio LONG, p_tipoInmueble VARCHAR(20), p_descripcionProyecto TEXT, p_idInmueble INT)
+BEGIN
+    UPDATE Inmueble
+    SET
+		numpisos = IFNULL(p_numPisos, numpisos),
+        estadoconstruccion = IFNULL(p_estadoConstruccion, estadoconstruccion),
+        areaTerreno = IFNULL(p_areaTerreno, areaTerreno),
+        areaConstruida = IFNULL(p_areaConstruida, areaConstruida),
+        numHabitaciones = IFNULL(p_numHabitaciones, numHabitaciones),
+        imagenes = IFNULL(p_imagenes, imagenes),
+        numBaños = IFNULL(p_numBaños, numBaños),
+        direccion = IFNULL(p_direccion, direccion),
+        barrio = IFNULL(p_barrio, barrio),
+        precio = IFNULL(p_precio, precio),
+        descripcionProyecto = IFNULL(p_descripcionProyecto, descripcionProyecto),
+        tipoInmueble = IFNULL(p_tipoInmueble, tipoInmueble)
+    WHERE
+        idInmueble = p_idInmueble;
+END //
+
+DELIMITER ;
+
+
