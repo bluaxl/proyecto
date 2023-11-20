@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('../principal.css');
+
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.publish-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    height: 100%;
+    width: 90%;
+    grid-gap: 10px;
+}
+
+.form-state{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+.input-new-state {
+    background-color: #D9D9D9;
+    padding: 2%;
+    padding-top: 7%;
+    padding-bottom: 7%;
+    border: none;
+    border-radius: 5px;
+    width: 90%;
+    color: black;
+}
+
+.title-header{
+    color: black;
+    margin-left: 7%;
+    margin-bottom: 5%;
+}
+
+.name-option {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.buttons-box {
+    display: flex;
+    gap: 5%;
+    width: 50%;
+    margin-top: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-submit{
+    background-color: #3D4A5A;
+    color: white;
+    width: 80%;
+    padding: 2%;
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: 100;
+    cursor: pointer;
+}

@@ -1,0 +1,65 @@
+.information-crud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+}
+
+.filter-box-crud{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.title-box-crud > h2{
+    color: black;
+}
+
+.title-crud{
+    color: black;
+}
+
+.filter-option{
+    background-color: rgb(70, 77, 95);
+    color: white;
+    padding: 2%;
+    border-radius: 5px;
+}
+
+.crud-state-table {
+    margin-left: 5%;
+    width: 90%;
+    margin-top: 5%;
+    
+}
+
+.crud-state-tr{
+    background-color: rgb(59, 67, 88);
+    height: 20px;
+}
+
+
+td{
+    text-align: center;
+    padding: 2%;
+    border-radius: 5px;
+    margin: 2%;
+    border-bottom: 10px solid white;  
+    color: aliceblue;  
+}
+
+.action-button{
+    border: none;
+    background-color: transparent;
+}
+
+th,
+button,
+.p,
+div {
+    color: black;
+}

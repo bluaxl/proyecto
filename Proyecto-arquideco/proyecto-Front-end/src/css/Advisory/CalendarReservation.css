@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('../principal.css');
+
+
+.box-calendar {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+
+.container-calendar {
+    background-color: var(--light-blue);
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.reactCalendar{
+    background-color: var(--light-blue); 
+}
+
+.principal-calendar{
+    margin-left: 7%;
+}
+
+.view-reservation{
+    background-color: var(--light-blue);
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+   padding: 1rem;
+   border-radius: 10px;
+}
+
+.title-individual-reservation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.view-individual{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-bottom: 2px solid black;
+    margin-top: 2%;
+}
