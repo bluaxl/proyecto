@@ -171,6 +171,7 @@ select * from tiporeserva;
 select * from detalletiporeserva;
 select * from datossolicitud;
 
+
 /*Trae asesores sin reservas a esa fecha y hora, puedes probar con call sp_dispo_asesores('2023-09-07', '15:00:00') trae a ana*/
 DELIMITER //
 CREATE PROCEDURE sp_dispo_asesores(fechaReserva DATE, horaReserva TIME)
@@ -185,8 +186,6 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-call sp_dispo_asesores('06-10-2005', '17:00:00');
 
 /*insertar datos en la tabla solicitud*/
 DELIMITER //
@@ -344,6 +343,33 @@ END;
 //
 DELIMITER ;
 
+/*Seleccionar todas las reservas de ese usuario*/
+DELIMITER //
+CREATE PROCEDURE sp_consult_reservations(IN p_idUsuario INT)
+BEGIN
+	select s.idSolicitud from solicitud s 
+    inner join solicitudusuario su on su.idSolictudFK = s.idSolicitud
+    where su.idClienteFK = p_idUsuario;
+END;
+//
+DELIMITER ;
+
+/*Borrar todas las reservas de ese usuario*/
+DELIMITER //
+CREATE PROCEDURE sp_delete_request(IN p_idSolicitud INT)
+BEGIN
+    -- Desactivar la verificación de clave foránea
+    SET FOREIGN_KEY_CHECKS = 0;
+
+	DELETE FROM solicitudusuario where idSolicitudUsuario = p_idSolicitud;
+	DELETE FROM datossolicitud where idSolicitudFK = p_idSolicitud;
+	DELETE FROM solicitud where idSolicitud = p_idSolicitud;
+
+    -- Volver a activar la verificación de clave foránea
+    SET FOREIGN_KEY_CHECKS = 1;
+END;
+//
+DELIMITER ;
 
 /*Vista para traer info de los usuarios, casi igualita a la tabla usuarios pero de paso trae
 el tipo de usuario*/
@@ -463,6 +489,7 @@ END //
 
 DELIMITER ;
 
+/*Procedimiento para actualizar los proyectos*/
 DELIMITER //
 CREATE PROCEDURE sp_update_proyecto(p_numPisos INT, p_estadoConstruccion VARCHAR(20), p_areaTerreno VARCHAR(10), p_areaConstruida  VARCHAR(10), p_numHabitaciones INT, p_imagenes BLOB, p_numBaños INT, p_direccion VARCHAR(50), p_barrio VARCHAR(50), p_precio LONG, p_tipoInmueble VARCHAR(20), p_descripcionProyecto TEXT, p_idInmueble INT)
 BEGIN
@@ -486,4 +513,16 @@ END //
 
 DELIMITER ;
 
+/*Procedimiento para actualizar usuarios*/
+DELIMITER //
+CREATE PROCEDURE sp_update_user(p_correoElectronico VARCHAR(40), p_telefono LONG, p_idUsuario INT)
+BEGIN
+    UPDATE usuario
+    SET
+		correoElectronico = ifnull(p_correoElectronico, correoElectronico),
+        telefono = ifnull(p_telefono, telefono)
+    WHERE
+        idUsuario = p_idusuario;
+END //
+DELIMITER ;
 
