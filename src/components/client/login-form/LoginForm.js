@@ -10,17 +10,19 @@ function LoginForm() {
 
     const navigate = useNavigate();
 
-    const emailRef = useRef(null);
+    const idURef = useRef(null);
     const passwordRef = useRef(null);
   
     function handleRegister(e) {
       e.preventDefault();
   
-      const emailValue = emailRef.current.value;
+      const idUvalue = idURef.current.value;
+      console.log(idUvalue);
       const passwordValue = passwordRef.current.value;
+      console.log(passwordValue);
   
       const requestData = {
-        email: emailValue,
+        idU: idUvalue,
         password: passwordValue,
       };
       axios.post("http://localhost:3001/login", requestData, {
@@ -57,14 +59,14 @@ function LoginForm() {
                     <label><b>Correo: </b> </label>
                 </div>
                 <div>
-                    <input type="email" required ref={emailRef}/>
+                    <input type="long" required ref={idURef}/>
                 </div>
                 {/* Campo de contraseña */}
                 <div className="label-login">
                     <label><b>Contraseña: </b></label>
                 </div>
                 <div>
-                    <input type="password" required ref={passwordRef}/>
+                  <input type="password" required ref={passwordRef} />
                 </div>
                 {/* Botón de enviar */}
                 <div className="button-div">

@@ -1,5 +1,6 @@
 import "../../../css/Admin/newstate.css"
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function InputForm({ placeholder, options, type, refe, value }) {
     return (
@@ -11,6 +12,8 @@ export function InputForm({ placeholder, options, type, refe, value }) {
   }
 
 export function NewState() {
+
+  const navigate = useNavigate();
     const barrioRef = useRef(null);
     const direccionRef = useRef(null);
     const areaConstruidaRef = useRef(null);
@@ -52,6 +55,7 @@ export function NewState() {
         const data = await response.json();
         console.log("Registro exitoso", data);
         alert("Registro exitoso");
+        navigate(`admin/propierty-list`)
       } catch (error) {
         console.error("Error", error);
         alert("Error en la solicitud: " + error.message);
