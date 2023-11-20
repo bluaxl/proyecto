@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 
-export function UploadProyect() {
+export function UpdateState() {
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -17,7 +17,6 @@ export function UploadProyect() {
         numHabitaciones: 0,
         precio: 0,
         numBaños: 0,
-        descripcionProyecto: "",
         tipoInmueble: "casa",
     });
 
@@ -58,7 +57,6 @@ export function UploadProyect() {
             formData.append("precio", inmuebles.precio);
             formData.append("numBanos", inmuebles.numBaños);
             formData.append("tipoInmueble", inmuebles.tipoInmueble);
-            formData.append("descripcion", inmuebles.descripcionProyecto);
             formData.append("images", imagesRef.current.files[0]);
 
             const response = await axios.patch(
@@ -90,7 +88,6 @@ export function UploadProyect() {
     const precioRef = useRef(null);
     const numBanosRef = useRef(null);
     const tipoInmuebleRef = useRef(null);
-    const descripcionRef =  useRef(null)
     const imagesRef = useRef(null);
 
     return (
@@ -220,19 +217,6 @@ export function UploadProyect() {
                                 handleInputChange("numBaños", e.target.value)
                             }
                             ref={numBanosRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="descripcion" className="txt-black">Descripcion: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="descripcion"
-                            value={inmuebles.descripcionProyecto || ""}
-                            onChange={(e) =>
-                                handleInputChange("descripcionProyecto", e.target.value)
-                            }
-                            ref={descripcionRef}
                         />
                     </div>
                     <div>

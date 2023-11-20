@@ -12,25 +12,9 @@ export function CrudProyects(){
        
         <tbody className="crud-state-tbody">
             <tr className="crud-state-tr">
-                <td><i class="fa-solid fa-house" style={{color: "white"}}></i>    Apartamento</td>
-                <td><i class="fa-solid fa-location-dot" style={{color: "white"}}></i> Villa Teresita</td>
-                <td>Finalizado</td>
-                <td>
-                    <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
-                </td>
-            </tr>
-            <tr className="crud-state-tr">
-                <td><i class="fa-solid fa-house" style={{color: "white"}}></i>    Casa </td>
-                <td><i class="fa-solid fa-location-dot" style={{color: "white"}}></i> Villa Claver</td>
-                <td>En proceso</td>
-                <td>
-                    <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
-                </td>
-            </tr>
-            <tr className="crud-state-tr">
-                <td><i class="fa-solid fa-house" style={{color: "white"}}></i> Lote</td>
-                <td><i class="fa-solid fa-location-dot" style={{color: "white"}}></i> Villa Teresita</td>
-                <td>En proceso</td>
+                <td><i class="fa-solid fa-house" style={{color: "white"}}></i>    Apartamento Villa Teresita</td>
+                <td><i class="fa-solid fa-location-dot" style={{color: "white"}}></i> 20'000.000</td>
+                <td>Estado Construccion</td>
                 <td>
                     <button className="action-button"><i class="fa-solid fa-eye fa-2xl" style={{color: "white", cursor : "pointer"}}></i></button>
                 </td>

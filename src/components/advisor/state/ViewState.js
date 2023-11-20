@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import 'popper.js';
-
 import "../../../css/Admin/view-state.css"
-
-function ButtonState({ text, type }) {
-    return (<button className="button-state" type={type}><p className="txt-white"> {text}</p></button>)
-}
 
 export function ViewStateAdvisory() {
 
+    const navigate = useNavigate();
     const { id } = useParams();
     const [state, setState] = useState(null);
     const [images, setImages] = useState([]);
@@ -29,6 +25,10 @@ export function ViewStateAdvisory() {
             });
     }, [id]);
 
+    function editarInmueble() {
+            navigate(`/advisory/UpdateState/${id}`)
+    }
+
     return (
         <div >
             {state ? (
@@ -44,9 +44,8 @@ export function ViewStateAdvisory() {
                                 )}
                             </div>
                             <div className="action-buttons">
-                                <ButtonState text="Eliminar" />
-                                <ButtonState text="Editar" />
-                            </div>
+                            <button className="button-state" type="submit" ><p className="txt-white"> Eliminar</p></button>
+                            <button className="button-state" type="submit" onClick={() => editarInmueble()}><p className="txt-white"> Editar</p></button>                            </div>
                         </div>
                         <div className="action-div">
                             <div className="caracteristicas-div">

@@ -35,6 +35,7 @@ import { StateDetail } from './components/client/home/StateDetail';
 import { ViewStateAdvisory } from './components/advisor/state/ViewState';
 import { Statistics} from './components/admin/dashboard/Statistics';
 import { UpdateStates } from './components/advisor/state/UpdateState';
+import { UpdateState }from './components/admin/state/UpdateState';
 
 function App() {
  
@@ -65,9 +66,10 @@ function App() {
             <Route path="users-list" element={<CrudUsers/>}/>
             <Route path="admin-profile" element={<UserProfile/>}/>
             <Route path="user-profile/:id" element={<UsersProfile/>}/>
-            <Route path="publish-proyect" element={<UploadProyect/>}/>
-            <Route path="view-state" element={<ViewState/>}/>
+            <Route path="publish-proyect/:id" element={<UploadProyect/>}/>
+            <Route path="view-state/:id" element={<ViewState/>}/>
             <Route path="statistics-page" element={<Statistics/>}/>
+            <Route path="UpdateState/:id" element={<UpdateState/>}/>
         </Route>
         <Route path="advisory" element={<ProtectedRoute2><DashboardAdvisory/></ProtectedRoute2>}>
             <Route path=""/>

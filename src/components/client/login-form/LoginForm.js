@@ -1,71 +1,74 @@
 // Importaciones
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../../css/Client/login-form.css";
 import React, { useRef } from "react";
+import axios from "axios";
 
 // Componente de formulario de inicio de sesión
 function LoginForm() {
     
-  // const navigate = useNavigate();
-  // const emailRef = useRef(null);
-  // const passwordRef = useRef(null);
-  // const form = document.querySelector('#myform');
 
+    const navigate = useNavigate();
 
-  // function handleRegister(e) {
-  //   e.preventDefault();
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+  
+    function handleRegister(e) {
+      e.preventDefault();
+  
+      const emailValue = emailRef.current.value;
+      const passwordValue = passwordRef.current.value;
+  
+      const requestData = {
+        email: emailValue,
+        password: passwordValue,
+      };
+      axios.post("http://localhost:3001/login", requestData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          const data = response.data;
+          console.log("Registro exitoso", data);
 
-  //   const emailValue = emailRef.current.value;
-  //   const passwordValue = passwordRef.current.value;
+          localStorage.setItem('token', data.token);
 
-  //   const requestData = {
-  //     email: emailValue,
-  //     password: passwordValue,
-  //   };
+          if (data.rolUser === 2) {
+            navigate("/admin/create-proyect");
+          } else if (data.rolUser === 1) {
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          console.error("Error al Ingresar:", error);
+        });
+    }
 
-  //   fetch("http://localhost:3000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(requestData),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log("Registro exitoso", data);
-  //       document.cookie = `token=${data.token}; max-age=${10}; path=/; samesite=strict`;
-  //       console.log(document.cookie);
-  //       navigate("/"); // Redirigir a la ruta deseada después del registro
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error al registrar:", error);
-  //       form.reset();
-  //     });
-  // }
     // Renderizado del formulario de inicio de sesión
     return (
         <div className="loginForm">
             <div className="title-login">
                 <h1>Ingresar</h1>
             </div>
-            <form  id="myform">
+            <form onSubmit={handleRegister}  id="myform">
                 {/* Campo de correo */}
                 <div className="label-login">
                     <label><b>Correo: </b> </label>
                 </div>
                 <div>
-                    <input type="email" />
+                    <input type="email" required ref={emailRef}/>
                 </div>
                 {/* Campo de contraseña */}
                 <div className="label-login">
                     <label><b>Contraseña: </b></label>
                 </div>
                 <div>
-                    <input type="password"/>
+                    <input type="password" required ref={passwordRef}/>
                 </div>
                 {/* Botón de enviar */}
                 <div className="button-div">
-                    <button className="btn-login" type="submit"><b>Enviar</b></button>
+                    <button className="btn-login" type="submit"><b>Ingresar</b></button>
                 </div>
             </form>
             {/* Enlace para registrarse */}
