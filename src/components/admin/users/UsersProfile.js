@@ -64,6 +64,24 @@ export function UsersProfile() {
             .then(data => {
                 if (data.success) {
                     alert('Inactivado Correctamente');
+                    fetch(`http://localhost:3001/eliminarReservas/${id}`, {
+                        method: 'DELETE', 
+                        headers: {
+                          'Content-Type': 'application/json'
+                        },
+                      })
+                        .then(response => response.json())
+                        .then(data => {
+                          if (data.success) {
+                            console.log('Reservas Eliminadas correctamente');
+                          } else {
+                            console.error('Error:', data.message);
+                          }
+                        })
+                        .catch(error => {
+                          console.error('Error:', error);
+                        });
+                  
                     navigate(`/admin/users-list`);
                 } else {
                     console.error('Error al inactivarle', data.message);
@@ -73,6 +91,7 @@ export function UsersProfile() {
                 console.error('Error al inactivarle:', error);
             });
     }
+
     async function activate() {
         fetch(`http://localhost:3001/activateUser/${id}`, {
             method: 'POST',
