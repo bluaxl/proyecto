@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './../../../css/Admin/update-user.css';
 
-export function UserProfile() {
+export function UpdateProfile() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
@@ -10,11 +11,8 @@ export function UserProfile() {
   const [idUser, setIdUser] = useState(null);
   const [user, setUser] = useState([]);
   const [formData, setFormData] = useState({
-    nombre: '',
-    apellido: '',
     correoElectronico: '',
-    telefono: '',
-    // Agrega otros campos según sea necesario
+    telefono: ''
   });
 
   useEffect(() => {
@@ -43,11 +41,8 @@ export function UserProfile() {
               const data = response.data;
               setUser(data);
               setFormData({
-                nombre: data.nombre,
-                apellido: data.apellido,
                 correoElectronico: data.correoElectronico,
                 telefono: data.telefono,
-                // Actualiza otros campos según sea necesario
               });
             })
             .catch((error) => {
@@ -63,10 +58,6 @@ export function UserProfile() {
       });
   }, [navigate, idUser, token]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
-  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -87,39 +78,46 @@ export function UserProfile() {
       })
       .then((response) => {
         console.log(response.data);
-        // Actualizar la interfaz de usuario según sea necesario
+        navigate(`/admin/admin-profile/${idUser}`)
       })
       .catch((error) => {
         console.error('Error:', error);
-        // Manejar el error
       });
   };
 
   if (userRole === 2) {
     return (
-      <div className="Principal-content">
-        {/* ... (resto del código) */}
+      <div className="content-update-data">
+        <form onSubmit={handleUpdate} className="update-form">
+        <h2 className='txt-black t'>Actualizar Mis Datos </h2>
+          <div className="form-group">
+            <label className='txt-black'>Correo Electrónico:</label>
+            <input
+              type="email"
+              name="correoElectronico"
+              value={formData.correoElectronico}
+              onChange={handleInputChange}
+              className="form-control txt-black"
+            />
+          </div>
 
-        {/* Formulario de actualización */}
-        <form onSubmit={handleUpdate}>
-          <label>
-            Nombre:
+          <div className="form-group">
+            <label className='txt-black'>Teléfono:</label>
             <input
               type="text"
-              name="nombre"
-              value={formData.nombre}
+              name="telefono"
+              value={formData.telefono}
               onChange={handleInputChange}
+              className="form-control txt-black"
             />
-          </label>
-          {/* Repite esto para otros campos según sea necesario */}
+          </div>
 
-          <button type="submit">Actualizar mis datos</button>
+          <button type="submit" className="btn-update">Actualizar mis datos</button>
         </form>
-
-        {/* ... (resto del código) */}
       </div>
     );
   }
+
 
   return null;
 }

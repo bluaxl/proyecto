@@ -91,7 +91,7 @@ export function UserProfile() {
 
                     {/* Botones de acción */}
                     <div className="button-box">
-                        <button className="button-account" >
+                        <button className="button-account" onClick={() => {navigate(`/admin/update-profile/${idUser}`)}}>
                             <p className="txt-white">Actualizar mis datos</p>
                         </button>
                         <button className="button-account" onClick={handleLogout}>
