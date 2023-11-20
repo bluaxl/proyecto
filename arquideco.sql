@@ -186,15 +186,18 @@ END;
 //
 DELIMITER ;
 
+call sp_dispo_asesores('06-10-2005', '17:00:00');
+
 /*insertar datos en la tabla solicitud*/
 DELIMITER //
 CREATE PROCEDURE sp_insert_solicitud(fechaReserva DATE, horaReserva TIME)
 BEGIN
-    INSERT INTO solicitud (fechaSolicitud, horaSolicitud)
-    VALUES (fechaReserva, horaReserva);
+    INSERT INTO solicitud (fechaSolicitud, horaSolicitud, estado)
+    VALUES (fechaReserva, horaReserva, 1);
 END;
 //
 DELIMITER ;
+
 
 /*Consultar id solicitud creada anteriormente*/
 DELIMITER //
@@ -334,12 +337,13 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sp_delete_request(IN p_idSolicitud INT)
 BEGIN
+ DELETE FROM solicitud where idSolicitud = p_idSolicitud;
  DELETE FROM datossolicitud where idSolicitudFK = p_idSolicitud;
    DELETE FROM solicitudusuario where idSolicitudUsuario = p_idSolicitud;
-   DELETE FROM solicitud where idSolicitud = p_idSolicitud;
 END;
 //
 DELIMITER ;
+
 
 /*Vista para traer info de los usuarios, casi igualita a la tabla usuarios pero de paso trae
 el tipo de usuario*/
