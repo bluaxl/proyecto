@@ -105,7 +105,7 @@ const DashboardSup = () => {
                 </p>
             </div>
             <div className="icon-dashboard ">
-                <Link to="user-profile"><i class="fa-solid fa-user fa-xl" style={{ color: "white" }}></i></Link>
+                <Link to="admin-profile"><i class="fa-solid fa-user fa-xl" style={{ color: "white" }}></i></Link>
             </div>
         </div>
     )

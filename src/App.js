@@ -67,6 +67,7 @@ function App() {
             <Route path="users-list" element={<CrudUsers/>}/>
             <Route path="admin-profile" element={<UserProfile/>}/>
             <Route path="user-profile/:id" element={<UsersProfile/>}/>
+            <Route path="admin-profile/:id" element={<UserProfile/>}/>
             <Route path="publish-proyect/:id" element={<UploadProyect/>}/>
             <Route path="view-state/:id" element={<ViewState/>}/>
             <Route path="statistics-page" element={<Statistics/>}/>
