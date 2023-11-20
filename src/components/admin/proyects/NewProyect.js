@@ -22,6 +22,33 @@ export function NewProyect() {
 
     const navigate = useNavigate();
 
+    const [userRole, setUserRole] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token') 
+
+        axios.get('http://localhost:3001/inicio', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+        })
+            .then((response) => {
+                const data = response.data;
+
+                if (data.decodeToken.rolUser === 2) {
+                    setUserRole(data.decodeToken.rolUser);
+                } else {
+                    // Redirigir al usuario a una página de acceso denegado
+                    navigate('/access-denied');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                navigate('/login');
+            });
+    }, [navigate]);
+
 
 
     const handleRegister = (e) => {
@@ -57,6 +84,8 @@ export function NewProyect() {
         });
     };
     
+    
+    if (userRole === 2) {
         return (
             <div>
                 <div className="information-header">
@@ -84,5 +113,6 @@ export function NewProyect() {
                 </form>
             </div>
         );
- // Devuelve null si no cumple con los permisos
+    }
+    return null; // Devuelve null si no cumple con los permisos
 }

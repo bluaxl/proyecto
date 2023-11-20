@@ -1,15 +1,43 @@
-import "../../../css/Admin/cruds.css";
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export function CrudProyects() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   const [projects, setProjects] = useState([]);
+  const [error, setError] = useState(null);
+
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
+
+    const token = localStorage.getItem('token') 
+
+        axios.get('http://localhost:3001/inicio', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+        })
+            .then((response) => {
+                const data = response.data;
+
+                if (data.decodeToken.rolUser === 2) {
+                    setUserRole(data.decodeToken.rolUser);
+                } else {
+                    // Redirigir al usuario a una página de acceso denegado
+                    navigate('/access-denied');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                navigate('/login');
+            });
+
     fetchProjects();
+    
   }, [currentPage]);
 
   const fetchProjects = () => {
@@ -18,10 +46,24 @@ export function CrudProyects() {
     })
       .then(response => response.json())
       .then(response => {
-        setProjects(response.rows);
+        console.log(response);
+        if (response) {
+          console.log(response.rows)
+          setProjects(response);
+          setError(null);
+        } else {
+          setError('No se pudo obtener la lista de proyectos.');
+        }
       })
-      .catch(error => console.error('Error:', error));
+      .catch(error => {
+        console.error('Error:', error);
+        setError('Error al obtener la lista de proyectos.');
+      });
   };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -33,46 +75,55 @@ export function CrudProyects() {
     navigate(`/admin/view-project/${idProyecto}`);
   }
 
-  return (
-    <>
-      <div className="information-crud">
-        <div className="title-box-crud">
-          <h2>Proyectos en Arquideco</h2>
+  if (userRole === 2) {
+    return (
+      <>
+        <div className="information-crud">
+          <div className="title-box-crud">
+            <h2>Proyectos en Arquideco</h2>
+          </div>
         </div>
-      </div>
-      <table className="crud-state-table">
-        <thead>
-          <tr>
-            <th>Nombre Proyecto</th>
-            <th>Precio</th>
-            <th>Estado Construcción</th>
-            <th>Ver</th>
-          </tr>
-        </thead>
-        <tbody className="crud-state-tbody">
-          {currentProjects.map(project => (
-            <tr key={project.idProyecto} className="crud-state-tr">
-              <td>{project.nombreProyecto}</td>
-              <td>{project.precio}</td>
-              <td>{project.estadoConstruccion}</td>
-              <td>
-                <button className="action-button" onClick={() => viewProject({ idProyecto: project.idProyecto })}>
-                  <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
-                </button>
-              </td>
+        <table className="crud-state-table">
+          <thead>
+            <tr>
+              <th>Nombre Proyecto</th>
+              <th>Precio</th>
+              <th>Estado Construcción</th>
+              <th>Ver</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      {projects.length > itemsPerPage && (
-        <ul className="pagination">
-          {Array.from({ length: Math.ceil(projects.length / itemsPerPage) }, (_, index) => (
-            <li key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active txt-black' : 'txt-black'}>
-              {index + 1}
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
-  );
+          </thead>
+          <tbody className="crud-state-tbody">
+            {Array.isArray(currentProjects) && currentProjects.length > 0 ? (
+              currentProjects.map(project => (
+                <tr key={project.idInmueble} className="crud-state-tr">
+                  <td>{project.tipoInmueble} {project.barrio}</td>
+                  <td>{project.precio}</td>
+                  <td>{project.estadoConstruccion}</td>
+                  <td>
+                    <button className="action-button" onClick={() => viewProject({ idProyecto: project.idInmueble })}>
+                      <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">No hay proyectos disponibles.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        {Array.isArray(projects) && projects.length > itemsPerPage && (
+          <ul className="pagination">
+            {Array.from({ length: Math.ceil(projects.length / itemsPerPage) }, (_, index) => (
+              <li key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active txt-black' : 'txt-black'}>
+                {index + 1}
+              </li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  }
+  return null; 
 }

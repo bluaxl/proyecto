@@ -20,7 +20,33 @@ export function UpdateState() {
         tipoInmueble: "casa",
     });
 
+    const [userRole, setUserRole] = useState(null);
+
     useEffect(() => {
+
+        const token = localStorage.getItem('token') 
+
+        axios.get('http://localhost:3001/inicio', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+        })
+            .then((response) => {
+                const data = response.data;
+
+                if (data.decodeToken.rolUser === 2) {
+                    setUserRole(data.decodeToken.rolUser);
+                } else {
+                    // Redirigir al usuario a una página de acceso denegado
+                    navigate('/access-denied');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                navigate('/login');
+            });
+
         axios.get(`http://localhost:3001/verInmueble/${id}`, {
             headers: {
                 "Content-Type": "application/json",
@@ -90,169 +116,173 @@ export function UpdateState() {
     const tipoInmuebleRef = useRef(null);
     const imagesRef = useRef(null);
 
-    return (
-        <div>
-            <div className="information-header">
-                <h2 className="title-header">Actualizar Inmueble</h2>
+
+    if (userRole === 2) {
+        return (
+            <div>
+                <div className="information-header">
+                    <h2 className="title-header">Actualizar Inmueble</h2>
+                </div>
+
+                <form
+                    className="form-state"
+                    onSubmit={handleRegister}
+                    method="POST"
+                >
+                    <div className="publish-box">
+                        <div>
+                            <label htmlFor="barrio" className="txt-black">Barrio: </label>
+                            <input
+                                className="input-new-state"
+                                type="text"
+                                id="barrio"
+                                value={inmuebles.barrio || ""}
+                                onChange={(e) =>
+                                    handleInputChange("barrio", e.target.value)
+                                }
+                                ref={barrioRef}
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="direccion" className="txt-black">Dirección: </label>
+                            <input className="input-new-state "
+                                type="text"
+                                id="direccion"
+                                value={inmuebles.direccion || ""}
+                                onChange={(e) =>
+                                    handleInputChange("direccion", e.target.value)
+                                }
+                                ref={direccionRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="areaConstruida" className="txt-black">Área Construida: </label>
+                            <input
+                                className="input-new-state "
+                                type="text"
+                                id="areaConstruida"
+                                value={inmuebles.areaConstruida || ""}
+                                onChange={(e) =>
+                                    handleInputChange("areaConstruida", e.target.value)
+                                }
+                                ref={areaConstruidaRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="areaLote" className="txt-black">Área Terreno: </label>
+                            <input
+                                className="input-new-state "
+                                type="text"
+                                id="areaLote"
+                                value={inmuebles.areaTerreno || ""}
+                                onChange={(e) =>
+                                    handleInputChange("areaTerreno", e.target.value)
+                                }
+                                ref={areaLoteRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="estadoConstruccion" className="txt-black">estado Construccion: </label>
+                            <input
+                                className="input-new-state"
+                                type="text"
+                                id="estadoConstruccion"
+                                value={inmuebles.estadoConstruccion || ""}
+                                onChange={(e) =>
+                                    handleInputChange("estadoConstruccion", e.target.value)
+                                }
+                                ref={estadoConstruccionRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="numPisos" className="txt-black">Numero de pisos: </label>
+                            <input
+                                className="input-new-state "
+                                type="text"
+                                id="numPisosRef"
+                                value={inmuebles.numPisos || ""}
+                                onChange={(e) =>
+                                    handleInputChange("numPisos", e.target.value)
+                                }
+                                ref={numPisosRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="numHabitaciones" className="txt-black">Numero de habitaciones: </label>
+                            <input
+                                className="input-new-state "
+                                type="text"
+                                id="numHabitaciones"
+                                value={inmuebles.numHabitaciones || ""}
+                                onChange={(e) =>
+                                    handleInputChange("numHabitaciones", e.target.value)
+                                }
+                                ref={numHabitacionesRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="precio" className="txt-black">Precio: </label>
+                            <input
+                                className="input-new-state "
+                                type="text"
+                                id="precio"
+                                value={inmuebles.precio || ""}
+                                onChange={(e) =>
+                                    handleInputChange("precio", e.target.value)
+                                }
+                                ref={precioRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="numBanos" className="txt-black">Número de baños: </label>
+                            <input
+                                className="input-new-state "
+                                type="text"
+                                id="numBanos"
+                                value={inmuebles.numBaños || ""}
+                                onChange={(e) =>
+                                    handleInputChange("numBaños", e.target.value)
+                                }
+                                ref={numBanosRef}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="tipoInmueble" className="txt-black">
+                                Tipo de Inmueble:
+                            </label>
+                            <select
+                            className="input-new-state "
+                                id="tipoInmueble"
+                                name="tipoInmueble"
+                                value={inmuebles.tipoInmueble || "casa"}
+                                onChange={(e) => handleInputChange("tipoInmueble", e.target.value)}
+                                ref={tipoInmuebleRef}
+                            >
+                                <option value="casa">Casa</option>
+                                <option value="lote">Lote</option>
+                                <option value="casaLote">Casa Lote</option>
+                                <option value="apartamento">Apartamento</option>
+                            </select>
+                        </div>
+                        {/* Repite cambios similares para otros campos de entrada */}
+                    </div>
+
+                    <div className="buttons-box">
+                        <input
+                            type="file"
+                            name="images"
+                            accept="image/*"
+                            multiple
+                            ref={imagesRef}
+                        />
+                        <button type="submit" className="button-submit">
+                            Actualizar
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            <form
-                className="form-state"
-                onSubmit={handleRegister}
-                method="POST"
-            >
-                <div className="publish-box">
-                    <div>
-                        <label htmlFor="barrio" className="txt-black">Barrio: </label>
-                        <input
-                            className="input-new-state"
-                            type="text"
-                            id="barrio"
-                            value={inmuebles.barrio || ""}
-                            onChange={(e) =>
-                                handleInputChange("barrio", e.target.value)
-                            }
-                            ref={barrioRef}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="direccion" className="txt-black">Dirección: </label>
-                        <input className="input-new-state "
-                            type="text"
-                            id="direccion"
-                            value={inmuebles.direccion || ""}
-                            onChange={(e) =>
-                                handleInputChange("direccion", e.target.value)
-                            }
-                            ref={direccionRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="areaConstruida" className="txt-black">Área Construida: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="areaConstruida"
-                            value={inmuebles.areaConstruida || ""}
-                            onChange={(e) =>
-                                handleInputChange("areaConstruida", e.target.value)
-                            }
-                            ref={areaConstruidaRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="areaLote" className="txt-black">Área Terreno: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="areaLote"
-                            value={inmuebles.areaTerreno || ""}
-                            onChange={(e) =>
-                                handleInputChange("areaTerreno", e.target.value)
-                            }
-                            ref={areaLoteRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="estadoConstruccion" className="txt-black">estado Construccion: </label>
-                        <input
-                            className="input-new-state"
-                            type="text"
-                            id="estadoConstruccion"
-                            value={inmuebles.estadoConstruccion || ""}
-                            onChange={(e) =>
-                                handleInputChange("estadoConstruccion", e.target.value)
-                            }
-                            ref={estadoConstruccionRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="numPisos" className="txt-black">Numero de pisos: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="numPisosRef"
-                            value={inmuebles.numPisos || ""}
-                            onChange={(e) =>
-                                handleInputChange("numPisos", e.target.value)
-                            }
-                            ref={numPisosRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="numHabitaciones" className="txt-black">Numero de habitaciones: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="numHabitaciones"
-                            value={inmuebles.numHabitaciones || ""}
-                            onChange={(e) =>
-                                handleInputChange("numHabitaciones", e.target.value)
-                            }
-                            ref={numHabitacionesRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="precio" className="txt-black">Precio: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="precio"
-                            value={inmuebles.precio || ""}
-                            onChange={(e) =>
-                                handleInputChange("precio", e.target.value)
-                            }
-                            ref={precioRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="numBanos" className="txt-black">Número de baños: </label>
-                        <input
-                            className="input-new-state "
-                            type="text"
-                            id="numBanos"
-                            value={inmuebles.numBaños || ""}
-                            onChange={(e) =>
-                                handleInputChange("numBaños", e.target.value)
-                            }
-                            ref={numBanosRef}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="tipoInmueble" className="txt-black">
-                            Tipo de Inmueble:
-                        </label>
-                        <select
-                         className="input-new-state "
-                            id="tipoInmueble"
-                            name="tipoInmueble"
-                            value={inmuebles.tipoInmueble || "casa"}
-                            onChange={(e) => handleInputChange("tipoInmueble", e.target.value)}
-                            ref={tipoInmuebleRef}
-                        >
-                            <option value="casa">Casa</option>
-                            <option value="lote">Lote</option>
-                            <option value="casaLote">Casa Lote</option>
-                            <option value="apartamento">Apartamento</option>
-                        </select>
-                    </div>
-                    {/* Repite cambios similares para otros campos de entrada */}
-                </div>
-
-                <div className="buttons-box">
-                    <input
-                        type="file"
-                        name="images"
-                        accept="image/*"
-                        multiple
-                        ref={imagesRef}
-                    />
-                    <button type="submit" className="button-submit">
-                        Actualizar
-                    </button>
-                </div>
-            </form>
-        </div>
-    );
+        );
+    }
+    return null;
 }

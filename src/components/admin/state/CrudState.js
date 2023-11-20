@@ -1,6 +1,7 @@
 import "../../../css/Admin/cruds.css";
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export function CrudState() {
     const navigate = useNavigate();
@@ -8,7 +9,33 @@ export function CrudState() {
     const [itemsPerPage] = useState(8); // Ajusta el número de elementos por página según tus necesidades
     const [states, setStates] = useState([]);
   
+    const [userRole, setUserRole] = useState(null);
+
     useEffect(() => {
+
+      const token = localStorage.getItem('token') 
+
+        axios.get('http://localhost:3001/inicio', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+            },
+        })
+            .then((response) => {
+                const data = response.data;
+
+                if (data.decodeToken.rolUser === 2) {
+                    setUserRole(data.decodeToken.rolUser);
+                } else {
+                    // Redirigir al usuario a una página de acceso denegado
+                    navigate('/access-denied');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                navigate('/login');
+            });
+
       fetchStates();
     }, [currentPage]);
   
@@ -39,48 +66,51 @@ export function CrudState() {
         })
         .catch(error => console.error("Error", error));
     }
-  
-    return (
-      <>
-        <div className="information-crud">
-          <div className="title-box-crud">
-            <h2>Inmuebles en Arquideco</h2>
+
+    if (userRole === 2) {
+      return (
+        <>
+          <div className="information-crud">
+            <div className="title-box-crud">
+              <h2>Inmuebles en Arquideco</h2>
+            </div>
           </div>
-        </div>
-        <table className="crud-state-table">
-          <thead>
-            <tr>
-              <th>Nombre Inmueble</th>
-              <th>Área Construida</th>
-              <th>Estado Construcción</th>
-              <th>Ver</th>
-            </tr>
-          </thead>
-          <tbody className="crud-state-tbody">
-            {currentStates.map(state => (
-              <tr key={state.idInmueble} className="crud-state-tr">
-                <td>{state.tipoInmueble} {state.barrio}</td>
-                <td>{state.areaConstruida} m²</td>
-                <td>{state.estadoConstruccion}</td>
-                <td>
-                  <button className="action-button" onClick={() => verInmueble({ idInmueble: state.idInmueble })}>
-                    <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
-                  </button>
-                </td>
+          <table className="crud-state-table">
+            <thead>
+              <tr>
+                <th>Nombre Inmueble</th>
+                <th>Área Construida</th>
+                <th>Estado Construcción</th>
+                <th>Ver</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {states.length > itemsPerPage && (
-          <ul className="pagination">
-            {Array.from({ length: Math.ceil(states.length / itemsPerPage) }, (_, index) => (
-              <li key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active txt-black' : 'txt-black'}>
-                {index + 1}
-              </li>
-            ))}
-          </ul>
-        )}
-      </>
-    );
-  }
+            </thead>
+            <tbody className="crud-state-tbody">
+              {currentStates.map(state => (
+                <tr key={state.idInmueble} className="crud-state-tr">
+                  <td>{state.tipoInmueble} {state.barrio}</td>
+                  <td>{state.areaConstruida} m²</td>
+                  <td>{state.estadoConstruccion}</td>
+                  <td>
+                    <button className="action-button" onClick={() => verInmueble({ idInmueble: state.idInmueble })}>
+                      <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {states.length > itemsPerPage && (
+            <ul className="pagination">
+              {Array.from({ length: Math.ceil(states.length / itemsPerPage) }, (_, index) => (
+                <li key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active txt-black' : 'txt-black'}>
+                  {index + 1}
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      );
+    }
+    return null;
+}
   
