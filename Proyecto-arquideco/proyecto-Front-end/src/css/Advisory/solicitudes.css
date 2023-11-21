@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('../principal.css');
+
+.title-header{
+    color: black;
+    margin-left: 5%;
+    margin-bottom: 2%;
+  }
+
+.information-request{
+    margin-left: 10%;
+    width: 100%;
+}
+
+.txt-black{
+    color: black;
+    margin-bottom: 2%;
+}
+
+.mrg-8{
+    margin-bottom: 4%; 
+}
+
+.request-button {
+    background-color: var(--dark-blue);
+    color: white;
+    font-size: var(--fuente-nomal);
+    padding: 1%;
+    border-radius: 5px;
+    width: 20%;
+    cursor: pointer;
+
+}
+
+.txt-white {
+    color: white;
+}
+
+.files-div{
+    display: flex;
+    align-items: center;
+    gap: 10%;
+}
+
+.padd-but {
+    padding: 5%;
+    width: 120%;
+    background-color: var(--light-blue);
+    border: none;   
+}
+
+.actions-box{
+    gap:6%;
+    display: flex;
+    margin-top: 5%;
+}
