@@ -1,0 +1,124 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('../principal.css');
+
+
+/* Estilos para el formulario de registro */
+.loginForm{
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 50%;
+    font-family: var(--font);
+    backdrop-filter: blur (10px);
+    border: 1px solid white;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    margin-top: 5%;
+    height: auto;
+}
+
+/* Estilos para la alineación y centrado de elementos */
+.loginForm > div{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para el contenedor del formulario */
+.form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+/* Estilos para el título del formulario */
+.title-login{
+    text-align: center;
+    margin:5px 0px 20px 0px;
+}
+
+/* Estilos para los inputs del formulario */
+form > div > div > div >input, form > div >div> input{
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.2);
+    font-family: var(--font);   
+    font-size:var(--texto-nomal);
+    color: white;
+    width: 90%;
+    margin-top: 2%;
+}
+
+/* Estilos para la división de contraseña */
+.password-div{
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para el formulario */
+form {
+    text-align: left;
+    padding: 2%;
+}
+
+/* Estilos para los contenedores 1 y 2 */
+.container1, .container2{
+    width: 50%;
+    margin-right: 5%;
+}
+
+/* Estilos para los elementos en fila */
+form >div{
+    display: flex;
+}
+
+/* Estilos para el elemento de selección */
+select{
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.2);
+    font-family: var(--font);   
+    font-size: var(--texto-nomal);
+    color: rgb(40, 32, 87);
+    width: 90%;
+    margin-top: 2%;
+}
+
+/* Estilos para la etiqueta del formulario */
+.label-login{
+    margin-top: 5%;
+}
+
+/* Estilos para el contenedor de botones */
+.button-div{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 5%;
+}
+
+/* Estilos para el botón de inicio de sesión */
+.btn-login{
+    margin:10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    color:white;
+    font-family: var(--font);   
+    font-size: var(--texto-nomal); 
+    background-color: #000A1C ;
+    width: 40%;
+}
+
+/* Estilos para el estado hover del botón de inicio de sesión */
+.btn-login:hover{
+    background-color: #000a1ca6;
+}
+
+/* Estilos para el enlace del formulario */
+.link-form{
+    text-decoration: none;
+    color: white;
+}

@@ -1,0 +1,64 @@
+/* Importar la fuente 'Quicksand' desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('../principal.css');
+
+/* Estilos generales para resetear márgenes y rellenos */
+*{
+    margin:0%;
+    padding: 0%;
+}
+
+/* Estilos para la barra de navegación principal */
+.principal-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+}
+
+.nav-bg-color-dark{
+    background-color: var(--dark-blue);
+}
+
+.nav-bg-color-light{
+    background-color: white;
+}
+
+/* Estilos para el logo en la barra de navegación */
+.principal-nav > img{
+    width: 200px;
+}
+
+/* Estilos para la sección de opciones en la barra de navegación */
+.principal-nav-option{
+    width: 70%;
+}
+
+/* Estilos para la lista de opciones en la barra de navegación */
+.principal-nav-option> ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilos para cada elemento de la lista de opciones */
+.principal-nav-option> ul > li{
+    padding:0 20px;
+    list-style: none;
+    font-family: var(--font);
+    font-size: var(--texto-nomal);
+}
+
+/* Estilos para el texto de navegación */
+.nav-text{
+    text-decoration: none;
+}
+
+/* Estilos para el color del texto de navegación */
+.txt-white {
+    color: white;
+}
+
+.txt-black {
+    color: black;
+}
