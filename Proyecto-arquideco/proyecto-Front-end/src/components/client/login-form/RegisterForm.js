@@ -119,7 +119,7 @@ function RegisterForm() {
                             <label><b>Contraseña: </b> </label>
                         </div>
                         <div>
-                            <input type="text" required ref={passwordRef}/>
+                            <input type="password" required ref={passwordRef}/>
                         </div>
                     </div>
                 </div>

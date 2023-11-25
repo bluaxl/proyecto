@@ -1,8 +1,8 @@
 :root {
-    --texto-funcional: 12px;
-    --texto-nomal: 16px;
-    --titulo-secundario: 20px;
-    --titulo-principal: 44px;
+    --texto-funcional: .8rem;
+    --texto-nomal: 1rem;
+    --titulo-secundario: 1.2rem;
+    --titulo-principal: 3rem;
     --font: 'Quicksand', sans-serif;
 
 

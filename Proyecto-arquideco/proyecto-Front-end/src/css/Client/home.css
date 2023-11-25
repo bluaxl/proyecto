@@ -5,10 +5,10 @@
 
 /* Estilos para el contenedor principal de la página de inicio */
 .container-index{
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
     display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
     height: 800px;
     font-family: var(--font);
     background-image: url('../../../public/img/bg-img/fondo-index.png');
@@ -156,10 +156,11 @@
 }
 
 .house-catalogue{
-    background-color: var(--dark-gray);
+    background-color: white;
     border-radius: 5px;
     padding: 1rem;
-    height: 300px;
+    height: auto;
+    box-shadow: 0px 0px 10px .5px rgb(190, 190, 190);
 }
 
 .show-state-catalogue{
@@ -179,21 +180,15 @@
     border-radius: 5px;
 }
 
-/* Estilos para pantallas pequeñas */
-@media screen and (max-width: 600px) {
-    .info-box{
-        width: 90%;
-    }
-}
-
 
 /* Estilos para la paginación */
 .pagination {
     display: flex;
     list-style: none;
     padding: 0;
-    margin: 5% 40%;
-    width:100%;
+    justify-content: center;
+    align-items: center;
+    width:20vw;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -214,4 +209,24 @@
 .pagination .active {
     background-color: var(--light-blue);
     color: black;
+}
+
+/* Estilos para pantallas pequeñas */
+@media screen and (max-width: 600px) {
+
+    .info-box{
+        width: 90%;
+    }
+
+    .houses-catalogue{
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 900px) {
+
+    .houses-catalogue{
+        grid-template-columns: repeat(2, 2fr);
+    }
+
 }

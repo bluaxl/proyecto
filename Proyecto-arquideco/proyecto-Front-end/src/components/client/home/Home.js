@@ -84,9 +84,9 @@ function Estate() {
                   />
                 )}
                 <div className="house-description-catalogue">
-                  <h3 className="house-h2-description txt-white">{casa.tipoInmueble} {casa.barrio}</h3>
-                  <p className="area-description txt-white">area: {casa.areaLote} m²</p>
-                  <h3 className="house-h2-description txt-white">
+                  <h3 className="house-h2-description txt-black">{casa.tipoInmueble} {casa.barrio}</h3>
+                  <p className="area-description txt-black">area: {casa.areaLote} m²</p>
+                  <h3 className="house-h2-description txt-black">
                     COP: ${Number(casa.precio).toLocaleString('es-ES', opciones)}
                   </h3>
                 </div>

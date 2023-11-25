@@ -2,21 +2,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 @import url('../principal.css');
 
+.container-booking {
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 /* Estilos para el contenedor principal */
 .container{
-    display: flex;
+    display: grid;
     justify-content: center;
     margin-top: 2%;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 5%; 
+}
+
+.container :nth-child(5) {
+    grid-column: span 2; 
 }
 
 /* Estilos para las cajas de botones */
 .box-btn{
-    width: 40%;
+    width: 100%;
     display: flex;
     justify-content: center;
     text-align: center; 
-    margin: 20px 20px;
+    margin: 20px 50px;
 }
 
 /* Estilos para los botones */
@@ -80,4 +94,24 @@
 /* Estilos para el elemento h2 dentro del título de reservación */
 .title-booking > h2{
     color: black;
+}
+
+@media screen and (max-width: 600px) {
+
+    .container-booking{
+        margin-top: 8rem;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: repeat(1, 1fr);
+        height: 100vh;
+        margin-top: 2rem;
+    }
+    .container :nth-child(5) {
+        grid-column: span 1; 
+    }
+    
 }
