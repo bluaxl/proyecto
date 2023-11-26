@@ -29,7 +29,7 @@ export function CalendarReservation() {
     const navigate = useNavigate();
 
     const [userRole, setUserRole] = useState(null);
-    const token = localStorage.getItem('token') 
+    const token = localStorage.getItem('token')
 
 
     useEffect(() => {
@@ -63,8 +63,10 @@ export function CalendarReservation() {
     if (userRole === 3) {
         return (
             <div className='box-calendar'>
+                <div className="title-box-crud">
+                    <h2>calendario</h2>
+                </div>
                 <div className="principal-calendar">
-                    <h2 className="txt-black">Calendario</h2>
                     <div className="container-calendar">
                         <Calendar
                             onChange={(newDate) => {
@@ -76,23 +78,25 @@ export function CalendarReservation() {
                         />
                         <p className='txt-white'>Fecha seleccionada: {date.toISOString().slice(0, 10)}</p>
                     </div>
-                </div>
-                <div className='view-reservation'>
-                    <div className='title-individual-reservation'>
-                        <h2 className='txt-black'>Para ese Día</h2>
+                    <div className='view-reservation'>
+                        <div className='title-individual-reservation'>
+                            <h2 className='txt-black'>Para ese Día</h2>
+                        </div>
+                        {error && <p className="error-message">{error}</p>}
+                        {reservations && reservations.length > 0 ? (
+                            reservations.map((reservation) => (
+                                <div key={reservation.idSolicitud} className='view-individual'>
+                                    <p className='txt-black'><strong className='txt-black'> Hora: </strong>{reservation.horaSolicitud}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Tipo de reserva: </strong>{reservation.nombreTipoReserva}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Dato de la reserva: </strong>{reservation.datoSolicitud}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Cliente: </strong>{reservation.nombreCliente} {reservation.apellidoCliente}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <strong className='txt-black'> No hay reservas para este día.</strong>
+
+                        )}
                     </div>
-                    {error && <p className="error-message">{error}</p>}
-                    {reservations && reservations.length > 0 ? (
-                        reservations.map((reservation) => (
-                            <div key={reservation.idSolicitud} className='view-individual'>
-                                <h3 className='txt-black'>{reservation.horaSolicitud}</h3>
-                                <p className='txt-black'>{reservation.nombreCliente}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <strong className='txt-black'> No hay reservas para este día.</strong>
-                        
-                    )}
                 </div>
             </div>
         );
