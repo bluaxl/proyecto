@@ -8,35 +8,52 @@ export function CrudStates() {
   const [itemsPerPage] = useState(8); // Ajusta el número de elementos por página según tus necesidades
   const [states, setStates] = useState([]);
   const [userRole, setUserRole] = useState(null);
+  const [searchId, setSearchId] = useState([]);
+  const [searchType, setSearchType] = useState([]);
+
 
   useEffect(() => {
 
-    const token = localStorage.getItem('token') 
+    const token = localStorage.getItem('token')
 
     axios.get('http://localhost:3001/inicio', {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token,
-        },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      },
     })
-        .then((response) => {
-            const data = response.data;
+      .then((response) => {
+        const data = response.data;
 
-            if (data.decodeToken.rolUser === 3) {
-                setUserRole(data.decodeToken.rolUser);
-            } else {
-                // Redirigir al usuario a una página de acceso denegado
-                navigate('/access-denied');
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Session Expira')
-            navigate('/login');
-        });
+        if (data.decodeToken.rolUser === 3) {
+          setUserRole(data.decodeToken.rolUser);
+        } else {
+          // Redirigir al usuario a una página de acceso denegado
+          navigate('/access-denied');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Session Expira')
+        navigate('/login');
+      });
 
     fetchStates();
   }, [currentPage]);
+
+   //metodo de filtrado
+
+   const searcher1 = (e) => {
+    setSearchId(e.target.value);
+    console.log(e.target.value);
+  }
+
+  const searcher2 = (e) => {
+    setSearchType(e.target.value);
+    console.log(e.target.value);
+
+  }
+
 
   const fetchStates = () => {
     // Lógica para obtener los inmuebles de la página actual desde el servidor
@@ -50,9 +67,20 @@ export function CrudStates() {
       .catch(error => console.error('Error:', error));
   };
 
+  let results = states;
+
+  if (searchId) {
+    results = results.filter((inmueble) => inmueble.idInmueble === parseInt(searchId));
+  }
+
+  if (searchType) {
+    results = results.filter((inmueble) => inmueble.tipoInmueble === searchType);
+  }
+
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentStates = states.slice(indexOfFirstItem, indexOfLastItem);
+  const currentStates = results.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -72,6 +100,16 @@ export function CrudStates() {
         <div className="information-crud">
           <div className="title-box-crud">
             <h2>Inmuebles en Arquideco</h2>
+            <div className="filter-crud-box">
+              <input className="filter-crud" value={searchId} onChange={searcher1} type="text" placeholder="Filtrar por Id"></input>
+              <select className="filter-crud" value={searchType} onChange={searcher2}>
+                <option value="">Tipo Inmueble</option>
+                <option value="casa">Casa</option>
+                <option value="apartamento">Apartamento</option>
+                <option value="lote">Lote</option>
+                <option value="casaLote">Casa Lote</option>
+              </select>
+            </div>
           </div>
         </div>
         <table className="crud-state-table">

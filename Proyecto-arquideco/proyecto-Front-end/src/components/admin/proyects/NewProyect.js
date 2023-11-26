@@ -98,7 +98,15 @@ export function NewProyect() {
                         <InputForm type="text" options="Dirección: "  placeholder="ingrese la dirección" refe={direccionRef}/>
                         <InputForm type="text" options="Área Construida: " placeholder="ingrese el área construida" refe={areaConstruidaRef}/>
                         <InputForm type="text" options="Área de lote: "  placeholder="ingrese el área del lote" refe={areaLoteRef}/>
-                        <InputForm type="text" options="tipo Inmueble: "  placeholder="ingrese las dimensiones" refe={tipoInmuebleRef}/>
+                        <div className="subdiv-publish-box ">
+                          <p className="name-option">Tipo de Inmueble:</p>
+                          <select id="tipoInmueble" name="tipoInmueble" className="select-type-state" ref={tipoInmuebleRef}>
+                              <option value="casa">Casa</option>
+                              <option value="apartamento">Apartamento</option>
+                              <option value="lote">Lote</option>
+                              <option value="casaLote">Casa Lote</option>
+                          </select>
+                      </div>
                         <InputForm type="text" options="Estado Construcción: "  placeholder="ingrese el estado de construcción" refe={estaConstruccionRef}/>
                         <InputForm type="number" options="Número de pisos: "  placeholder="ingrese el número de pisos" refe={numPisosRef}/>
                         <InputForm type="number" options="Número de habitaciones " placeholder="ingrese el número de habitaciones"  refe={numHabitacionesRef}/>

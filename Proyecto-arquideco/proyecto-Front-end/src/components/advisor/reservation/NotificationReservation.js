@@ -12,7 +12,7 @@ export function NotificationReservation() {
 
     useEffect(() => {
 
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
@@ -49,7 +49,7 @@ export function NotificationReservation() {
                 const uniqueIds = new Set();
                 const uniqueRequests = response.filter(requests => {
                     if (uniqueIds.has(requests.idSolicitud)) {
-                        return false; 
+                        return false;
                     }
                     uniqueIds.add(requests.idSolicitud);
                     return true;
@@ -69,7 +69,7 @@ export function NotificationReservation() {
     function sendEmail(idSolicitud) {
         const fechaSolicitud = new Date(requests[0].FechaSolicitud);
         const fechaFormateada = fechaSolicitud.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        
+
         // En tu componente React
         fetch('http://localhost:3001/sendEmail', {
             method: 'POST',
@@ -99,6 +99,14 @@ export function NotificationReservation() {
                 ) : (
                     <div>
                         <table className="crud-state-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Solicitud</th>
+                                    <th>Tipo Solicitud</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Enviar Recordatorio</th>
+                                </tr>
+                            </thead>
                             <tbody className="crud-state-tbody">
                                 {currentRequests.map(request => (
                                     <tr key={request.idSolicitud} className="crud-state-tr">

@@ -14,7 +14,7 @@ export function CrudUsers() {
 
     useEffect(() => {
 
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
@@ -65,7 +65,7 @@ export function CrudUsers() {
                 if (response.idUsuario !== "") {
                     navigate(`/admin/user-profile/${idUsuario}`);
                 } else {
-                   alert("Error al mostrar el usuario")
+                    alert("Error al mostrar el usuario")
                 }
             })
             .catch(error => console.error("Error", error));
@@ -87,6 +87,15 @@ export function CrudUsers() {
                 ) : (
                     <div>
                         <table className="crud-state-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Usuario</th>
+                                    <th>Identificacion</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th>Ver</th>
+                                </tr>
+                            </thead>
                             <tbody className="crud-state-tbody">
                                 {currentUsers.map(user => (
                                     <tr key={user.idUsuario} className="crud-state-tr">

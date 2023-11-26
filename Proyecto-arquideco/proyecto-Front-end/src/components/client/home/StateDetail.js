@@ -76,19 +76,19 @@ export function StateDetail() {
                             )}
                             <div className="data-detail">
                                 <div className='caracteristicas'>
-                                    <h3 className='txt-white t'>Características</h3>
-                                    <p className='txt-white'>Barrio: {casa.barrio}</p>
-                                    <p className='txt-white'>Dirección: {casa.direccion}</p>
-                                    <p className='txt-white'>Area del lote: {casa.areaTerreno}</p>
-                                    <p className='txt-white'>Area Construida: {casa.areaConstruida}</p>
-                                    <p className='txt-white'>Estado de construcción: {casa.estadoConstruccion}</p>
+                                    <h3 className='txt-black t'>Características</h3>
+                                    <p className='txt-black'><strong className='txt-black'>Barrio:</strong> {casa.barrio}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Dirección:</strong> {casa.direccion}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Area del lote:</strong> {casa.areaTerreno}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Area Construida:</strong> {casa.areaConstruida}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Estado de construcción:</strong> {casa.estadoConstruccion}</p>
 
                                 </div>
                                 <div className='distribucion'>
-                                    <h3 className='txt-white t'>Distribución</h3>
-                                    <p className='txt-white'>Numero De Habitaciones: {casa.numHabitaciones}</p>
-                                    <p className='txt-white'>Numero de pisos: {casa.numPisos}</p>
-                                    <p className='txt-white'>Numero de Baños: {casa.numBaños}</p>
+                                    <h3 className='txt-black t'>Distribución</h3>
+                                    <p className='txt-black'><strong className='txt-black'> Numero De Habitaciones:</strong> {casa.numHabitaciones}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Numero de pisos: </strong>{casa.numPisos}</p>
+                                    <p className='txt-black'><strong className='txt-black'>Numero de Baños:</strong> {casa.numBaños}</p>
                                 </div>
                             </div>
                         </div>

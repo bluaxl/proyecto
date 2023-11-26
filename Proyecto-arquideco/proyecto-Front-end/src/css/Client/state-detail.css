@@ -9,6 +9,7 @@
     padding-top: 1%;
     margin-top:2%;
     background-color: var(--light-blue);
+    box-shadow: 0 0 10px 1px rgb(200, 200, 200);
     border-radius: 10px 10px 0px 0px;
 }
 
@@ -45,7 +46,8 @@
     border-radius:10px;
 }
 .catalogue-img-data{
-    background-color: var(--dark-gray);
+    background-color: rgb(246, 246, 246);
+    box-shadow: 0 0 10px 1px rgb(200, 200, 200);
     width:70%;
     height: auto;
     justify-content: center;
@@ -59,7 +61,8 @@
 .t{
     margin-bottom: 5%;
     padding-bottom: 5%;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    font-size: 2rem;
 }
 
 .b{

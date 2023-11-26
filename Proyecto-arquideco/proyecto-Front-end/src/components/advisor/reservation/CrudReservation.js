@@ -13,7 +13,7 @@ export function CrudReservation() {
 
     useEffect(() => {
 
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
@@ -50,7 +50,7 @@ export function CrudReservation() {
                 const uniqueIds = new Set();
                 const uniqueRequests = response.filter(requests => {
                     if (uniqueIds.has(requests.idSolicitud)) {
-                        return false; 
+                        return false;
                     }
                     uniqueIds.add(requests.idSolicitud);
                     return true;
@@ -96,12 +96,20 @@ export function CrudReservation() {
                 ) : (
                     <div>
                         <table className="crud-state-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha Solicitud</th>
+                                    <th>Tipo Solicitud</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Ver</th>
+                                </tr>
+                            </thead>
                             <tbody className="crud-state-tbody">
-                            {currentRequests.map(request => (
+                                {currentRequests.map(request => (
                                     <tr key={request.idSolicitud} className="crud-state-tr">
-                                        <td>Fecha: {new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
-                                        <td>Tipo: {request.nombreTipoReserva}</td>
-                                        <td>Cliente: {request.nombreCliente}</td>
+                                        <td>{new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
+                                        <td>{request.nombreTipoReserva}</td>
+                                        <td>{request.nombreCliente}</td>
                                         <td>
                                             <button className="action-button" onClick={() => verSolicitud({ idSolicitud: request.idSolicitud })}><i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
                                         </td>
