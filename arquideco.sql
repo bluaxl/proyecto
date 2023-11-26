@@ -144,8 +144,7 @@ values (1, 1, 3),
 (10, 4, 3),
 (11, 4, 3),
 (12, 4, 3),
-(13, 4, 3)
-;
+(13, 4, 3);
 
 insert into datossolicitud(datoSolicitud,idDetalleReservaFK,idSolicitudFK)
 values("solicitar acompañamiento en el proceso de prestamo de $5'000.000 de pesos",1,1),
@@ -277,7 +276,7 @@ DELIMITER ;
 /*Vista de todas las solicitudes de reserva*/
 CREATE VIEW view_sol_reserva AS
 SELECT distinct sol.idSolicitud, u.correoElectronico, sol.FechaSolicitud, sol.HoraSolicitud, su.idClienteFK as idCliente, su.idAsesorFK as idAsesor,
-u.nombre AS nombreCliente, tr.nombreTipoReserva, ds.datoSolicitud, sol.estado FROM Solicitud sol
+u.nombre AS nombreCliente, u.apellido as apellidoCliente, tr.nombreTipoReserva, ds.datoSolicitud, sol.estado FROM Solicitud sol
     JOIN SolicitudUsuario su ON sol.idSolicitud = su.idSolictudFK
     JOIN Usuario u ON su.idClienteFK = u.idUsuario
     JOIN DatosSolicitud ds ON sol.idSolicitud = ds.idSolicitudFK
@@ -296,10 +295,7 @@ END;
 //
 DELIMITER ;
 
-
-/*Ver cada reserva Individualmente. Si llamas call sp_ver_reserva(4) 
-salen 3 resultados, es relevante ya que es para un avalúo el cual
-tiene 3 datos diferentes que consultar, los demás solo devuelven 1*/
+/*Ver individualmente cada reserva*/
 DELIMITER //
 CREATE PROCEDURE sp_ver_reserva(idSolicitud INT)
 BEGIN
@@ -313,7 +309,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE sp_reserva_dia(fecha DATE, idAsesor INT)
 BEGIN
-	select distinct idCliente, nombreCliente, horaSolicitud, fechaSolicitud
+	select distinct idSolicitud, nombreTipoReserva, idCliente, datoSolicitud, nombreCliente, apellidoCliente, horaSolicitud, fechaSolicitud
     from view_sol_reserva sol
     where sol.fechaSolicitud = fecha and sol.idAsesor = idAsesor and sol.estado = 0;
 END;
@@ -526,3 +522,10 @@ BEGIN
 END //
 DELIMITER ;
 
+/*Procedimiento para eliminar inmuebles*/
+DELIMITER //
+CREATE PROCEDURE sp_delete_inmueble(p_idInmueble INT)
+BEGIN
+    DELETE FROM inmueble WHERE idInmueble = p_idInmueble;
+END //
+DELIMITER ;
