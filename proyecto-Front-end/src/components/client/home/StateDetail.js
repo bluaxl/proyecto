@@ -35,7 +35,6 @@ function DateTimeButton() {
         var mes = _mes.toString();
       }
       let fecha_minimo = anio + '-' + mes + '-' + dia;
-      console.log(fecha_minimo);
       return fecha_minimo
       
     };
@@ -138,7 +137,6 @@ export function StateDetail() {
                                 <div className='caracteristicas'>
                                     <h3 className='txt-black t'>Características</h3>
                                     <p className='txt-black'>Barrio: {casa.barrio}</p>
-                                    <p className='txt-black'>Dirección: {casa.direccion}</p>
                                     <p className='txt-black'>Area del lote: {casa.areaTerreno}</p>
                                     <p className='txt-black'>Area Construida: {casa.areaConstruida}</p>
                                     <p className='txt-black'>Estado de construcción: {casa.estadoConstruccion}</p>
@@ -155,6 +153,7 @@ export function StateDetail() {
                                 <button onClick={openModal} className='catalogue-data_button txt-white'>Reservar Una Visita</button>
                                 <Modal isOpen={isModalOpen} onClose={closeModal}>
                                     <DateTimeButton />
+                                    <button className='modal_button txt-white'>Reservar</button>
                                 </Modal>
                             </div>
 

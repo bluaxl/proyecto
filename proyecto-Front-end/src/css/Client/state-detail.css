@@ -134,3 +134,15 @@
     height: auto;
     margin-top: 5%;
 }
+
+.modal_button{
+    margin-top: 5%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--dark-blue);
+    font-size: var(--texto-nomal);
+    cursor: pointer;
+    margin-bottom: 10%;
+    width: 100%;
+}
