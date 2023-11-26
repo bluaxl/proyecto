@@ -1,6 +1,8 @@
 import { pool } from '../bd.js';
 import jwt from 'jsonwebtoken'; 
 import { config } from 'dotenv';
+import bcrypt from 'bcryptjs';
+
 config();
 
 //Funcion para generar un token mediante una palabra secreta
@@ -59,31 +61,44 @@ export function validateToken(req, res, next) {
     });
 }
 
-
-//Funcion para iniciar sesion con validacion de errores 
+// Función para iniciar sesión con validación de errores
 export const inicioSession = async (req, res) => {
-    console.log("si entre")
-    const { idU ,password } = req.body;
+    console.log("si entre");
+    const { idU, password } = req.body;
+
     try {
-        const [rows] = await pool.query('select * from Usuario where numIdentificacion =? and contraseña=?', [idU, password]);
-        if (rows.length === 0) return res.status(404).json();
-        console.log([rows]);
+        const [rows] = await pool.query('SELECT * FROM Usuario WHERE numIdentificacion =?', [idU]);
 
-        //credenciales para el token
-        const user = { 
-            username: idU,
-            rolUser: rows[0].idRolFK,
-            idUser: rows[0].idUsuario 
-        };
+        if (rows.length === 0) {
+            // Usuario no encontrado
+            return res.status(404);
+        }
 
-        const accessToken = generateAccessToken(user);
-        //para decodificar el token const decodeToken = jwt.decode(accessToken)
+        const storedHashedPassword = rows[0].contraseña;
 
-        res.status(200).json({
-            token: accessToken,
-            rolUser: rows[0].idRolFK,
-        });
-        
+        // Compara la contraseña proporcionada con el hash almacenado
+        const isPasswordValid = bcrypt.compareSync(password, storedHashedPassword);
+
+        if (isPasswordValid) {
+            // Contraseña válida
+            // Credenciales para el token
+            const user = {
+                username: idU,
+                rolUser: rows[0].idRolFK,
+                idUser: rows[0].idUsuario
+            };
+
+            const accessToken = generateAccessToken(user);
+            // Para decodificar el token const decodeToken = jwt.decode(accessToken)
+
+            res.status(200).json({
+                token: accessToken,
+                rolUser: rows[0].idRolFK,
+            });
+        } else {
+            // Contraseña incorrecta
+            res.status(401);
+        }
     } catch (error) {
         return res.status(500).json({
             message: 'something goes wrong',
@@ -111,13 +126,26 @@ export const consultar = async (req, res)=>{
 }
 
 
+function hashPassword(password) {
+    // Genera un salt (un valor aleatorio) con 10 rondas de coste
+    const salt = bcrypt.genSaltSync(10);
+  
+    // Hashea la contraseña con el salt
+    const hashedPassword = bcrypt.hashSync(password, salt);
+  
+    return hashedPassword;
+  }
+  
+
+
 //Funcion que registra un usuario 
 export const registrar = async(req, res)=>{
     const { name, lastName, email, numId, tel,typeId, password} = req.body;
+    const contra = hashPassword(password)
   
     try {
     const [rows]= await pool.query('INSERT INTO Usuario (nombre, apellido, correoElectronico, numIdentificacion,telefono, tipoIdentificacion, contraseña) VALUES (?,?,?,?,?,?,?)',
-    [name, lastName, email, numId, tel ,typeId, password])
+    [name, lastName, email, numId, tel ,typeId, contra])
     if (rows.affectedRows === 0) return res.status(404).json();
     res.send(rows)
     }

@@ -68,6 +68,7 @@ export const insertSoliUsuario = async (req, res) => {
         const [rows] = await pool.query('call sp_insert_soliUsuario (?,?,?)', [idSolicitud, idCliente, idAsesor])
         if (rows.affectedRows === 0) return res.status(404).json();
         res.send(rows)
+        console.log(rows)
     }
     catch (error) {
         return res.status(500).json({
