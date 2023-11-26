@@ -4,6 +4,53 @@ import "../../../css/Client/state-detail.css";
 import axios from 'axios';
 
 
+const Modal = ({ isOpen, onClose, children }) => {
+    const modalStyle = {
+        display: isOpen ? 'block' : 'none',
+    };
+
+    return (
+        <div className="modal" style={modalStyle}>
+            <div className="modal-overlay" onClick={onClose}></div>
+            <div className="modal-content">
+                <span className="close" onClick={onClose}>&times;</span>
+                {children}
+            </div>
+        </div>
+    );
+};
+
+// Componente DateTimeButton
+function DateTimeButton() {
+    // Función para manejar el click en el botón de fecha
+    const handlerOnclick = () => {
+        let fecha = new Date();
+        let anio = fecha.getFullYear();
+        let dia = fecha.getDate();
+        let _mes = fecha.getMonth();
+        _mes = _mes + 1;
+        if (_mes < 10) {
+            var mes = "0" + _mes;
+        } else {
+            var mes = _mes.toString;
+        }
+        let fecha_minimo = anio + '-' + mes + '-' + dia;
+        document.getElementById("fechaReserva").setAttribute('min', fecha_minimo);
+    }
+
+    return (
+        <div className="datetime-box__catalogue">
+            {/* Título de selección de fecha y hora */}
+            <h4>Seleccione la fecha y hora</h4>
+            {/* Input de selección de fecha */}
+            <input type="date" id="fechaReserva" className="fechaReserva" onClick={handlerOnclick}></input>
+            {/* Input de selección de hora */}
+            <input type="time" className="horaReserva" id="horaReserva" min="07:00" max="17:00" step="1800"></input>
+        </div>
+    )
+}
+
+
 export function StateDetail() {
 
     const navigate = useNavigate();
@@ -12,9 +59,20 @@ export function StateDetail() {
     const [images, setImages] = useState([]);
     const [userRole, setUserRole] = useState(null);
 
+    const [isModalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
+
+
     useEffect(() => {
 
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
@@ -54,7 +112,7 @@ export function StateDetail() {
 
     const opciones = { style: 'decimal', maximumFractionDigits: 2 };
 
-    function volverIndex(){
+    function volverIndex() {
         navigate(`/`);
     }
 
@@ -76,21 +134,28 @@ export function StateDetail() {
                             )}
                             <div className="data-detail">
                                 <div className='caracteristicas'>
-                                    <h3 className='txt-white t'>Características</h3>
-                                    <p className='txt-white'>Barrio: {casa.barrio}</p>
-                                    <p className='txt-white'>Dirección: {casa.direccion}</p>
-                                    <p className='txt-white'>Area del lote: {casa.areaTerreno}</p>
-                                    <p className='txt-white'>Area Construida: {casa.areaConstruida}</p>
-                                    <p className='txt-white'>Estado de construcción: {casa.estadoConstruccion}</p>
+                                    <h3 className='txt-black t'>Características</h3>
+                                    <p className='txt-black'>Barrio: {casa.barrio}</p>
+                                    <p className='txt-black'>Dirección: {casa.direccion}</p>
+                                    <p className='txt-black'>Area del lote: {casa.areaTerreno}</p>
+                                    <p className='txt-black'>Area Construida: {casa.areaConstruida}</p>
+                                    <p className='txt-black'>Estado de construcción: {casa.estadoConstruccion}</p>
 
                                 </div>
                                 <div className='distribucion'>
-                                    <h3 className='txt-white t'>Distribución</h3>
-                                    <p className='txt-white'>Numero De Habitaciones: {casa.numHabitaciones}</p>
-                                    <p className='txt-white'>Numero de pisos: {casa.numPisos}</p>
-                                    <p className='txt-white'>Numero de Baños: {casa.numBaños}</p>
+                                    <h3 className='txt-black t'>Distribución</h3>
+                                    <p className='txt-black'>Numero De Habitaciones: {casa.numHabitaciones}</p>
+                                    <p className='txt-black'>Numero de pisos: {casa.numPisos}</p>
+                                    <p className='txt-black'>Numero de Baños: {casa.numBaños}</p>
                                 </div>
                             </div>
+                            <div>
+                                <button onClick={openModal} className='catalogue-data_button txt-white'>Reservar Una Visita</button>
+                                <Modal isOpen={isModalOpen} onClose={closeModal}>
+                                    <DateTimeButton />
+                                </Modal>
+                            </div>
+
                         </div>
                     </>
                 ) : (

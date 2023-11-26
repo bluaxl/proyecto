@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+
 export function SolicitudReservationNormal() {
 
     const { id } = useParams();
@@ -12,7 +13,7 @@ export function SolicitudReservationNormal() {
 
     useEffect(() => {
 
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
@@ -50,7 +51,7 @@ export function SolicitudReservationNormal() {
     function sendEmailTrue() {
         const fechaSolicitud = new Date(request[0].FechaSolicitud);
         const fechaFormateada = fechaSolicitud.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        
+
         // En tu componente React
         fetch('http://localhost:3001/sendEmail', {
             method: 'POST',
@@ -69,7 +70,7 @@ export function SolicitudReservationNormal() {
     function sendEmailFalse() {
         const fechaSolicitud = new Date(request[0].FechaSolicitud);
         const fechaFormateada = fechaSolicitud.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        
+
         fetch('http://localhost:3001/sendEmail', {
             method: 'POST',
             headers: {
@@ -192,7 +193,7 @@ export function SolicitudReservationAvaluo() {
 
     useEffect(() => {
 
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
