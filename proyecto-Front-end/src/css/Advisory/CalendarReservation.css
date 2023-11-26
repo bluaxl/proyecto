@@ -10,7 +10,7 @@
 }
 
 .container-calendar {
-    background-color: var(--light-blue);
+    background-color: var(--dark-gray);
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -51,3 +51,17 @@
     border-bottom: 2px solid black;
     margin-top: 2%;
 }
+
+/* Estilo del contenedor del calendario */
+.react-calendar {
+    font-family: Arial, sans-serif;
+    border: none;
+    background-color: var(--dark-gray);
+}
+  
+
+  /* Estilo de las celdas activas o del día actual */
+  .react-calendar__tile--active,
+  .react-calendar__tile--now {
+    background-color: var(--light-gray); 
+  }

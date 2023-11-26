@@ -13,7 +13,7 @@ export function NewStates() {
     const [userRole, setUserRole] = useState(null);
 
     useEffect(() => {
-        const token = localStorage.getItem('token') 
+        const token = localStorage.getItem('token')
 
         axios.get('http://localhost:3001/inicio', {
             headers: {
@@ -52,7 +52,7 @@ export function NewStates() {
 
     async function handleRegister(e) {
         e.preventDefault();
-        
+
         const formData = new FormData();
         formData.append("barrio", barrioRef.current.value);
         formData.append("direccion", direccionRef.current.value);
@@ -97,9 +97,18 @@ export function NewStates() {
                     <div className="publish-box">
                         <InputForm type="text" options="Barrio: " placeholder="Ingrese el nombre del barrio" refe={barrioRef} />
                         <InputForm type="text" options="Dirección: " placeholder="Ingrese la dirección" refe={direccionRef} />
-                        <InputForm type="text" options="Área Construida: " placeholder="Ingrese el área construida (ej: 6 x 12)" refe={areaConstruidaRef} />
-                        <InputForm type="text" options="Área Terreno: " placeholder="Ingrese el área del terreno" refe={areaLoteRef} />
-                        <InputForm type="text" options="Estado Construcción: " placeholder="Ingrese el estado de construcción (ej: Terminada)" refe={estadoConstruccionRef} />
+                        <InputForm type="number" options="Área Construida: " placeholder="Ingrese el área construida" refe={areaConstruidaRef} />
+                        <InputForm type="number" options="Área Terreno: " placeholder="Ingrese el área del terreno" refe={areaLoteRef} />
+                        <div className="subdiv-publish-box ">
+                            <p className="name-option">Estado Construccion:</p>
+                            <select id="tipoInmueble" name="tipoInmueble" className="select-type-state" ref={estadoConstruccionRef}>
+                                <option value="terminada">Terminada</option>
+                                <option value="semi terminada">Semi Terminada</option>
+                                <option value="obra negra">Obra Negra</option>
+                                <option value="obra gris">Obra Gris</option>
+                                <option value="sin construir">Sin Construir</option>
+                            </select>
+                        </div>
                         <InputForm type="number" options="Número de pisos: " placeholder="Ingrese el número de pisos" refe={numPisosRef} />
                         <InputForm type="number" options="Número de habitaciones " placeholder="Ingrese el número de habitaciones" refe={numHabitacionesRef} />
                         <InputForm type="number" options="Precio " placeholder="Ingrese el precio del inmueble" refe={precioRef} />

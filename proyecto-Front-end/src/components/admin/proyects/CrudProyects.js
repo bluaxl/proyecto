@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "../../../css/Admin/cruds.css"
+
 
 export function CrudProyects() {
   const navigate = useNavigate();

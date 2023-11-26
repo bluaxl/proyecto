@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../../../css/Admin/cruds.css"
 
 export function CrudStates() {
   const navigate = useNavigate();
@@ -65,6 +66,9 @@ export function CrudStates() {
       })
       .catch(error => console.error("Error", error));
   }
+
+  const opciones = { style: 'decimal', maximumFractionDigits: 2 };
+
   if (userRole === 3) {
 
     return (
@@ -77,19 +81,23 @@ export function CrudStates() {
         <table className="crud-state-table">
           <thead>
             <tr>
+              <th>Id</th>
               <th>Nombre Inmueble</th>
               <th>Área Construida</th>
-              <th>Estado Construcción</th>
+              <th>Precio</th>
+              <th>No. Pisos</th>
               <th>Ver</th>
             </tr>
           </thead>
           <tbody className="crud-state-tbody">
             {currentStates.map(state => (
               <tr key={state.idInmueble} className="crud-state-tr">
-                <td>{state.tipoInmueble} {state.barrio}</td>
-                <td>{state.areaConstruida} m²</td>
-                <td>{state.estadoConstruccion}</td>
-                <td>
+                <td className="td-small">{state.idInmueble}</td>
+                <td className="td-big">{state.tipoInmueble} {state.direccion}</td>
+                <td className="td-big">{state.areaConstruida} m²</td>
+                <td className="td-big">$ {Number(state.precio).toLocaleString('es-ES', opciones)}</td>
+                <td className="td-small">{state.numPisos}</td>
+                <td className="td-small">
                   <button className="action-button" onClick={() => verInmueble({ idInmueble: state.idInmueble })}>
                     <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
                   </button>

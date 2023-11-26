@@ -55,6 +55,9 @@ export function ViewStateAdvisory() {
             navigate(`/advisory/UpdateState/${id}`)
     }
 
+    const opciones = { style: 'decimal', maximumFractionDigits: 2 };
+
+
 
     if (userRole === 3) {
         return (
@@ -72,17 +75,21 @@ export function ViewStateAdvisory() {
                                     )}
                                 </div>
                                 <div className="action-buttons">
-                                <button className="button-state" type="submit" onClick={() => editarInmueble()}><p className="txt-white"> Editar</p></button>                            </div>
-                            </div>
+                                    <button className="button-state" type="submit" onClick={() => navigate("/advisory/propierty-list")}><p className="txt-white"> Volver</p></button>
+                                    <button className="button-state" type="submit" onClick={() => editarInmueble()}><p className="txt-white"> Editar</p></button>
+                                    <button className="button-state" type="submit" ><p className="txt-white"> Eliminar</p></button>
+                                </div>
+                                </div>
                             <div className="action-div">
                                 <div className="caracteristicas-div">
-                                    <h3 className="txt-black title-caracteristicas">Caracteristicas</h3>
-                                    <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Precio: </strong>{state.precio} </p>
+                                    <h3 className="txt-black title-caracteristicas">Características</h3>
+                                    <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Precio: </strong>$ {Number(state.precio).toLocaleString('es-ES', opciones)} </p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Barrio: </strong> {state.barrio}</p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Direccion: </strong> {state.direccion}</p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Área del Terreno: </strong> {state.areaTerreno} m² </p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Área construida: </strong> {state.areaConstruida} m²</p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Estado de construcción: </strong>{state.estadoConstruccion}</p>
+                                    <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Tipo de Inmueble: </strong>{state.tipoInmueble}</p>
                                 </div>
 
                                 <div className="distribucion-div">

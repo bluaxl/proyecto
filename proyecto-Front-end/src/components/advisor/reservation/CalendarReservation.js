@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import "../../../css/Advisory/CalendarReservation.css";
 import 'react-calendar/dist/Calendar.css';
+import "../../../css/Advisory/CalendarReservation.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ export function CalendarReservation() {
             const diaReserva = fecha.toISOString().slice(0, 10);
             const response = await fetch(`http://localhost:3001/reservations?fecha=${diaReserva}&asesor=${idUser}`);
             const data = await response.json();
+            console.log(data)
             setReservations(data);
             setError(null);
         } catch (error) {
@@ -73,7 +74,7 @@ export function CalendarReservation() {
                             value={date}
                             className="reactCalendar"
                         />
-                        <p>Fecha seleccionada: {date.toISOString().slice(0, 10)}</p>
+                        <p className='txt-white'>Fecha seleccionada: {date.toISOString().slice(0, 10)}</p>
                     </div>
                 </div>
                 <div className='view-reservation'>

@@ -1,80 +1,63 @@
-import "../../../css/Advisory/cruds.css";
+import "../../../css/Admin/cruds.css";
 import "../../../css/Client/home.css";
 import React, { useState, useEffect } from 'react';
+import { DataRequest } from "./DataRequest";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export function CrudReservation() {
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(5);
+    const [itemsPerPage] = useState(8);
     const [requests, setRequests] = useState([]);
     const [userRole, setUserRole] = useState(null);
     const [idUser, setIdUser] = useState(null);
 
     console.log(idUser)
     const uniqueIds = new Set();
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
+        let isMounted = true; // Bandera para rastrear si el componente está montado
 
-        const token = localStorage.getItem('token') 
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/inicio', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token,
+                    },
+                });
 
-        axios.get('http://localhost:3001/inicio', {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-            },
-        })
-            .then((response) => {
+                if (!isMounted) {
+                    return;
+                }
+
                 const data = response.data;
+                console.log(data);
 
                 if (data.decodeToken.rolUser === 3) {
                     setUserRole(data.decodeToken.rolUser);
-                    setIdUser(data.decodeToken.idUser)
+                    setIdUser(data.decodeToken.idUser);
 
-                  
-                        // Lógica para obtener las solicitudes de la página actual desde el servidor
-                        fetch(`http://localhost:3001/requestReservation?tipo=${1}&asesor=${idUser}`, {
-                            method: 'GET',
-                        })
-                            .then(response => response.json())
-                            .then(response => {
-                                console.log(idUser)
-
-
-                                const uniqueRequests = response.filter(requests => {
-                                    if (uniqueIds.has(requests.idSolicitud)) {
-                                        return false;
-                                        console.log(idUser)
-
-                                    }
-                                    uniqueIds.add(requests.idSolicitud);
-                                    return true;
-                                });
-                
-                                setRequests(uniqueRequests);
-                            })
-                            .catch(error => console.error('Error:', error));
-                            console.log(setRequests);
-            
-            
+                    const requestData = await DataRequest(data.decodeToken.idUser);
+                    setRequests(requestData);
                 } else {
                     // Redirigir al usuario a una página de acceso denegado
                     navigate('/access-denied');
                 }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Session Expira')
-                navigate('/login');
-            });
+            } catch (error) {
+                // Manejar el error aquí
+                console.error('Error al obtener datos:', error);
+            }
+        };
 
-    }, [currentPage]);
+        fetchData();
 
-    
-
-   
-
+        return () => {
+            isMounted = false;
+        };
+    }, [currentPage, idUser, navigate, token]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -111,13 +94,23 @@ export function CrudReservation() {
                 ) : (
                     <div>
                         <table className="crud-state-table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fecha Solicitud</th>
+                                    <th>Tipo Solicitud</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Ver</th>
+                                </tr>
+                            </thead>
                             <tbody className="crud-state-tbody">
-                            {currentRequests.map(request => (
+                                {currentRequests.map(request => (
                                     <tr key={request.idSolicitud} className="crud-state-tr">
-                                        <td>Fecha: {new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
-                                        <td>Tipo: {request.nombreTipoReserva}</td>
-                                        <td>Cliente: {request.nombreCliente}</td>
-                                        <td>
+                                        <td className="td-small">{request.idSolicitud}</td>
+                                        <td className="td-big">{new Date(request.FechaSolicitud).toISOString().slice(0, 10)}</td>
+                                        <td className="td-big">{request.nombreTipoReserva}</td>
+                                        <td className="td-big">{request.nombreCliente} {request.apellidoCliente}</td>
+                                        <td className="td-small">
                                             <button className="action-button" onClick={() => verSolicitud({ idSolicitud: request.idSolicitud })}><i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i></button>
                                         </td>
                                     </tr>

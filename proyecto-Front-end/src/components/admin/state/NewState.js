@@ -103,7 +103,15 @@ export function NewState() {
                       <InputForm type="text" options="Dirección: " placeholder="Ingrese la dirección" refe={direccionRef} />
                       <InputForm type="text" options="Área Construida: " placeholder="Ingrese el área construida (ej: 6 x 12)" refe={areaConstruidaRef} />
                       <InputForm type="text" options="Área de lote: " placeholder="Ingrese el área del lote" refe={areaLoteRef} />
-                      <InputForm type="text" options="Estado Construcción: " placeholder="Ingrese el estado de construcción (ej: Terminada)" refe={estadoConstruccionRef} />
+                      <div className="subdiv-publish-box ">
+                          <p className="name-option">Tipo de Inmueble:</p>
+                          <select id="tipoInmueble" name="tipoInmueble" className="select-type-state" ref={tipoInmuebleRef}>
+                              <option value="casa">Casa</option>
+                              <option value="apartamento">Apartamento</option>
+                              <option value="lote">Lote</option>
+                              <option value="casaLote">Casa Lote</option>
+                          </select>
+                      </div>
                       <InputForm type="number" options="Número de pisos: " placeholder="Ingrese el número de pisos" refe={numPisosRef} />
                       <InputForm type="number" options="Número de habitaciones " placeholder="Ingrese el número de habitaciones" refe={numHabitacionesRef} />
                       <InputForm type="number" options="Precio " placeholder="Ingrese el precio del inmueble" refe={precioRef} />

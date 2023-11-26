@@ -174,13 +174,13 @@ export const verSolicitud = async (req, res) => {
 // Controlador para obtener todas las solicitudes en una fecha específica
 export const verSolicitudes = async (req, res) => {
     const {asesor} =req.query;
+    let { fecha } = req.query;
+    fecha = fecha.toString()
     try {
-        
-        let { fecha } = req.query;
-        fecha = fecha.toString()
         // Llama al procedimiento almacenado para obtener las solicitudes en una fecha específica
         const [rows] = await pool.query('call sp_reserva_dia(?, ?)', [fecha, asesor])
         res.send(rows[0]);
+        console.log(rows)
     } catch (error) {
         // Maneja cualquier error que pueda ocurrir durante el proceso
         console.error('Error al obtener reservas:', error);
