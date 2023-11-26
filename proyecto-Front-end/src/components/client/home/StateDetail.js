@@ -35,7 +35,7 @@ function DateTimeButton() {
             var mes = _mes.toString;
         }
         let fecha_minimo = anio + '-' + mes + '-' + dia;
-        document.getElementById("fechaReserva").setAttribute('min', fecha_minimo);
+
     }
 
     return (
