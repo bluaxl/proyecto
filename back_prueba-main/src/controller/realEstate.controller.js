@@ -81,7 +81,7 @@ export const actualizarInmueble = async (req, res) => {
 //consultar todos los inmuebles
 export const consultarInmuebles = async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM Inmueble');
+    const [rows] = await pool.query('SELECT * FROM Inmueble where clasificacion = 1');
 
     const images = [];
 

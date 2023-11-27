@@ -115,6 +115,7 @@ export function ViewProyect() {
                                     <p className="txt-black mrg-5"><strong className="txt-black mrg-r">Número de habitaciones: </strong> {state.numHabitaciones}</p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Número de pisos: </strong> {state.numPisos}</p>
                                     <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Número de baños: </strong> {state.numBaños}</p>
+                                    <p className="txt-black mrg-5"><strong className="txt-black  mrg-r">Descripción: </strong> {state.descripcionProyecto}</p>
                                 </div>
                             </div>
                         </div>

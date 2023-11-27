@@ -6,18 +6,13 @@ import axios from 'axios';
 export function CrudState() {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(8); // Ajusta el número de elementos por página según tus necesidades
+  const [itemsPerPage] = useState(8);
   const [states, setStates] = useState([]);
-  const [searchId, setSearchId] = useState([]);
-  const [searchType, setSearchType] = useState([]);
-
-
-
+  const [searchParams, setSearchParams] = useState({ id: '', type: '' });
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     axios.get('http://localhost:3001/inicio', {
       headers: {
@@ -31,58 +26,54 @@ export function CrudState() {
         if (data.decodeToken.rolUser === 2) {
           setUserRole(data.decodeToken.rolUser);
         } else {
-          // Redirigir al usuario a una página de acceso denegado
           navigate('/access-denied');
         }
       })
       .catch((error) => {
         console.error('Error:', error);
-        alert('Session Expira')
+        alert('Session Expira');
         navigate('/login');
       });
 
     fetchStates();
-  }, [currentPage]);
-
-  //metodo de filtrado
+  }, [currentPage, searchParams]); // Agregamos searchId y searchType a las dependencias
 
   const searcher1 = (e) => {
-    setSearchId(e.target.value);
-    console.log(e.target.value);
-  }
-
+    setSearchParams({ ...searchParams, id: e.target.value });
+  };
+  
   const searcher2 = (e) => {
-    setSearchType(e.target.value);
-    console.log(e.target.value);
-
-  }
+    setSearchParams({ ...searchParams, type: e.target.value });
+  };
+  
 
   const fetchStates = () => {
-    // Lógica para obtener los inmuebles de la página actual desde el servidor
     fetch(`http://localhost:3001/verInmuebles`, {
       method: 'GET',
     })
       .then(response => response.json())
       .then(response => {
-        setStates(response.rows);
+        let fetchedStates = response.rows;
+  
+        if (searchParams.id) {
+          fetchedStates = fetchedStates.filter((inmueble) => inmueble.idInmueble === parseInt(searchParams.id));
+        }
+  
+        if (searchParams.type) {
+          fetchedStates = fetchedStates.filter((inmueble) => inmueble.tipoInmueble === searchParams.type);
+        }
+  
+        setStates(fetchedStates);
       })
       .catch(error => console.error('Error:', error));
   };
-
-  let results = states;
-
-  if (searchId) {
-    results = results.filter((inmueble) => inmueble.idInmueble === parseInt(searchId));
-  }
-
-  if (searchType) {
-    results = results.filter((inmueble) => inmueble.tipoInmueble === searchType);
-  }
+  
+  console.log(states);
 
   
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentStates = results.slice(indexOfFirstItem, indexOfLastItem);
+  const currentStates = states.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
@@ -96,7 +87,7 @@ export function CrudState() {
       .catch(error => console.error("Error", error));
   }
 
-
+  const opciones = { style: 'decimal', maximumFractionDigits: 2 };
 
 
   if (userRole === 2) {
@@ -106,41 +97,45 @@ export function CrudState() {
           <div className="title-box-crud">
             <h2>Inmuebles en Arquideco</h2>
             <div className="filter-crud-box">
-              <input className="filter-crud" value={searchId} onChange={searcher1} type="text" placeholder="Filtrar por Id"></input>
-              <select className="filter-crud" value={searchType} onChange={searcher2}>
-                <option value="">Tipo Inmueble</option>
-                <option value="casa">Casa</option>
-                <option value="apartamento">Apartamento</option>
-                <option value="lote">Lote</option>
-                <option value="casaLote">Casa Lote</option>
-              </select>
+              <input className="filter-crud" value={searchParams.id} onChange={searcher1} type="text" placeholder="Filtrar por Id"></input>
+              <select className="filter-crud" value={searchParams.type} onChange={searcher2}>
+              <option value="">Tipo Inmueble</option>
+              <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="lote">Lote</option>
+              <option value="casaLote">Casa Lote</option>
+            </select>
             </div>
           </div>
         </div>
         <table className="crud-state-table">
-          <thead>
-            <tr>
-              <th>Nombre Inmueble</th>
-              <th>Área Construida</th>
-              <th>Estado Construcción</th>
-              <th>Ver</th>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre Inmueble</th>
+            <th>Área Construida</th>
+            <th>Precio</th>
+            <th>No. Pisos</th>
+            <th>Ver</th>
+          </tr>
+        </thead>
+        <tbody className="crud-state-tbody">
+          {currentStates.map(state => (
+            <tr key={state.idInmueble} className="crud-state-tr">
+              <td className="td-small">{state.idInmueble}</td>
+              <td className="td-big">{state.tipoInmueble} {state.direccion}</td>
+              <td className="td-big">{state.areaConstruida} m²</td>
+              <td className="td-big">$ {Number(state.precio).toLocaleString('es-ES', opciones)}</td>
+              <td className="td-small">{state.numPisos}</td>
+              <td className="td-small">
+                <button className="action-button" onClick={() => verInmueble({ idInmueble: state.idInmueble })}>
+                  <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody className="crud-state-tbody">
-            {currentStates.map(state => (
-              <tr key={state.idInmueble} className="crud-state-tr">
-                <td>{state.tipoInmueble} {state.barrio}</td>
-                <td>{state.areaConstruida} m²</td>
-                <td>{state.estadoConstruccion}</td>
-                <td>
-                  <button className="action-button" onClick={() => verInmueble({ idInmueble: state.idInmueble })}>
-                    <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
         {states.length > itemsPerPage && (
           <ul className="pagination">
             {Array.from({ length: Math.ceil(states.length / itemsPerPage) }, (_, index) => (

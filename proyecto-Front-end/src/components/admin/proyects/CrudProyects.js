@@ -78,6 +78,8 @@ export function CrudProyects() {
     navigate(`/admin/view-proyect/${idProyecto}`);
   }
 
+  const opciones = { style: 'decimal', maximumFractionDigits: 2 };
+
   if (userRole === 2) {
     return (
       <>
@@ -87,39 +89,37 @@ export function CrudProyects() {
           </div>
         </div>
         <table className="crud-state-table">
-          <thead>
-            <tr>
-              <th>Nombre Proyecto</th>
-              <th>Precio</th>
-              <th>Estado Construcción</th>
-              <th>Ver</th>
-            </tr>
-          </thead>
-          <tbody className="crud-state-tbody">
-            {Array.isArray(currentProjects) && currentProjects.length > 0 ? (
-              currentProjects.map(project => (
-                <tr key={project.idInmueble} className="crud-state-tr">
-                  <td>{project.tipoInmueble} {project.barrio}</td>
-                  <td>{project.precio}</td>
-                  <td>{project.estadoConstruccion}</td>
-                  <td>
-                    <button className="action-button" onClick={() => viewProject({ idProyecto: project.idInmueble })}>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nombre Inmueble</th>
+            <th>Área Construida</th>
+            <th>Precio</th>
+            <th>No. Pisos</th>
+            <th>Ver</th>
+          </tr>
+        </thead>
+        <tbody className="crud-state-tbody">
+          {currentProjects.map(state => (
+            <tr key={state.idInmueble} className="crud-state-tr">
+              <td className="td-small">{state.idInmueble}</td>
+              <td className="td-big">{state.tipoInmueble} {state.direccion}</td>
+              <td className="td-big">{state.areaConstruida} m²</td>
+              <td className="td-big">$ {Number(state.precio).toLocaleString('es-ES', opciones)}</td>
+              <td className="td-small">{state.numPisos}</td>
+              <td className="td-small">
+                    <button className="action-button" onClick={() => viewProject({ idProyecto: state.idInmueble })}>
                       <i className="fa-solid fa-eye fa-2xl" style={{ color: "white", cursor: "pointer" }}></i>
                     </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4">No hay proyectos disponibles.</td>
-              </tr>
-            )}
+                    </td>
+            </tr>
+          ))}
           </tbody>
         </table>
         {Array.isArray(projects) && projects.length > itemsPerPage && (
           <ul className="pagination">
             {Array.from({ length: Math.ceil(projects.length / itemsPerPage) }, (_, index) => (
-              <li key={index} onClick={() => paginate(index + 1)} className={currentPage === index + 1 ? 'active txt-black' : 'txt-black'}>
+              <li key={index} onClick={() => paginate(index + 1)} className={currentProjects === index + 1 ? 'active txt-black' : 'txt-black'}>
                 {index + 1}
               </li>
             ))}

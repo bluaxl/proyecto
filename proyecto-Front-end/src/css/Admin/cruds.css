@@ -44,7 +44,8 @@
 .filter-crud,
 .filter-crud:focus {
     margin: 0 auto;  /* Esto centrará horizontalmente */
-    display: block; /* Asegúrate de que cada elemento sea un bloque */
+    display: block;
+     /* Asegúrate de que cada elemento sea un bloque */
 }
 
 .filter-crud {
@@ -54,7 +55,7 @@
     border: none;
     box-shadow: 0 0 10px 1px rgb(195, 195, 195);
     border-radius: 5px;
-    width: 50%;
+    width: 20%;
     height: auto;
 }
 
