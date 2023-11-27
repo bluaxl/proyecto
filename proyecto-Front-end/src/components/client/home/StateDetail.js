@@ -1,4 +1,4 @@
-import React, {  useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import "../../../css/Client/state-detail.css";
 import axios from 'axios';
@@ -94,16 +94,8 @@ export function StateDetail() {
                     setUserRole(data.decodeToken.rolUser);
                     setIdUsuario(data.decodeToken.idUser);
 
-                } else {
-                    // Redirigir al usuario a una página de acceso denegado
-                    navigate('/access-denied');
-                }
+                } 
             })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Session Expira')
-                navigate('/login');
-            });
 
         fetch(`http://localhost:3001/verInmueble/${id}`)
             .then(response => response.json())
@@ -210,52 +202,51 @@ export function StateDetail() {
         })
     }
 
-    if (userRole) {
-        return (
-            <div>
-                {casa ? (
-                    <>
-                        <div className='header-info-detail'>
-                            <h2 className="txt-black">{casa.tipoInmueble} {casa.barrio}</h2>
-                            <h2 className='txt-black'>${Number(casa.precio).toLocaleString('es-ES', opciones)}</h2>
-                            <button className="txt-black b" onClick={() => volverIndex()}>Volver</button>
-                        </div>
-                        <div className='catalogue-img-data'>
-                            {images && (
-                                <div className='img-box-individual-state'>
-                                    <img className='img-individual' src={`http://localhost:3001/${images.imagen}`}></img>
-                                </div>
-                            )}
-                            <div className="data-detail">
-                                <div className='caracteristicas'>
-                                    <h3 className='txt-black t'>Características</h3>
-                                    <p className='txt-black'>Barrio: {casa.barrio}</p>
-                                    <p className='txt-black'>Area del lote: {casa.areaTerreno}</p>
-                                    <p className='txt-black'>Area Construida: {casa.areaConstruida}</p>
-                                    <p className='txt-black'>Estado de construcción: {casa.estadoConstruccion}</p>
-
-                                </div>
-                                <div className='distribucion'>
-                                    <h3 className='txt-black t'>Distribución</h3>
-                                    <p className='txt-black'>Numero De Habitaciones: {casa.numHabitaciones}</p>
-                                    <p className='txt-black'>Numero de pisos: {casa.numPisos}</p>
-                                    <p className='txt-black'>Numero de Baños: {casa.numBaños}</p>
-                                </div>
+    return (
+        <div>
+            {casa ? (
+                <>
+                    <div className='header-info-detail'>
+                        <h2 className="txt-black">{casa.tipoInmueble} {casa.barrio}</h2>
+                        <h2 className='txt-black'>${Number(casa.precio).toLocaleString('es-ES', opciones)}</h2>
+                        <button className="txt-black b" onClick={() => volverIndex()}>Volver</button>
+                    </div>
+                    <div className='catalogue-img-data'>
+                        {images && (
+                            <div className='img-box-individual-state'>
+                                <img className='img-individual' src={`http://localhost:3001/${images.imagen}`}></img>
                             </div>
+                        )}
+                        <div className="data-detail">
+                            <div className='caracteristicas'>
+                                <h3 className='txt-black t'>Características</h3>
+                                <p className='txt-black'>Barrio: {casa.barrio}</p>
+                                <p className='txt-black'>Area del lote: {casa.areaTerreno}</p>
+                                <p className='txt-black'>Area Construida: {casa.areaConstruida}</p>
+                                <p className='txt-black'>Estado de construcción: {casa.estadoConstruccion}</p>
+
+                            </div>
+                            <div className='distribucion'>
+                                <h3 className='txt-black t'>Distribución</h3>
+                                <p className='txt-black'>Numero De Habitaciones: {casa.numHabitaciones}</p>
+                                <p className='txt-black'>Numero de pisos: {casa.numPisos}</p>
+                                <p className='txt-black'>Numero de Baños: {casa.numBaños}</p>
+                            </div>
+                        </div>
+                        { userRole &&(
                             <div>
                                 <button onClick={openModal} className='catalogue-data_button txt-white'>Reservar Una Visita</button>
                                 <Modal isOpen={isModalOpen} onClose={closeModal}>
                                     <DateTimeButton handleRegister={handleRegister} fechaRef={fecha} />
                                 </Modal>
                             </div>
-
-                        </div>
-                    </>
-                ) : (
-                    <p>Cargando detalles del inmueble...</p>
-                )}
-            </div>
-        );
-    }
+                       ) }
+                    </div>
+                </>
+            ) : (
+                <p>Cargando detalles del inmueble...</p>
+            )}
+        </div>
+    );
     return null;
 }

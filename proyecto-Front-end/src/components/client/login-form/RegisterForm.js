@@ -102,9 +102,9 @@ function RegisterForm() {
                         </div>
                         <div>
                             <select name="tidentificacion" id="tipoiden" ref={typeIdRef}>
-                                <option value="cedula-ciudadania">Cédula de ciudadanía</option>
+                                <option value="cedula de ciudadania">Cédula de ciudadanía</option>
                                 <option value="pasaporte">Pasaporte</option>
-                                <option value="cedula-extranjeria">Cédula de extranjería</option>
+                                <option value="cedula de extranjeria">Cédula de extranjería</option>
                             </select>
                         </div>
 
@@ -122,7 +122,7 @@ function RegisterForm() {
                             <label><b>Contraseña: </b> </label>
                         </div>
                         <div>
-                            <input type="text" required ref={passwordRef}/>
+                            <input type="password" required ref={passwordRef}/>
                         </div>
                     </div>
                 </div>
