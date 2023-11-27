@@ -81,7 +81,7 @@ export function Profile() {
                     </div>
                     <div className="profile-info-data">
                         <div className="txt-black">
-                            <p className="info-user-title">Estado:</p> {user.estado === 0 ? "Activo" : "Inactivo"}
+                            <p className="info-user-title">Estado:</p> {user.estado === 1 ? "Activo" : "Inactivo"}
                         </div>
                         <p className="txt-black"><p className="info-user-title">Usuario:</p> {user.numIdentificacion}</p>
                     </div>

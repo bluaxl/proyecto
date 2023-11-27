@@ -24,6 +24,8 @@ const corsOptions = {
 
 //usar archivos estaticos para que esta carpeta pueda ser accedida desde el navegaor
 app.use(express.static('src/dbFiles/images/')) 
+app.use('/dbFiles/pdfs', express.static('src/dbFiles/pdfs'));
+
   
 //Vaalidar archivos json en la app
 app.use(express.json())

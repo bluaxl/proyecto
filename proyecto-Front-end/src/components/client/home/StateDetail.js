@@ -46,8 +46,8 @@ function DateTimeButton({ handleRegister, fechaRef }) {
         <form onSubmit={handleRegister}>
             <div ref={fechaRef} className="datetime-box__catalogue">
                 <h4>Seleccione la fecha y hora</h4>
-                <input type="date" id="fechaReserva" className="fechaReserva" min={handlerOnclick()}></input>
-                <input type="time" className="horaReserva" id="horaReserva" min="07:00" max="17:00" step="1800"></input>
+                <input type="date" id="fechaReserva" className="fechaReserva" min={handlerOnclick()} required></input>
+                <input type="time" className="horaReserva" id="horaReserva" min="07:00" max="17:00" step="1800" required></input>
                 <button className='modal_button txt-white'>Reservar</button>
             </div>
         </form>
@@ -65,7 +65,6 @@ export function StateDetail() {
     const [images, setImages] = useState([]);
     const [userRole, setUserRole] = useState(null);
     const [idUsuario, setIdUsuario] = useState(null);
-
     const [isModalOpen, setModalOpen] = useState(false);
 
     const openModal = () => {

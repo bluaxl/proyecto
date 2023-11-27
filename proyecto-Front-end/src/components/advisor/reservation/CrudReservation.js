@@ -69,10 +69,11 @@ export function CrudReservation() {
         fetch(`http://localhost:3001/requestIndividual/${idSolicitud}`)
             .then(response => response.json())
             .then(response => {
-                if (response.nombreTipoReserva !== "Avaluo") {
-                    navigate(`/advisory/requestS/${idSolicitud}`);
+                if (response[0].nombreTipoReserva == "Avaluo") {
+                    navigate(`/advisory/requestA/${idSolicitud}`);
                 } else {
-                    navigate(`/advisory/requestN/${idSolicitud}`);
+                    navigate(`/advisory/requestS/${idSolicitud}`);
+                   
                 }
             })
             .catch(error => console.error("Error", error));
